@@ -18,12 +18,9 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
+        'username',
         'password',
-        'phone',
-        'location',
-        'about_me',
+        'role'
     ];
 
     /**
@@ -45,4 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    public function waliKelas() {
+        return $this->hasOne(WaliKelas::class);
+    }
+
+    public function uploadTugas() {
+        return $this->hasMany(UploadTugas::class);
+    }
 }
