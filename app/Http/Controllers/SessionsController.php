@@ -16,18 +16,25 @@ class SessionsController extends Controller
     public function store()
     {
         $attributes = request()->validate([
-            'email'=>'required|email',
+            'username'=>'required',
             'password'=>'required' 
         ]);
 
         if(Auth::attempt($attributes))
         {
             session()->regenerate();
-            return redirect('dashboard')->with(['success'=>'You are logged in.']);
+            if(Auth::user()->role == "Kepala Sekolah") {
+                return redirect('dashboard')->with(['success'=>'Kamu sudah login']);
+            } else if(Auth::user()->role == "Wali Kelas") {
+                return redirect('#')->with(['success'=>'Kamu sudah login']);
+            } else if(Auth::user()->role == "Guru Penjaskes") {
+                return redirect('#')->with(['success'=>'Kamu sudah login']);
+            } else if(Auth::user()->role == "Guru Agama") {
+                return redirect('#')->with(['success'=>'Kamu sudah login']);
+            }
         }
         else{
-
-            return back()->withErrors(['email'=>'Email or password invalid.']);
+            return back()->withErrors(['username'=>'Nama user atau password anda salah...']);
         }
     }
     
@@ -36,6 +43,6 @@ class SessionsController extends Controller
 
         Auth::logout();
 
-        return redirect('/login')->with(['success'=>'You\'ve been logged out.']);
+        return redirect('/login');
     }
 }
