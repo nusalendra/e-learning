@@ -1,11 +1,10 @@
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
-  <div class="sidenav-header h-25">
+  <div class="sidenav-header mb-7">
     <a class="align-items-center justify-content-center d-flex m-0 navbar-brand" href="{{ route('dashboard') }}">
-        <img src="../assets/img/logo-sekolah.png" class="navbar-brand-img w-75 mh-100" alt="...">
+        <img src="../../assets/img/logo-sekolah.png" class="navbar-brand-img w-50 mh-100" alt="...">
     </a>
   </div>
-  <hr class="horizontal dark mt-0">
   <div class="collapse navbar-collapse h-auto w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
