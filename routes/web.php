@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\KelasController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
@@ -28,6 +29,8 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('dashboard', function () {
 		return view('dashboard');
 	})->name('dashboard');
+	
+	Route::resource('/kelas', KelasController::class);
 
 	Route::get('billing', function () {
 		return view('billing');
