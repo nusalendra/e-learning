@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('mata_pelajaran', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wali_kelas_id')->constrained('wali_kelas')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('kategori_id')->constrained('kategori')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
             $table->timestamps();
         });

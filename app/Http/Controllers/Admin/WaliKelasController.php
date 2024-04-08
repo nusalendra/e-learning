@@ -101,12 +101,11 @@ class WaliKelasController extends Controller
         $user->save();
         
         $userId = $user->getKey();
-
-        $waliKelas = WaliKelas::where('user_id', $userId)->first();
-        $waliKelas->kelas_id = $request->kelas_id;
-        $waliKelas->nama = $request->nama;
-
-        $waliKelas->save();
+        
+        WaliKelas::updateOrCreate(
+            ['user_id' => $userId],
+            ['kelas_id' => $request->kelas_id, 'nama' => $request->nama]
+        );
 
         return redirect('/wali-kelas');
     }

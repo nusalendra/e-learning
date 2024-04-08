@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
@@ -32,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 	Route::resource('/kelas', KelasController::class);
 	Route::resource('/wali-kelas', WaliKelasController::class);
+	Route::resource('/kategori', KategoriController::class);
 
 	Route::get('billing', function () {
 		return view('billing');

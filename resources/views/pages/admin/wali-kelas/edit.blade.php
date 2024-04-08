@@ -14,7 +14,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="nama" class="form-control-label">Nama Wali Kelas</label>
-                            <input class="form-control" type="text" value="{{ $data->waliKelas->nama }}" placeholder="Masukkan Nama Wali Kelas" name="nama">
+                            @if ($data->waliKelas)
+                                <input class="form-control" type="text" value="{{ $data->waliKelas->nama }}" placeholder="Masukkan Nama Wali Kelas" name="nama">
+                            @else
+                                <input class="form-control" type="text" placeholder="Masukkan Nama Wali Kelas" name="nama">
+                            @endif
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -23,7 +27,9 @@
                             <select name="kelas_id" id="" class="form-select">
                                 <option value="0" selected disabled>Pilih Kelas</option>
                                 @foreach ($kelas as $item)
-                                    <option value="{{ $item->id }}" {{ $item->id == $data->waliKelas->kelas_id ? 'selected' : '' }}>{{ $item->nama }}</option>
+                                    <option value="{{ $item->id }}" {{ $data->waliKelas && $data->waliKelas->kelas_id == $item->id ? 'selected' : '' }}>
+                                        {{ $item->nama }}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>
