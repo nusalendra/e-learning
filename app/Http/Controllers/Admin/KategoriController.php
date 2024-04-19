@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kelas;
-use App\Models\WaliKelas;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 
-class KelasController extends Controller
+class KategoriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $data = Kelas::all();
-        return view('pages.admin.kelas.index', compact('data'));
+        $data = Kategori::all();
+        return view('pages.admin.kategori.index', compact('data'));
     }
 
     /**
@@ -27,7 +26,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.kelas.create');
+        return view('pages.admin.kategori.create');
     }
 
     /**
@@ -38,12 +37,12 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Kelas();
+        $data = new Kategori();
         $data->nama = $request->nama;
 
         $data->save();
 
-        return redirect('/kelas');
+        return redirect('/kategori');
     }
 
     /**
@@ -54,6 +53,7 @@ class KelasController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -64,9 +64,9 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        $data = Kelas::find($id);
+        $data = Kategori::find($id);
         
-        return view('pages.admin.kelas.edit', compact('data'));
+        return view('pages.admin.kategori.edit', compact('data'));
     }
 
     /**
@@ -78,13 +78,13 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Kelas::find($id);
+        $data = Kategori::find($id);
         
         $data->nama = $request->nama;
 
         $data->save();
 
-        return redirect('/kelas');
+        return redirect('/kategori');
     }
 
     /**
@@ -95,16 +95,9 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        $data = Kelas::find($id);
-        
-        $waliKelas = WaliKelas::where('kelas_id', $data->id)->get();
-        foreach ($waliKelas as $wali) {
-            $wali->kelas_id = null;
-            $wali->save();
-        }
-        
+        $data = Kategori::find($id);
         $data->delete();
 
-        return redirect('/kelas');
+        return redirect('/kategori');
     }
 }
