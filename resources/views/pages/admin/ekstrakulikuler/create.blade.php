@@ -1,4 +1,4 @@
-@extends('layouts.user_type.form_admin')
+@extends('layouts.user_type.form_kepala_sekolah')
 
 @section('content')
 <div class="container-fluid py-4 mt-10">
