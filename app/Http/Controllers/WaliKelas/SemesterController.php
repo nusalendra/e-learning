@@ -21,8 +21,8 @@ class SemesterController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $waliKelas = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
-        $data = KelasSemester::with('kelas', 'semester')->whereIn('kelas_id', $waliKelas)->get();
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
+        $data = KelasSemester::with('kelas', 'semester')->whereIn('kelas_id', $kelasId)->get();
         return view('pages.wali-kelas.semester.index', compact('data'));
     }
 
