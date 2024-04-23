@@ -10,6 +10,16 @@ use App\Http\Controllers\KepalaSekolah\WaliKelasController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
+use App\Http\Controllers\WaliKelas\CapaianKompetensiController;
+use App\Http\Controllers\WaliKelas\JadwalKelasController;
+use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
+use App\Http\Controllers\WaliKelas\MataPelajaranController;
+use App\Http\Controllers\WaliKelas\NilaiMataPelajaranController;
+use App\Http\Controllers\WaliKelas\PresensiController;
+use App\Http\Controllers\WaliKelas\SemesterController;
+use App\Http\Controllers\WaliKelas\SiswaController;
+use App\Http\Controllers\WaliKelas\UnduhRaporController;
+use App\Http\Controllers\WaliKelas\UploadTugasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,6 +57,17 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('dashboard-wali-kelas', function () {
 			return view('pages.wali-kelas.dashboard-wali-kelas');
 		})->name('dashboard-wali-kelas');
+
+		Route::resource('/semester', SemesterController::class);
+		Route::resource('/siswa', SiswaController::class);
+		Route::resource('/mata-pelajaran', MataPelajaranController::class);
+		Route::resource('/jadwal-kelas', JadwalKelasController::class);
+		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
+		Route::resource('/presensi', PresensiController::class);
+		Route::resource('/upload-tugas', UploadTugasController::class);
+		Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class);
+		Route::resource('/capaian-koompetensi', CapaianKompetensiController::class);
+		Route::resource('/unduh-rapor', UnduhRaporController::class);
 	});
 
 	Route::get('billing', function () {
