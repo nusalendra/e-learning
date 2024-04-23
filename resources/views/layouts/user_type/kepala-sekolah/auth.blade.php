@@ -23,7 +23,7 @@
             </main>
 
         @elseif (\Request::is('profile'))  
-            @include('layouts.navbars.auth.sidebar')
+            @include('layouts.navbars.auth.sidebar-kepala-sekolah')
             <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
                 @include('layouts.navbars.auth.nav')
                 @yield('content')
@@ -32,7 +32,7 @@
         @elseif (\Request::is('virtual-reality')) 
             @include('layouts.navbars.auth.nav')
             <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('../assets/img/vr-bg.jpg') ; background-size: cover;">
-                @include('layouts.navbars.auth.sidebar')
+                @include('layouts.navbars.auth.sidebar-kepala-sekolah')
                 <main class="main-content mt-1 border-radius-lg">
                     @yield('content')
                 </main>
@@ -40,7 +40,7 @@
             @include('layouts.footers.auth.footer')
 
         @else
-            @include('layouts.navbars.auth.sidebar')
+            @include('layouts.navbars.auth.sidebar-kepala-sekolah')
             <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg {{ (Request::is('rtl') ? 'overflow-hidden' : '') }}">
                 @include('layouts.navbars.auth.nav')
                 <div class="container-fluid py-4">

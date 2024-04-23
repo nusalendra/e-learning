@@ -16,7 +16,7 @@ class EkstrakulikulerController extends Controller
     public function index()
     {
         $data = Ekstrakulikuler::all();
-        return view('pages.admin.ekstrakulikuler.index', compact('data'));
+        return view('pages.kepala-sekolah.ekstrakulikuler.index', compact('data'));
     }
 
     /**
@@ -26,7 +26,7 @@ class EkstrakulikulerController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.ekstrakulikuler.create');
+        return view('pages.kepala-sekolah.ekstrakulikuler.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class EkstrakulikulerController extends Controller
     {
         $data = Ekstrakulikuler::find($id);
         
-        return view('pages.admin.ekstrakulikuler.edit', compact('data'));
+        return view('pages.kepala-sekolah.ekstrakulikuler.edit', compact('data'));
     }
 
     /**

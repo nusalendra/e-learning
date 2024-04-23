@@ -16,7 +16,7 @@ class KategoriController extends Controller
     public function index()
     {
         $data = Kategori::all();
-        return view('pages.admin.kategori.index', compact('data'));
+        return view('pages.kepala-sekolah.kategori.index', compact('data'));
     }
 
     /**
@@ -26,7 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.kategori.create');
+        return view('pages.kepala-sekolah.kategori.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class KategoriController extends Controller
     {
         $data = Kategori::find($id);
         
-        return view('pages.admin.kategori.edit', compact('data'));
+        return view('pages.kepala-sekolah.kategori.edit', compact('data'));
     }
 
     /**

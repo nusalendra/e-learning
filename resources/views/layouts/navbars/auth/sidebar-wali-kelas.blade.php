@@ -1,14 +1,14 @@
 
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3" id="sidenav-main">
   <div class="sidenav-header mb-7">
-    <a class="align-items-center justify-content-center d-flex m-0 navbar-brand" href="{{ route('dashboard') }}">
+    <a class="align-items-center justify-content-center d-flex m-0 navbar-brand" href="{{ route('dashboard-wali-kelas') }}">
         <img src="../../assets/img/logo-sekolah.png" class="navbar-brand-img w-50 mh-100" alt="...">
     </a>
   </div>
   <div class="collapse navbar-collapse h-auto w-auto" id="sidenav-collapse-main">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link {{ (Request::is('dashboard') ? 'active' : '') }}" href="{{ url('dashboard') }}">
+        <a class="nav-link {{ (Request::is('dashboard-wali-kelas') ? 'active' : '') }}" href="{{ url('dashboard-wali-kelas') }}">
           <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
               <path d="M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z"/>
@@ -25,7 +25,7 @@
                 <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 1 0 1 0v-1h1a.5.5 0 1 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Kelas</span>
+            <span class="nav-link-text ms-1">s</span>
         </a>
       </li>
       <li class="nav-item">
@@ -36,7 +36,7 @@
                 <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h5.243c.122-.326.295-.668.526-1H2a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v7.81c.353.23.656.496.91.783Q16 12.312 16 12V4a2 2 0 0 0-2-2z"/>
               </svg>
             </div>
-            <span class="nav-link-text ms-1">Wali Kelas</span>
+            <span class="nav-link-text ms-1">a</span>
         </a>
       </li>
       <li class="nav-item">

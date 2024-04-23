@@ -17,7 +17,7 @@ class KelasController extends Controller
     public function index()
     {
         $data = Kelas::all();
-        return view('pages.admin.kelas.index', compact('data'));
+        return view('pages.kepala-sekolah.kelas.index', compact('data'));
     }
 
     /**
@@ -27,7 +27,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.kelas.create');
+        return view('pages.kepala-sekolah.kelas.create');
     }
 
     /**
@@ -66,7 +66,7 @@ class KelasController extends Controller
     {
         $data = Kelas::find($id);
         
-        return view('pages.admin.kelas.edit', compact('data'));
+        return view('pages.kepala-sekolah.kelas.edit', compact('data'));
     }
 
     /**
