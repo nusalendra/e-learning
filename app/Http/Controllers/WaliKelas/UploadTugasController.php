@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
 
-class KategoriController extends Controller
+class UploadTugasController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +14,7 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $data = Kategori::all();
-        return view('pages.kepala-sekolah.kategori.index', compact('data'));
+        //
     }
 
     /**
@@ -26,7 +24,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('pages.kepala-sekolah.kategori.create');
+        //
     }
 
     /**
@@ -37,12 +35,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Kategori();
-        $data->nama = $request->nama;
-
-        $data->save();
-
-        return redirect('/kategori');
+        //
     }
 
     /**
@@ -64,9 +57,7 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        $data = Kategori::find($id);
-        
-        return view('pages.kepala-sekolah.kategori.edit', compact('data'));
+        //
     }
 
     /**
@@ -78,13 +69,7 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Kategori::find($id);
-        
-        $data->nama = $request->nama;
-
-        $data->save();
-
-        return redirect('/kategori');
+        //
     }
 
     /**
@@ -95,9 +80,6 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $data = Kategori::find($id);
-        $data->delete();
-
-        return redirect('/kategori');
+        //
     }
 }
