@@ -12,7 +12,7 @@ class Periode extends Model
     protected $primarykey = 'id';
     protected $fillable = ['tahun_ajaran'];
 
-    public function kelasSemester() {
-        return $this->hasMany(KelasSemester::class);
+    public function kelas() {
+        return $this->hasMany(Kelas::class);
     }
 }

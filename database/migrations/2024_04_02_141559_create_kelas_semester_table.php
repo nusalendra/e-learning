@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('kelas_semester', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('periode_id')->constrained('periode')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('kelas_id')->constrained('kelas')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('semester_id')->constrained('semester')->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();

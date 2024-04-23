@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('kelas')->insert([
+            'periode_id' => 1,
             'nama' => 'Kelas 1',
         ]);
 
