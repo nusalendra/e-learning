@@ -13,7 +13,7 @@ class KelasSemester extends Model
     protected $fillable = ['periode_id', 'kelas_id', 'semester_id'];
 
     public function periode() {
-        return $this->belongsTo(periode::class);
+        return $this->belongsTo(Periode::class);
     }
 
     public function kelas() {
