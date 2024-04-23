@@ -66,7 +66,6 @@ Route::group(['middleware' => ['auth']], function () {
 			return view('static-sign-up');
 		})->name('sign-up');
 	
-		Route::get('/logout', [SessionsController::class, 'destroy']);
 		Route::get('/user-profile', [InfoUserController::class, 'create']);
 		Route::post('/user-profile', [InfoUserController::class, 'store']);
 		Route::get('/login', function () {
@@ -81,6 +80,7 @@ Route::group(['middleware' => ['auth']], function () {
 			return view('pages.wali-kelas.dashboard-wali-kelas');
 		})->name('dashboard-wali-kelas');
 	});
+	Route::get('/logout', [SessionsController::class, 'destroy']);
 });
 
 Route::group(['middleware' => 'guest'], function () {
