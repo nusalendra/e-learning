@@ -18,7 +18,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $data = KelasSemester::with('periode', 'kelas', 'semester')->get();
+        $data = KelasSemester::with('kelas', 'semester')->get();
         return view('pages.wali-kelas.semester.index', compact('data'));
     }
 
@@ -29,9 +29,8 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        $periode = Periode::all();
         $kelas = Kelas::all();
-        return view('pages.wali-kelas.semester.create', compact('periode', 'kelas'));
+        return view('pages.wali-kelas.semester.create', compact('kelas'));
     }
 
     /**
@@ -47,7 +46,6 @@ class SemesterController extends Controller
         $semester->save();
 
         $kelasSemester = new KelasSemester();
-        $kelasSemester->periode_id = $request->periode_id;
         $kelasSemester->kelas_id = $request->kelas_id;
         $kelasSemester->semester_id = $semester->id;
         $kelasSemester->save();
@@ -75,9 +73,8 @@ class SemesterController extends Controller
     public function edit($id)
     {
         $data = KelasSemester::find($id);
-        $periode = Periode::all();
         $kelas = Kelas::all();
-        return view('pages.wali-kelas.semester.edit', compact('periode', 'kelas', 'data'));
+        return view('pages.wali-kelas.semester.edit', compact('kelas', 'data'));
     }
 
     /**
@@ -95,7 +92,6 @@ class SemesterController extends Controller
         $semester->nama = $request->nama;
         $semester->save();
 
-        $kelasSemester->periode_id = $request->periode_id;
         $kelasSemester->kelas_id = $request->kelas_id;
         $kelasSemester->semester_id = $semester->id;
         $kelasSemester->save();
