@@ -13,15 +13,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="kelas_id" class="form-control-label">Kelas</label>
-                            <select name="kelas_id" id="" class="form-select">
-                                <option value="0" selected disabled>Pilih Kelas</option>
-                                @foreach ($kelas as $item)
-                                    <option value="{{ $item->id }}" {{ $data && $data->kelas_id == $item->id ? 'selected' : '' }}>
-                                        {{ $item->nama }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <label for="nama_kelas" class="form-control-label">Kelas</label>
+                            <input type="hidden" name="kelas_id" value="{{ $waliKelas->kelas_id }}">
+                            <input class="form-control" type="text" value="{{ $waliKelas->kelas->nama }}" placeholder="Masukkan Semester" name="nama_kelas" disabled>
                         </div>
                         <div class="form-group">
                             <label for="nama" class="form-control-label">Semester</label>

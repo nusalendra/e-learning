@@ -4,7 +4,7 @@
 <div class="container-fluid py-4 mt-10">
     <div class="card">
         <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Tambah Data Kelas</h6>
+            <h6 class="mb-0">Tambah Data Semester</h6>
         </div>
         <div class="card-body pt-4 p-3">
             <form action="/semester" method="POST" role="form text-left">
@@ -12,13 +12,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="kelas_id" class="form-control-label">Kelas <span class="text-danger">*</span></label>
-                            <select name="kelas_id" id="" class="form-select">
-                                <option value="0" selected disabled>Pilih Kelas</option>
-                                @foreach ($kelas as $item)
-                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
-                                @endforeach
-                            </select>
+                            <label for="nama_kelas" class="form-control-label">Kelas <span class="text-danger">*</span></label>
+                            <input type="hidden" name="kelas_id" value="{{ $waliKelas->kelas_id }}">
+                            <input class="form-control" type="text" value="{{ $waliKelas->kelas->nama }}" placeholder="Masukkan Semester" name="nama_kelas" disabled>
                         </div>
                         <div class="form-group">
                             <label for="nama" class="form-control-label">Semester <span class="text-danger">*</span></label>
