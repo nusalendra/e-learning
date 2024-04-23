@@ -1,4 +1,4 @@
-@extends('layouts.user_type.auth')
+@extends('layouts.user_type.wali-kelas.auth')
 
 @section('content')
 

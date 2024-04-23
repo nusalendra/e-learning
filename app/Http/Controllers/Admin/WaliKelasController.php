@@ -19,7 +19,7 @@ class WaliKelasController extends Controller
     public function index()
     {
         $data = User::where('role', '=', 'Wali Kelas')->with('waliKelas')->get();
-        return view('pages.admin.wali-kelas.index', compact('data'));
+        return view('pages.kepala-sekolah.wali-kelas.index', compact('data'));
     }
 
     /**
@@ -30,7 +30,7 @@ class WaliKelasController extends Controller
     public function create()
     {
         $kelas = Kelas::all();
-        return view('pages.admin.wali-kelas.create', compact('kelas'));
+        return view('pages.kepala-sekolah.wali-kelas.create', compact('kelas'));
     }
 
     /**
@@ -82,7 +82,7 @@ class WaliKelasController extends Controller
         $data = User::with('waliKelas')->find($id);
         $kelas = Kelas::all();
 
-        return view('pages.admin.wali-kelas.edit', compact('data', 'kelas'));
+        return view('pages.kepala-sekolah.wali-kelas.edit', compact('data', 'kelas'));
     }
 
     /**

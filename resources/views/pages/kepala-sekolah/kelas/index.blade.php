@@ -1,9 +1,9 @@
-@extends('layouts.user_type.auth')
+@extends('layouts.user_type.kepala-sekolah.auth')
 
 @section('content')
     <div>
         <div class="text-end">
-            <a href="/kategori/create">
+            <a href="/kelas/create">
                 <button type="button" class="btn bg-gradient-info">Tambah Data</button>
             </a>
         </div>
@@ -15,7 +15,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Kategori</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -39,7 +39,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/kategori/{{ $item->id }}/edit">
+                                                    <a href="/kelas/{{ $item->id }}/edit">
                                                         <button type="button" class="btn bg-gradient-warning">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -50,7 +50,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/kategori/{{ $item->id }}" method="POST" role="form text-left">
+                                                    <form action="/kelas/{{ $item->id }}" method="POST" role="form text-left">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn bg-gradient-danger">

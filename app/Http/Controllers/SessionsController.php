@@ -24,9 +24,9 @@ class SessionsController extends Controller
         {
             session()->regenerate();
             if(Auth::user()->role == "Kepala Sekolah") {
-                return redirect('dashboard')->with(['success'=>'Kamu sudah login']);
+                return redirect('dashboard-kepala-sekolah')->with(['success'=>'Kamu sudah login']);
             } else if(Auth::user()->role == "Wali Kelas") {
-                return redirect('#')->with(['success'=>'Kamu sudah login']);
+                return redirect('dashboard-wali-kelas')->with(['success'=>'Kamu sudah login']);
             } else if(Auth::user()->role == "Guru Penjaskes") {
                 return redirect('#')->with(['success'=>'Kamu sudah login']);
             } else if(Auth::user()->role == "Guru Agama") {
