@@ -4,6 +4,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
+use App\Http\Controllers\KepalaSekolah\IdentitasSiswaController;
 use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
 use App\Http\Controllers\KepalaSekolah\PeriodeController;
@@ -18,7 +19,6 @@ use App\Http\Controllers\WaliKelas\MataPelajaranController;
 use App\Http\Controllers\WaliKelas\NilaiMataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\SemesterController;
-use App\Http\Controllers\WaliKelas\SiswaController;
 use App\Http\Controllers\WaliKelas\UnduhRaporController;
 use App\Http\Controllers\WaliKelas\UploadTugasController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +43,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/periode', PeriodeController::class);
 		Route::resource('/kelas', KelasController::class);
 		Route::resource('/wali-kelas', WaliKelasController::class);
+		Route::resource('/identitas-siswa', IdentitasSiswaController::class);
 		Route::resource('/kategori', KategoriController::class);
 		Route::resource('/ekstrakulikuler', EkstrakulikulerController::class);
 	
@@ -61,7 +62,6 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('dashboard-wali-kelas');
 
 		Route::resource('/semester', SemesterController::class);
-		Route::resource('/siswa', SiswaController::class);
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);

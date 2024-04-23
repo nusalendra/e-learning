@@ -27,4 +27,12 @@ class Siswa extends Model
     public function ekstrakulikuler() {
         return $this->belongsTo(Ekstrakulikuler::class);
     }
+
+    public function dataSiswa() {
+        return $this->hasOne(DataSiswa::class);
+    }
+
+    public function dataOrangTua() {
+        return $this->hasOne(DataOrangTua::class);
+    }
 }

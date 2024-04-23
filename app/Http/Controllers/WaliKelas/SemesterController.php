@@ -7,7 +7,9 @@ use App\Models\Kelas;
 use App\Models\KelasSemester;
 use App\Models\Periode;
 use App\Models\Semester;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SemesterController extends Controller
 {
@@ -18,7 +20,9 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $data = KelasSemester::with('kelas', 'semester')->get();
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
+        $data = KelasSemester::with('kelas', 'semester')->whereIn('kelas_id', $kelasId)->get();
         return view('pages.wali-kelas.semester.index', compact('data'));
     }
 
@@ -29,8 +33,9 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        $kelas = Kelas::all();
-        return view('pages.wali-kelas.semester.create', compact('kelas'));
+        $user = Auth::user();
+        $waliKelas = WaliKelas::where('user_id', $user->id)->first();
+        return view('pages.wali-kelas.semester.create', compact('waliKelas'));
     }
 
     /**
@@ -72,9 +77,11 @@ class SemesterController extends Controller
      */
     public function edit($id)
     {
+        $user = Auth::user();
+        $waliKelas = WaliKelas::where('user_id', $user->id)->first();
         $data = KelasSemester::find($id);
-        $kelas = Kelas::all();
-        return view('pages.wali-kelas.semester.edit', compact('kelas', 'data'));
+
+        return view('pages.wali-kelas.semester.edit', compact('data', 'waliKelas'));
     }
 
     /**
