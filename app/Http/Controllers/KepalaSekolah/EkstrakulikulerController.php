@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kelas;
-use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use App\Models\Ekstrakulikuler;
 
-class KelasController extends Controller
+class EkstrakulikulerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $data = Kelas::all();
-        return view('pages.kepala-sekolah.kelas.index', compact('data'));
+        $data = Ekstrakulikuler::all();
+        return view('pages.kepala-sekolah.ekstrakulikuler.index', compact('data'));
     }
 
     /**
@@ -27,7 +26,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('pages.kepala-sekolah.kelas.create');
+        return view('pages.kepala-sekolah.ekstrakulikuler.create');
     }
 
     /**
@@ -38,12 +37,12 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        $data = new Kelas();
+        $data = new Ekstrakulikuler();
         $data->nama = $request->nama;
 
         $data->save();
 
-        return redirect('/kelas');
+        return redirect('/ekstrakulikuler');
     }
 
     /**
@@ -54,6 +53,7 @@ class KelasController extends Controller
      */
     public function show($id)
     {
+        //
     }
 
     /**
@@ -64,9 +64,9 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        $data = Kelas::find($id);
+        $data = Ekstrakulikuler::find($id);
         
-        return view('pages.kepala-sekolah.kelas.edit', compact('data'));
+        return view('pages.kepala-sekolah.ekstrakulikuler.edit', compact('data'));
     }
 
     /**
@@ -78,13 +78,13 @@ class KelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = Kelas::find($id);
+        $data = Ekstrakulikuler::find($id);
         
         $data->nama = $request->nama;
 
         $data->save();
 
-        return redirect('/kelas');
+        return redirect('/ekstrakulikuler');
     }
 
     /**
@@ -95,16 +95,9 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        $data = Kelas::find($id);
-        
-        $waliKelas = WaliKelas::where('kelas_id', $data->id)->get();
-        foreach ($waliKelas as $wali) {
-            $wali->kelas_id = null;
-            $wali->save();
-        }
-        
+        $data = Ekstrakulikuler::find($id);
         $data->delete();
 
-        return redirect('/kelas');
+        return redirect('/ekstrakulikuler');
     }
 }

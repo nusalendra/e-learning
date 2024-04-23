@@ -1,16 +1,16 @@
 <?php
 
-use App\Http\Controllers\Admin\EkstrakulikulerController;
-use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
+use App\Http\Controllers\KepalaSekolah\KategoriController;
+use App\Http\Controllers\KepalaSekolah\KelasController;
+use App\Http\Controllers\KepalaSekolah\WaliKelasController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\KelasController;
-use App\Http\Controllers\Admin\WaliKelasController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,38 +33,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/wali-kelas', WaliKelasController::class);
 		Route::resource('/kategori', KategoriController::class);
 		Route::resource('/ekstrakulikuler', EkstrakulikulerController::class);
-
-		Route::get('billing', function () {
-			return view('billing');
-		})->name('billing');
-	
-		Route::get('profile', function () {
-			return view('profile');
-		})->name('profile');
-	
-		Route::get('rtl', function () {
-			return view('rtl');
-		})->name('rtl');
-	
-		Route::get('user-management', function () {
-			return view('laravel-examples/user-management');
-		})->name('user-management');
-	
-		Route::get('tables', function () {
-			return view('tables');
-		})->name('tables');
-	
-		Route::get('virtual-reality', function () {
-			return view('virtual-reality');
-		})->name('virtual-reality');
-	
-		Route::get('static-sign-in', function () {
-			return view('static-sign-in');
-		})->name('sign-in');
-	
-		Route::get('static-sign-up', function () {
-			return view('static-sign-up');
-		})->name('sign-up');
 	
 		Route::get('/user-profile', [InfoUserController::class, 'create']);
 		Route::post('/user-profile', [InfoUserController::class, 'store']);
@@ -80,6 +48,39 @@ Route::group(['middleware' => ['auth']], function () {
 			return view('pages.wali-kelas.dashboard-wali-kelas');
 		})->name('dashboard-wali-kelas');
 	});
+
+	Route::get('billing', function () {
+		return view('billing');
+	})->name('billing');
+
+	Route::get('profile', function () {
+		return view('profile');
+	})->name('profile');
+
+	Route::get('rtl', function () {
+		return view('rtl');
+	})->name('rtl');
+
+	Route::get('user-management', function () {
+		return view('laravel-examples/user-management');
+	})->name('user-management');
+
+	Route::get('tables', function () {
+		return view('tables');
+	})->name('tables');
+
+	Route::get('virtual-reality', function () {
+		return view('virtual-reality');
+	})->name('virtual-reality');
+
+	Route::get('static-sign-in', function () {
+		return view('static-sign-in');
+	})->name('sign-in');
+
+	Route::get('static-sign-up', function () {
+		return view('static-sign-up');
+	})->name('sign-up');
+	
 	Route::get('/logout', [SessionsController::class, 'destroy']);
 });
 

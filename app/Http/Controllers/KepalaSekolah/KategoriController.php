@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
-use App\Models\Kategori;
 use Illuminate\Http\Request;
+use App\Models\Kategori;
 
 class KategoriController extends Controller
 {
