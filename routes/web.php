@@ -6,6 +6,7 @@ use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
 use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
+use App\Http\Controllers\KepalaSekolah\PeriodeController;
 use App\Http\Controllers\KepalaSekolah\WaliKelasController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['auth']], function () {
             return view('pages.kepala-sekolah.dashboard-kepala-sekolah');
         })->name('dashboard-kepala-sekolah');
 
+		Route::resource('/periode', PeriodeController::class);
 		Route::resource('/kelas', KelasController::class);
 		Route::resource('/wali-kelas', WaliKelasController::class);
 		Route::resource('/kategori', KategoriController::class);
