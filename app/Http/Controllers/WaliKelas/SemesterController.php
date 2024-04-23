@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kelas;
+use App\Models\KelasSemester;
+use App\Models\Periode;
 use App\Models\Semester;
 use Illuminate\Http\Request;
 
@@ -15,7 +18,7 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $data = Semester::all();
+        $data = KelasSemester::with('kelas', 'semester')->get();
         return view('pages.wali-kelas.semester.index', compact('data'));
     }
 
@@ -26,7 +29,8 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        return view('pages.wali-kelas.semester.create');
+        $kelas = Kelas::all();
+        return view('pages.wali-kelas.semester.create', compact('kelas'));
     }
 
     /**
@@ -37,7 +41,16 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $semester = new Semester();
+        $semester->nama = $request->nama;
+        $semester->save();
+
+        $kelasSemester = new KelasSemester();
+        $kelasSemester->kelas_id = $request->kelas_id;
+        $kelasSemester->semester_id = $semester->id;
+        $kelasSemester->save();
+
+        return redirect('/semester');
     }
 
     /**
@@ -48,7 +61,7 @@ class SemesterController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
 
     /**
@@ -59,7 +72,9 @@ class SemesterController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = KelasSemester::find($id);
+        $kelas = Kelas::all();
+        return view('pages.wali-kelas.semester.edit', compact('kelas', 'data'));
     }
 
     /**
@@ -71,7 +86,17 @@ class SemesterController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $kelasSemester = KelasSemester::find($id);
+
+        $semester = Semester::where('id', $kelasSemester->semester_id)->first();
+        $semester->nama = $request->nama;
+        $semester->save();
+
+        $kelasSemester->kelas_id = $request->kelas_id;
+        $kelasSemester->semester_id = $semester->id;
+        $kelasSemester->save();
+        
+        return redirect('/semester');
     }
 
     /**
@@ -82,6 +107,9 @@ class SemesterController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kelasSemester = KelasSemester::find($id);
+        $kelasSemester->delete();
+
+        return redirect('/semester');
     }
 }

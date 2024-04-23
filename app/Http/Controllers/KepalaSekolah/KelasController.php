@@ -4,6 +4,7 @@ namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kelas;
+use App\Models\Periode;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,8 @@ class KelasController extends Controller
      */
     public function create()
     {
-        return view('pages.kepala-sekolah.kelas.create');
+        $periode = Periode::all();
+        return view('pages.kepala-sekolah.kelas.create', compact('periode'));
     }
 
     /**
@@ -39,6 +41,7 @@ class KelasController extends Controller
     public function store(Request $request)
     {
         $data = new Kelas();
+        $data->periode_id = $request->periode_id;
         $data->nama = $request->nama;
 
         $data->save();
@@ -65,8 +68,8 @@ class KelasController extends Controller
     public function edit($id)
     {
         $data = Kelas::find($id);
-        
-        return view('pages.kepala-sekolah.kelas.edit', compact('data'));
+        $periode = Periode::all();
+        return view('pages.kepala-sekolah.kelas.edit', compact('data', 'periode'));
     }
 
     /**
@@ -79,7 +82,7 @@ class KelasController extends Controller
     public function update(Request $request, $id)
     {
         $data = Kelas::find($id);
-        
+        $data->periode_id = $request->periode_id;
         $data->nama = $request->nama;
 
         $data->save();

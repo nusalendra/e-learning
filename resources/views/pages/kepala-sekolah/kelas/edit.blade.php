@@ -13,6 +13,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label for="periode_id" class="form-control-label">Kelas</label>
+                            <select name="periode_id" id="" class="form-select">
+                                <option value="0" selected disabled>Pilih Kelas</option>
+                                @foreach ($periode as $item)
+                                    <option value="{{ $item->id }}" {{ $data && $data->periode_id == $item->id ? 'selected' : '' }}>
+                                        {{ $item->tahun_ajaran }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="nama" class="form-control-label">Nama Kelas <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" value="{{ $data->nama }}" placeholder="Masukkan Nama Kelas" name="nama" required>
                         </div>
