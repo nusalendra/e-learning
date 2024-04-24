@@ -20,6 +20,14 @@
                             <label for="nama" class="form-control-label">Semester <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" placeholder="Masukkan Semester" name="nama" required>
                         </div>
+                        <div class="form-group">
+                            <label for="status" class="form-control-label">Status Semester <span class="text-danger">*</span></label>
+                            <select name="status" id="" class="form-select">
+                                <option value="0" selected disabled>Pilih Status Semester</option>
+                                <option value="Dibuka">Dibuka</option>
+                                <option value="Ditutup">Ditutup</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">

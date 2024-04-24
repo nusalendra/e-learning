@@ -53,6 +53,7 @@ class SemesterController extends Controller
         $kelasSemester = new KelasSemester();
         $kelasSemester->kelas_id = $request->kelas_id;
         $kelasSemester->semester_id = $semester->id;
+        $kelasSemester->status = $request->status;
         $kelasSemester->save();
 
         return redirect('/semester');
@@ -101,6 +102,7 @@ class SemesterController extends Controller
 
         $kelasSemester->kelas_id = $request->kelas_id;
         $kelasSemester->semester_id = $semester->id;
+        $kelasSemester->status = $request->status;
         $kelasSemester->save();
         
         return redirect('/semester');

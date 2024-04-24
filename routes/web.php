@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('/semester', SemesterController::class);
 		Route::resource('/siswa', SiswaController::class);
+		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);

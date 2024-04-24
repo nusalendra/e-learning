@@ -21,6 +21,14 @@
                             <label for="nama" class="form-control-label">Semester</label>
                             <input class="form-control" type="text" value="{{ $data->semester->nama }}" placeholder="Masukkan Semester" name="nama">
                         </div>
+                        <div class="form-group">
+                            <label for="status" class="form-control-label">Status Semester</label>
+                            <select name="status" id="status" class="form-select">
+                                <option value="0" disabled>Pilih Status Semester</option>
+                                <option value="Dibuka" {{ $data->status === 'Dibuka' ? 'selected' : '' }}>Dibuka</option>
+                                <option value="Ditutup" {{ $data->status === 'Ditutup' ? 'selected' : '' }}>Ditutup</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">

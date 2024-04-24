@@ -18,6 +18,7 @@
                                     <th class="text-uppercase text-xs font-weight-bolder">Tahun Ajaran</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Semester</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Status Semester</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -52,6 +53,23 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        @if($item->status == 'Dibuka')
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm text-info fw-bold">{{ $item->status }}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @else
+                                            <td>
+                                                <div class="d-flex px-2 py-1">
+                                                    <div class="d-flex flex-column justify-content-center">
+                                                        <h6 class="mb-0 text-sm text-danger fw-bold">{{ $item->status }}</h6>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        @endif
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
