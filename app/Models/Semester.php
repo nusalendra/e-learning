@@ -10,13 +10,9 @@ class Semester extends Model
     use HasFactory;
     protected $table = 'semester';
     protected $primarykey = 'id';
-    protected $fillable = ['nama'];
+    protected $fillable = ['kelas_id', 'nama'];
 
     public function kelas() {
-        return $this->belongsToMany(Kelas::class);
-    }
-
-    public function kelasSemester() {
-        return $this->belongsToMany(KelasSemester::class, 'kelas_semester', 'semester_id', 'kelas_id');
+        return $this->belongsTo(Kelas::class);
     }
 }

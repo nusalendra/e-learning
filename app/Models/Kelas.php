@@ -20,11 +20,11 @@ class Kelas extends Model
         return $this->belongsTo(Periode::class);
     }
 
-    public function kelasSemester() {
-        return $this->belongsToMany(KelasSemester::class, 'kelas_semester', 'kelas_id', 'semester_id');
+    public function semester() {
+        return $this->hasMany(Semester::class);
     }
 
-    public function semester() {
-        return $this->belongsToMany(Semester::class);
+    public function siswa() {
+        return $this->hasMany(Siswa::class);
     }
 }

@@ -19,6 +19,7 @@ use App\Http\Controllers\WaliKelas\MataPelajaranController;
 use App\Http\Controllers\WaliKelas\NilaiMataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\SemesterController;
+use App\Http\Controllers\WaliKelas\SiswaController;
 use App\Http\Controllers\WaliKelas\UnduhRaporController;
 use App\Http\Controllers\WaliKelas\UploadTugasController;
 use Illuminate\Support\Facades\Route;
@@ -62,6 +63,7 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('dashboard-wali-kelas');
 
 		Route::resource('/semester', SemesterController::class);
+		Route::resource('/siswa', SiswaController::class);
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
