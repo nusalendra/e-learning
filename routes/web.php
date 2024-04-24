@@ -4,6 +4,7 @@ use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
+use App\Http\Controllers\KepalaSekolah\GuruController;
 use App\Http\Controllers\KepalaSekolah\IdentitasSiswaController;
 use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/periode', PeriodeController::class);
 		Route::resource('/kelas', KelasController::class);
 		Route::resource('/wali-kelas', WaliKelasController::class);
+		Route::resource('/guru', GuruController::class);
 		Route::resource('/identitas-siswa', IdentitasSiswaController::class);
 		Route::resource('/kategori', KategoriController::class);
 		Route::resource('/ekstrakulikuler', EkstrakulikulerController::class);
