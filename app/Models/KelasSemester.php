@@ -10,7 +10,7 @@ class KelasSemester extends Model
     use HasFactory;
     protected $table = 'kelas_semester';
     protected $primarykey = 'id';
-    protected $fillable = ['kelas_id', 'semester_id'];
+    protected $fillable = ['kelas_id', 'semester_id', 'status'];
 
     public function kelas() {
         return $this->belongsTo(Kelas::class, 'kelas_id');

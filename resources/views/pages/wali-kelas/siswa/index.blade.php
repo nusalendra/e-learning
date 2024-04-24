@@ -3,8 +3,8 @@
 @section('content')
     <div>
         <div class="text-end">
-            <a href="/semester/create">
-                <button type="button" class="btn bg-gradient-info">Tambah Data</button>
+            <a href="/siswa/create">
+                <button type="button" class="btn bg-gradient-info">Tambah Siswa</button>
             </a>
         </div>
         <div class="py-1">
@@ -15,10 +15,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Tahun Ajaran</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Semester</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Status Semester</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -35,45 +34,38 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->kelas->periode->tahun_ajaran }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->kelas->nama }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->kelasSemester->kelas->nama }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->semester->nama }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->kelasSemester->semester->nama }}</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        @if($item->status == 'Dibuka')
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm text-info fw-bold">{{ $item->status }}</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        @else
-                                            <td>
-                                                <div class="d-flex px-2 py-1">
-                                                    <div class="d-flex flex-column justify-content-center">
-                                                        <h6 class="mb-0 text-sm text-danger fw-bold">{{ $item->status }}</h6>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        @endif
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/semester/{{ $item->id }}/edit">
+                                                    <a href="/siswa/{{ $item->id }}">
+                                                        <button type="button" class="btn bg-gradient-info">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back" viewBox="0 0 16 16">
+                                                                <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
+                                                            </svg>
+                                                            Detail
+                                                        </button>
+                                                    </a>
+                                                </div>
+                                                <div class="ms-2 d-flex flex-column justify-content-center">
+                                                    <a href="/siswa/{{ $item->id }}/edit">
                                                         <button type="button" class="btn bg-gradient-warning">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -84,7 +76,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/semester/{{ $item->id }}" method="POST" role="form text-left">
+                                                    <form action="/siswa/{{ $item->id }}" method="POST" role="form text-left">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn bg-gradient-danger">
