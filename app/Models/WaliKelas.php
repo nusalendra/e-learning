@@ -10,7 +10,7 @@ class WaliKelas extends Model
     use HasFactory;
     protected $table = 'wali_kelas';
     protected $primarykey = 'id';
-    protected $fillable = ['user_id','kelas_id','nama'];
+    protected $fillable = ['user_id','kelas_id'];
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -18,9 +18,5 @@ class WaliKelas extends Model
 
     public function kelas() {
         return $this->belongsTo(Kelas::class);
-    }
-
-    public function mataPelajaran() {
-        return $this->hasMany(MataPelajaran::class);
     }
 }

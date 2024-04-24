@@ -12,8 +12,26 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label for="nama" class="form-control-label">Pengajar <span class="text-danger">*</span></label>
+                            <select name="nama_pengajar" id="" class="form-select">
+                                <option value="0" selected disabled>Pilih Pengajar</option>
+                                @foreach ($pengajar as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="nama" class="form-control-label">Nama Kelas <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" placeholder="Masukkan Nama Kelas" name="nama" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nama" class="form-control-label">Kelas <span class="text-danger">*</span></label>
+                            <select name="kelas_id" id="" class="form-select">
+                                <option value="0" selected disabled>Pilih Kelas</option>
+                                @foreach ($kategori as $item)
+                                    <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                 </div>

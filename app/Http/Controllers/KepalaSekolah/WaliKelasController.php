@@ -42,6 +42,7 @@ class WaliKelasController extends Controller
     public function store(Request $request)
     {
         $user = new User();
+        $user->name = $request->name;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->role = 'Wali Kelas';
@@ -53,7 +54,6 @@ class WaliKelasController extends Controller
         $waliKelas = new WaliKelas();
         $waliKelas->user_id = $userId;
         $waliKelas->kelas_id = $request->kelas_id;
-        $waliKelas->nama = $request->nama;
 
         $waliKelas->save();
 
@@ -95,6 +95,7 @@ class WaliKelasController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $user->name = $request->name;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         
@@ -104,7 +105,7 @@ class WaliKelasController extends Controller
         
         WaliKelas::updateOrCreate(
             ['user_id' => $userId],
-            ['kelas_id' => $request->kelas_id, 'nama' => $request->nama]
+            ['kelas_id' => $request->kelas_id]
         );
 
         return redirect('/wali-kelas');

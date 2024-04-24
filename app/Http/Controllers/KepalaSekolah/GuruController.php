@@ -42,16 +42,12 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $user = new User();
+        $user->name = $request->name;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->role = $request->role;
         
         $user->save();
-
-        $guru = new Guru();
-        $guru->user_id = $user->id;
-        $guru->nama = $request->nama;
-        $guru->save();
 
         return redirect('/guru');
     }
@@ -91,18 +87,12 @@ class GuruController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $user->name = $request->name;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->role = $request->role;
 
         $user->save();
-        
-        $userId = $user->getKey();
-        
-        $guru = Guru::where('user_id', $userId)->first();
-        $guru->nama = $request->nama;
-        
-        $guru->save();
 
         return redirect('/guru');
     }

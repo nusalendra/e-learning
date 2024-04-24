@@ -21,12 +21,14 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         DB::table('users')->insert([
+            'name' => 'Nusalendra Putra Restu Bumi',
             'username' => 'nusalendra',
             'password' => Hash::make('nusalendra'),
             'role' => 'Kepala Sekolah'
         ]);
 
         DB::table('users')->insert([
+            'name' => 'Budi Setyo',
             'username' => 'budisetyo',
             'password' => Hash::make('password'),
             'role' => 'Wali Kelas'
@@ -44,7 +46,6 @@ class DatabaseSeeder extends Seeder
         DB::table('wali_kelas')->insert([
             'user_id' => 2,
             'kelas_id' => 1,
-            'nama' => 'budisetyo'
         ]);
     }
 }
