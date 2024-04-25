@@ -10,10 +10,18 @@ class MataPelajaran extends Model
     use HasFactory;
     protected $table = 'mata_pelajaran';
     protected $primarykey = 'id';
-    protected $fillable = ['kategori_id', 'nama_pengajar', 'nama'];
+    protected $fillable = ['kelas_semester_id', 'user_id', 'kategori_id', 'nama'];
 
     public function kategori() {
         return $this->belongsTo(Kategori::class);
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function kelasSemester() {
+        return $this->belongsTo(KelasSemester::class);
     }
 
     public function jadwalKelas() {

@@ -19,4 +19,13 @@ class KelasSemester extends Model
     public function semester() {
         return $this->belongsTo(Semester::class, 'semester_id');
     }
+
+    public function siswa() {
+        return $this->hasMany(Siswa::class);
+    }
+
+    public function mataPelajaran() {
+        return $this->hasMany(MataPelajaran::class);
+    }
+
 }

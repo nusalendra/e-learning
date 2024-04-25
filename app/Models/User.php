@@ -50,4 +50,8 @@ class User extends Authenticatable
     public function uploadTugas() {
         return $this->hasMany(UploadTugas::class);
     }
+
+    public function mataPelajaran() {
+        return $this->hasMany(MataPelajaran::class);
+    }
 }
