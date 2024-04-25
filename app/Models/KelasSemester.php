@@ -28,4 +28,7 @@ class KelasSemester extends Model
         return $this->hasMany(MataPelajaran::class);
     }
 
+    public function ruangPresensi() {
+        return $this->hasMany(RuangPresensi::class);
+    }
 }

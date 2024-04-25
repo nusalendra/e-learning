@@ -47,5 +47,25 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2,
             'kelas_id' => 1,
         ]);
+
+        DB::table('semester')->insert([
+            'nama' => 'Semester Ganjil',
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 1,
+            'semester_id' => 1,
+            'status' => 'Dibuka'
+        ]);
+
+        DB::table('semester')->insert([
+            'nama' => 'Semester Genap',
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 1,
+            'semester_id' => 2,
+            'status' => 'Ditutup'
+        ]);
     }
 }
