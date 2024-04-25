@@ -12,8 +12,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="nama" class="form-control-label">Nama Guru <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" placeholder="Masukkan Nama Wali Kelas" name="nama" required>
+                            <label for="name" class="form-control-label">Nama Guru <span class="text-danger">*</span></label>
+                            <input class="form-control" type="text" placeholder="Masukkan Nama Wali Kelas" name="name" required>
                         </div>
                     </div>
                     <div class="col-md-6">

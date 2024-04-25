@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\KelasSemester;
+use App\Models\RuangPresensi;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelolaRuangPresensiController extends Controller
 {
@@ -14,7 +18,15 @@ class KelolaRuangPresensiController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $data = RuangPresensi::whereHas('kelasSemester', function($query) use ($kelasId) {
+            $query->where('status', 'Dibuka');
+            $query->where('kelas_id', '=', $kelasId);
+        })
+        ->get();
+
+        return view('pages.wali-kelas.kelola-ruang-presensi.index', compact('data'));
     }
 
     /**
@@ -24,7 +36,9 @@ class KelolaRuangPresensiController extends Controller
      */
     public function create()
     {
-        //
+        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
+
+        return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester'));
     }
 
     /**
@@ -35,7 +49,12 @@ class KelolaRuangPresensiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ruangPresensi = new RuangPresensi();
+        $ruangPresensi->kelas_semester_id = $request->semester_id;
+        $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
+        $ruangPresensi->save();
+
+        return redirect('/kelola-ruang-presensi');
     }
 
     /**
@@ -57,7 +76,10 @@ class KelolaRuangPresensiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = RuangPresensi::find($id);
+        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
+
+        return view('pages.wali-kelas.kelola-ruang-presensi.edit', compact('data', 'semester'));
     }
 
     /**
@@ -69,7 +91,12 @@ class KelolaRuangPresensiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ruangPresensi = RuangPresensi::find($id);
+        $ruangPresensi->kelas_semester_id = $request->semester_id;
+        $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
+        $ruangPresensi->save();
+
+        return redirect('/kelola-ruang-presensi');
     }
 
     /**
@@ -80,6 +107,9 @@ class KelolaRuangPresensiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $ruangPresensi = RuangPresensi::find($id);
+        $ruangPresensi->delete();
+
+        return redirect('/kelola-ruang-presensi');
     }
 }

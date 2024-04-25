@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\Presensi;
+use App\Models\RuangPresensi;
+use App\Models\Siswa;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PresensiController extends Controller
 {
@@ -14,7 +19,15 @@ class PresensiController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $data = RuangPresensi::whereHas('kelasSemester', function($query) use ($kelasId) {
+            $query->where('status', 'Dibuka');
+            $query->where('kelas_id', '=', $kelasId);
+        })
+        ->get();
+
+        return view('pages.wali-kelas.presensi.index', compact('data'));
     }
 
     /**
@@ -24,7 +37,7 @@ class PresensiController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -35,7 +48,17 @@ class PresensiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        foreach($request->siswa_id as $index => $siswaId) {
+            Presensi::updateOrCreate(
+                ['siswa_id' => $siswaId],
+                [
+                    'ruang_presensi_id' => $request->ruang_presensi_id,
+                    'status_presensi' => $request->status_presensi[$index]
+                ]
+            );
+        }
+
+        return redirect('/presensi');
     }
 
     /**
@@ -57,7 +80,14 @@ class PresensiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $ruangPresensi = RuangPresensi::find($id);
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $siswa = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
+            $query->where('kelas_id', '=', $kelasId);
+        })->get();
+        
+        return view('pages.wali-kelas.presensi.presensi-siswa', compact('ruangPresensi', 'siswa'));
     }
 
     /**

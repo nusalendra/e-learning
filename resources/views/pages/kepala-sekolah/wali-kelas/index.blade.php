@@ -35,7 +35,7 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     @if ($item->waliKelas)
-                                                        <h6 class="mb-0 text-sm">{{ $item->waliKelas->nama }}</h6>
+                                                        <h6 class="mb-0 text-sm">{{ $item->name }}</h6>
                                                     @else
                                                         <h6 class="mb-0 text-sm text-danger">Wali Kelas Tidak Terdaftar!</h6>
                                                     @endif

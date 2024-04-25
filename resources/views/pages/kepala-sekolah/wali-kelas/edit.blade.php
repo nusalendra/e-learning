@@ -13,11 +13,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="nama" class="form-control-label">Nama Wali Kelas</label>
+                            <label for="name" class="form-control-label">Nama Wali Kelas</label>
                             @if ($data->waliKelas)
-                                <input class="form-control" type="text" value="{{ $data->waliKelas->nama }}" placeholder="Masukkan Nama Wali Kelas" name="nama">
+                                <input class="form-control" type="text" value="{{ $data->name }}" placeholder="Masukkan Nama Wali Kelas" name="name">
                             @else
-                                <input class="form-control" type="text" placeholder="Masukkan Nama Wali Kelas" name="nama">
+                                <input class="form-control" type="text" placeholder="Masukkan Nama Wali Kelas" name="name">
                             @endif
                         </div>
                     </div>

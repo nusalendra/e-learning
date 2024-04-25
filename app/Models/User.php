@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'name',
         'username',
         'password',
         'role'
@@ -46,11 +47,11 @@ class User extends Authenticatable
         return $this->hasOne(WaliKelas::class);
     }
 
-    public function guru() {
-        return $this->hasOne(Guru::class);
-    }
-
     public function uploadTugas() {
         return $this->hasMany(UploadTugas::class);
+    }
+
+    public function mataPelajaran() {
+        return $this->hasMany(MataPelajaran::class);
     }
 }
