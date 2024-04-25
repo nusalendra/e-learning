@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\JadwalKelas;
+use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
 
 class JadwalKelasController extends Controller
@@ -14,7 +16,8 @@ class JadwalKelasController extends Controller
      */
     public function index()
     {
-        //
+        $data = JadwalKelas::all();
+        return view('pages.wali-kelas.jadwal-kelas.index', compact('data'));
     }
 
     /**
@@ -24,7 +27,9 @@ class JadwalKelasController extends Controller
      */
     public function create()
     {
-        //
+        $mataPelajaran = MataPelajaran::all();
+
+        return view('pages.wali-kelas.jadwal-kelas.create', compact('mataPelajaran'));
     }
 
     /**
@@ -35,7 +40,13 @@ class JadwalKelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $jadwalKelas = new JadwalKelas();
+        $jadwalKelas->hari = $request->hari;
+        $jadwalKelas->mata_pelajaran_id = $request->mata_pelajaran_id;
+        
+        $jadwalKelas->save();
+
+        return redirect('/jadwal-kelas');
     }
 
     /**
@@ -57,7 +68,10 @@ class JadwalKelasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = JadwalKelas::find($id);
+        $mataPelajaran = MataPelajaran::all();
+
+        return view('pages.wali-kelas.jadwal-kelas.edit', compact('data', 'mataPelajaran'));
     }
 
     /**
@@ -69,7 +83,13 @@ class JadwalKelasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $jadwalKelas = JadwalKelas::find($id);
+        $jadwalKelas->hari = $request->hari;
+        $jadwalKelas->mata_pelajaran_id = $request->mata_pelajaran_id;
+        
+        $jadwalKelas->save();
+
+        return redirect('/jadwal-kelas');
     }
 
     /**
@@ -80,6 +100,9 @@ class JadwalKelasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $jadwalKelas = JadwalKelas::find($id);
+        $jadwalKelas->delete();
+
+        return redirect('/jadwal-kelas');
     }
 }

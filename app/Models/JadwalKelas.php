@@ -13,6 +13,6 @@ class JadwalKelas extends Model
     protected $fillable = ['mata_pelajaran_id', 'hari'];
 
     public function mataPelajaran() {
-        return $this->belongsTo(mataPelajaran::class);
+        return $this->belongsTo(MataPelajaran::class);
     }
 }
