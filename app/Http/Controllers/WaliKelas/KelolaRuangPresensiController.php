@@ -5,7 +5,9 @@ namespace App\Http\Controllers\WaliKelas;
 use App\Http\Controllers\Controller;
 use App\Models\KelasSemester;
 use App\Models\RuangPresensi;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class KelolaRuangPresensiController extends Controller
 {
@@ -16,8 +18,11 @@ class KelolaRuangPresensiController extends Controller
      */
     public function index()
     {
-        $data = RuangPresensi::whereHas('kelasSemester', function($query) {
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $data = RuangPresensi::whereHas('kelasSemester', function($query) use ($kelasId) {
             $query->where('status', 'Dibuka');
+            $query->where('kelas_id', '=', $kelasId);
         })
         ->get();
 
