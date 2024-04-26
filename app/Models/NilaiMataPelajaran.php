@@ -10,14 +10,14 @@ class NilaiMataPelajaran extends Model
     use HasFactory;
     protected $table = 'nilai_mata_pelajaran';
     protected $primarykey = 'id';
-    protected $fillable = ['siswa_id','mata_pelajaran_id', 'upload_tugas_id', 'nilai'];
+    protected $fillable = ['siswa_mata_pelajaran_id', 'upload_tugas_id', 'nilai'];
 
     public function siswa() {
         return $this->belongsTo(Siswa::class);
     }
 
-    public function mataPelajaran() {
-        return $this->belongsTo(MataPelajaran::class);
+    public function siswaMataPelajaran() {
+        return $this->belongsTo(SiswaMataPelajaran::class);
     }
 
     public function uploadTugas() {

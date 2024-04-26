@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
+use App\Models\Siswa;
+use App\Models\SiswaMataPelajaran;
 use App\Models\User;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
@@ -49,8 +51,14 @@ class MataPelajaranController extends Controller
                         ->orWhere('role', 'Guru Agama')
                         ->orWhere('role', 'Guru Penjaskes')
                         ->get();
+
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $siswa = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
+            $query->where('status', 'Dibuka');
+            $query->where('kelas_id', $kelasId);
+        })->get();
                         
-        return view('pages.wali-kelas.mata-pelajaran.create', compact('pengajar', 'kategori', 'semester'));
+        return view('pages.wali-kelas.mata-pelajaran.create', compact('pengajar', 'kategori', 'semester', 'siswa'));
     }
 
     /**
@@ -69,6 +77,13 @@ class MataPelajaranController extends Controller
 
         $mataPelajaran->save();
 
+        foreach($request->siswa_id as $siswaId) {
+            SiswaMataPelajaran::updateOrCreate(
+                ['siswa_id' => $siswaId, 'mata_pelajaran_id' => $mataPelajaran->id],
+                ['siswa_id' => $siswaId, 'mata_pelajaran_id' => $mataPelajaran->id]
+            );
+        }
+
         return redirect('/mata-pelajaran');
     }
 
@@ -80,7 +95,13 @@ class MataPelajaranController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+
+        $kelasSemester = KelasSemester::where('kelas_id', $kelasId)->get();
+        $data = Siswa::where('kelas_semester_id', null)->get();
+
+        return view('pages.wali-kelas.mata-pelajaran.show', compact('data', 'kelasSemester'));
     }
 
     /**

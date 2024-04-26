@@ -50,6 +50,9 @@
                                                     <form action="/siswa/{{ $item->id }}/tambah-siswa" method="POST" role="form text-left">
                                                         @csrf
                                                         @method('PUT')
+                                                        @foreach ($mataPelajaran as $item)
+                                                            <input type="hidden" name="mata_pelajaran_id[]" value="{{ $item->id }}">
+                                                        @endforeach
                                                         @foreach ($kelasSemester as $item)
                                                         @if($item->status == 'Dibuka')
                                                                 <input type="hidden" name="kelas_semester_id" value="{{ $item->id }}">

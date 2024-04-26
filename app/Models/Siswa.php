@@ -35,4 +35,12 @@ class Siswa extends Model
     public function dataOrangTua() {
         return $this->hasOne(DataOrangTua::class);
     }
+
+    public function siswaMataPelajaran() {
+        return $this->belongsToMany(SiswaMataPelajaran::class, 'siswa_mata_pelajaran', 'siswa_id', 'mata_pelajaran_id');
+    }
+
+    public function mataPelajaran() {
+        return $this->belongsToMany(MataPelajaran::class);
+    }
 }
