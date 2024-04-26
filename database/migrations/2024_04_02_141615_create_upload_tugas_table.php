@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('upload_tugas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama_tugas');
             $table->string('upload_tugas');
             $table->timestamps();

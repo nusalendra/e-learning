@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\MataPelajaran;
+use App\Models\UploadTugas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class UploadTugasController extends Controller
 {
@@ -14,7 +19,15 @@ class UploadTugasController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $data = UploadTugas::whereHas('mataPelajaran', function($query) use ($user){
+            $query->where('user_id', $user->id)
+            ->whereHas('kelasSemester', function($query) {
+                $query->where('status', 'Dibuka');
+            });
+        })->get();
+        
+        return view('pages.wali-kelas.upload-tugas.index', compact('data'));
     }
 
     /**
@@ -24,7 +37,10 @@ class UploadTugasController extends Controller
      */
     public function create()
     {
-        //
+        $user = Auth::user();
+        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
+        
+        return view('pages.wali-kelas.upload-tugas.create', compact('user', 'mataPelajaran'));
     }
 
     /**
@@ -35,7 +51,19 @@ class UploadTugasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $uploadTugas = new UploadTugas();
+        $uploadTugas->user_id = $request->user_id;
+        $uploadTugas->mata_pelajaran_id = $request->mata_pelajaran_id;
+        $uploadTugas->nama_tugas = $request->nama_tugas;
+        if ($request->hasFile('upload_tugas')) {
+            $file = $request->file('upload_tugas');
+            $filename = $uploadTugas->mataPelajaran->nama . '_' . $uploadTugas->nama_tugas . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload_tugas'), $filename);
+            $uploadTugas->upload_tugas = $filename;
+        }
+        $uploadTugas->save();
+
+        return redirect('/upload-tugas');
     }
 
     /**
@@ -57,7 +85,11 @@ class UploadTugasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = Auth::user();
+        $data = UploadTugas::find($id);
+        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
+        
+        return view('pages.wali-kelas.upload-tugas.edit', compact('user', 'data', 'mataPelajaran'));
     }
 
     /**
@@ -69,7 +101,24 @@ class UploadTugasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $uploadTugas = UploadTugas::find($id);
+        $uploadTugas->user_id = $request->user_id;
+        $uploadTugas->mata_pelajaran_id = $request->mata_pelajaran_id;
+        $uploadTugas->nama_tugas = $request->nama_tugas;
+        if ($request->hasfile('upload_tugas')) {
+            if ($uploadTugas->upload_tugas) {
+                File::delete('upload_tugas/' . $uploadTugas->upload_tugas);
+            }
+
+            $file = $request->file('upload_tugas');
+            $filename = $uploadTugas->mataPelajaran->nama . '_' . $uploadTugas->nama_tugas . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('upload_tugas'), $filename);
+            $uploadTugas->upload_tugas = $filename;
+        }
+
+        $uploadTugas->save();
+
+        return redirect('/upload-tugas');
     }
 
     /**
@@ -80,6 +129,18 @@ class UploadTugasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = UploadTugas::find($id);
+
+        File::delete('upload_tugas/' . $data->upload_tugas);
+        $data->delete();
+
+        return redirect('/upload-tugas');
+    }
+
+    public function unduhTugas($id) {
+        $data = UploadTugas::find($id);
+        $file = public_path('upload_tugas/' . $data->upload_tugas);
+        
+        return Response::download($file);
     }
 }

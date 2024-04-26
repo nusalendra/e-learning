@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div class="text-end">
-            <a href="/kelas/create">
+            <a href="/upload-tugas/create">
                 <button type="button" class="btn bg-gradient-info">Tambah Data</button>
             </a>
         </div>
@@ -15,7 +15,9 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Mata Pelajaran</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Tugas</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Tanggal Upload Tugas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -32,14 +34,40 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->mataPelajaran->nama }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/kelas/{{ $item->id }}/edit">
+                                                    <h6 class="mb-0 text-sm">{{ $item->nama_tugas }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $item->created_at->format('d-m-Y') }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <form action="/upload-tugas/{{ $item->id }}/unduh-tugas" method="POST" role="form text-left">
+                                                        @csrf
+                                                        <button type="submit" class="btn bg-gradient-info">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-down" viewBox="0 0 16 16">
+                                                                <path d="M8.5 6.5a.5.5 0 0 0-1 0v3.793L6.354 9.146a.5.5 0 1 0-.708.708l2 2a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 10.293z"/>
+                                                                <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2M9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5z"/>
+                                                            </svg>
+                                                            Unduh Tugas
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                                <div class="ms-2 d-flex flex-column justify-content-center">
+                                                    <a href="/upload-tugas/{{ $item->id }}/edit">
                                                         <button type="button" class="btn bg-gradient-warning">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -50,7 +78,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/kelas/{{ $item->id }}" method="POST" role="form text-left">
+                                                    <form action="/upload-tugas/{{ $item->id }}" method="POST" role="form text-left">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn bg-gradient-danger">

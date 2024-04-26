@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
 use App\Models\User;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,10 +20,14 @@ class MataPelajaranController extends Controller
      */
     public function index()
     {
-        $data = MataPelajaran::whereHas('kelasSemester', function($query) {
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
+        $data = MataPelajaran::whereHas('kelasSemester', function($query) use ($kelasId) {
                 $query->where('status', 'Dibuka');
+                $query->where('kelas_id', $kelasId);
             })
             ->get();
+            
         return view('pages.wali-kelas.mata-pelajaran.index', compact('data'));
     }
 

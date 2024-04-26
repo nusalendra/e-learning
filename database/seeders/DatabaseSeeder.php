@@ -67,5 +67,13 @@ class DatabaseSeeder extends Seeder
             'semester_id' => 2,
             'status' => 'Ditutup'
         ]);
+
+        DB::table('kategori')->insert([
+            'nama' => 'Mata Pelajaran',
+        ]);
+
+        DB::table('kategori')->insert([
+            'nama' => 'Muatan Pelajaran',
+        ]);
     }
 }

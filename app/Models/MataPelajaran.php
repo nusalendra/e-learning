@@ -28,6 +28,10 @@ class MataPelajaran extends Model
         return $this->hasMany(JadwalKelas::class);
     }
 
+    public function uploadTugas() {
+        return $this->hasMany(UploadTugas::class);
+    }
+
     public function nilaiMataPelajaran() {
         return $this->hasMany(NilaiMataPelajaran::class);
     }

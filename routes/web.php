@@ -72,6 +72,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
 		Route::resource('/presensi', PresensiController::class);
 		Route::resource('/upload-tugas', UploadTugasController::class);
+		Route::post('/upload-tugas/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
 		Route::resource('/nilai-mata-pelajaran', NilaiMataPelajaranController::class);
 		Route::resource('/capaian-koompetensi', CapaianKompetensiController::class);
 		Route::resource('/unduh-rapor', UnduhRaporController::class);
