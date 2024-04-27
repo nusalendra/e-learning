@@ -4,6 +4,8 @@ namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
 use App\Models\MataPelajaran;
+use App\Models\NilaiMataPelajaran;
+use App\Models\SiswaMataPelajaran;
 use App\Models\UploadTugas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +41,8 @@ class UploadTugasController extends Controller
     {
         $user = Auth::user();
         $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
-        
+        // $siswa = SiswaMataPelajaran::where('mata_pelajaran_id', $mataPelajaran->id)->get();
+
         return view('pages.wali-kelas.upload-tugas.create', compact('user', 'mataPelajaran'));
     }
 
@@ -51,6 +54,7 @@ class UploadTugasController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->siswa_mata_pelajaran_id);
         $uploadTugas = new UploadTugas();
         $uploadTugas->user_id = $request->user_id;
         $uploadTugas->mata_pelajaran_id = $request->mata_pelajaran_id;
@@ -62,6 +66,14 @@ class UploadTugasController extends Controller
             $uploadTugas->upload_tugas = $filename;
         }
         $uploadTugas->save();
+
+        $siswa = SiswaMataPelajaran::where('mata_pelajaran_id', $request->mata_pelajaran_id)->get();
+        foreach($siswa as $item) {
+            NilaiMataPelajaran::create([
+                'siswa_mata_pelajaran_id' => $item->id,
+                'upload_tugas_id' => $uploadTugas->id
+            ]);
+        }
 
         return redirect('/upload-tugas');
     }

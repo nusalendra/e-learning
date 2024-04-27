@@ -65,14 +65,21 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('dashboard-wali-kelas');
 
 		Route::resource('/semester', SemesterController::class);
+		
 		Route::resource('/siswa', SiswaController::class);
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
+		
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
+		Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
+		Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);
+
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
 		Route::resource('/presensi', PresensiController::class);
+		
 		Route::resource('/upload-tugas', UploadTugasController::class);
 		Route::post('/upload-tugas/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
+		
 		Route::resource('/capaian-koompetensi', CapaianKompetensiController::class);
 		Route::resource('/unduh-rapor', UnduhRaporController::class);
 	});

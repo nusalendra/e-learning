@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Kategori;
 use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
+use App\Models\NilaiMataPelajaran;
 use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
+use App\Models\UploadTugas;
 use App\Models\User;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
@@ -77,11 +79,13 @@ class MataPelajaranController extends Controller
 
         $mataPelajaran->save();
 
-        foreach($request->siswa_id as $siswaId) {
-            SiswaMataPelajaran::updateOrCreate(
-                ['siswa_id' => $siswaId, 'mata_pelajaran_id' => $mataPelajaran->id],
-                ['siswa_id' => $siswaId, 'mata_pelajaran_id' => $mataPelajaran->id]
-            );
+        if($request->siswa_id) {
+            foreach($request->siswa_id as $siswaId) {
+                SiswaMataPelajaran::updateOrCreate(
+                    ['siswa_id' => $siswaId, 'mata_pelajaran_id' => $mataPelajaran->id],
+                    ['siswa_id' => $siswaId, 'mata_pelajaran_id' => $mataPelajaran->id]
+                );
+            }
         }
 
         return redirect('/mata-pelajaran');
@@ -96,12 +100,13 @@ class MataPelajaranController extends Controller
     public function show($id)
     {
         $user = Auth::user();
+        $mataPelajaran = MataPelajaran::find($id);
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
 
         $kelasSemester = KelasSemester::where('kelas_id', $kelasId)->get();
-        $data = Siswa::where('kelas_semester_id', null)->get();
+        $data = SiswaMataPelajaran::where('mata_pelajaran_id', $id)->get();
 
-        return view('pages.wali-kelas.mata-pelajaran.show', compact('data', 'kelasSemester'));
+        return view('pages.wali-kelas.mata-pelajaran.show', compact('data', 'mataPelajaran', 'kelasSemester'));
     }
 
     /**
@@ -160,5 +165,25 @@ class MataPelajaranController extends Controller
         $mataPelajaran->delete();
 
         return redirect('/mata-pelajaran');
+    }
+
+    public function pageInputNilai($id) {
+        $data = SiswaMataPelajaran::find($id);
+        $uploadTugas = UploadTugas::where('mata_pelajaran_id', $data->mata_pelajaran_id)->get();
+        $nilaiMataPelajaran = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $id)->get();
+        
+        return view('pages.wali-kelas.mata-pelajaran.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran'));
+    }
+
+    public function inputNilaiStore(Request $request) {
+        foreach($request->upload_tugas_id as $uploadTugas) {
+            $nilai = 'nilai_' . $uploadTugas;
+            NilaiMataPelajaran::updateOrCreate(
+                ['siswa_mata_pelajaran_id' => $request->siswa_mata_pelajaran_id, 'upload_tugas_id' => $uploadTugas],
+                ['nilai' => $request->$nilai]
+            );
+        }
+
+        return redirect()->route('mata-pelajaran.show', ['mata_pelajaran' => $request->siswa_id]);
     }
 }
