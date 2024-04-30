@@ -9,6 +9,9 @@
         <div class="card-body pt-4 p-3">
             <form action="/mata-pelajaran" method="POST" role="form text-left">
                 @csrf
+                @foreach ($siswa as $item) 
+                    <input type="hidden" name="siswa_id[]" value="{{ $item->id }}">
+                @endforeach
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">

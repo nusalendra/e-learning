@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('nilai_mata_pelajaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('siswa_mata_pelajaran_id')->constrained('siswa_mata_pelajaran')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('upload_tugas_id')->constrained('upload_tugas')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->integer('nilai');
+            $table->integer('nilai')->nullable();
             $table->timestamps();
         });
     }

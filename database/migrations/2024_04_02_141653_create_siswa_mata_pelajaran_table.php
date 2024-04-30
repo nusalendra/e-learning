@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('upload_tugas', function (Blueprint $table) {
+        Schema::create('siswa_mata_pelajaran', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('mata_pelajaran_id')->constrained('mata_pelajaran')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('nama_tugas');
-            $table->string('upload_tugas');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('upload_tugas');
+        Schema::dropIfExists('siswa_mata_pelajaran');
     }
 };

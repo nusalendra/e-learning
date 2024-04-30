@@ -6,7 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\DataOrangTua;
 use App\Models\DataSiswa;
 use App\Models\KelasSemester;
+use App\Models\MataPelajaran;
+use App\Models\NilaiMataPelajaran;
 use App\Models\Siswa;
+use App\Models\SiswaMataPelajaran;
+use App\Models\UploadTugas;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +47,12 @@ class SiswaController extends Controller
         $kelasSemester = KelasSemester::where('kelas_id', $kelasId)->get();
         $data = Siswa::where('kelas_semester_id', null)->get();
 
-        return view('pages.wali-kelas.siswa.create', compact('data', 'kelasSemester'));
+        $mataPelajaran = MataPelajaran::whereHas('kelasSemester', function($query) use ($kelasId) {
+                $query->where('status', 'Dibuka');
+                $query->where('kelas_id', $kelasId);
+            })->get();
+        
+        return view('pages.wali-kelas.siswa.create', compact('data', 'kelasSemester', 'mataPelajaran'));
     }
 
     /**
@@ -85,6 +94,24 @@ class SiswaController extends Controller
         $data = Siswa::find($id);
         $data->kelas_semester_id = $request->kelas_semester_id;
         $data->save();
+
+        if($request->mata_pelajaran_id) {
+            foreach($request->mata_pelajaran_id as $mataPelajaran) {
+                $siswaMataPelajaran = SiswaMataPelajaran::updateOrCreate(
+                    ['siswa_id' => $id, 'mata_pelajaran_id' => $mataPelajaran],
+                    ['mata_pelajaran_id' => $mataPelajaran]
+                );
+
+                $uploadTugas = UploadTugas::where('mata_pelajaran_id', $mataPelajaran)->get();
+                foreach($uploadTugas as $item) {
+                    NilaiMataPelajaran::create([
+                        'siswa_mata_pelajaran_id' => $siswaMataPelajaran->id,
+                        'upload_tugas_id' => $item->id
+                    ]);
+                }
+            }
+        }
+
 
         return back();
     }

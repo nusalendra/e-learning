@@ -28,7 +28,19 @@ class MataPelajaran extends Model
         return $this->hasMany(JadwalKelas::class);
     }
 
+    public function uploadTugas() {
+        return $this->hasMany(UploadTugas::class);
+    }
+
     public function nilaiMataPelajaran() {
         return $this->hasMany(NilaiMataPelajaran::class);
+    }
+
+    public function siswaMataPelajaran() {
+        return $this->belongsToMany(SiswaMataPelajaran::class, 'siswa_mata_pelajaran', 'mata_pelajaran_id', 'siswa_id');
+    }
+
+    public function siswa() {
+        return $this->belongsToMany(Siswa::class);
     }
 }

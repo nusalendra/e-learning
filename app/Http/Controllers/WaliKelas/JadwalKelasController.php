@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\JadwalKelas;
 use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalKelasController extends Controller
 {
@@ -16,7 +17,14 @@ class JadwalKelasController extends Controller
      */
     public function index()
     {
-        $data = JadwalKelas::all();
+        $user = Auth::user();
+        $data = JadwalKelas::whereHas('mataPelajaran', function($query) use ($user){
+            $query->where('user_id', $user->id)
+                  ->whereHas('kelasSemester', function($query) {
+                      $query->where('status', 'Dibuka');
+                  });
+        })->get();
+        
         return view('pages.wali-kelas.jadwal-kelas.index', compact('data'));
     }
 
