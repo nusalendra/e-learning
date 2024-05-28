@@ -75,5 +75,162 @@ class DatabaseSeeder extends Seeder
         DB::table('kategori')->insert([
             'nama' => 'Muatan Pelajaran',
         ]);
+
+        DB::table('ekstrakulikuler')->insert([
+            'nama' => 'Pramuka',
+        ]);
+
+        DB::table('ekstrakulikuler')->insert([
+            'nama' => 'Sepak Bola',
+        ]);
+
+        DB::table('ekstrakulikuler')->insert([
+            'nama' => 'Bulu Tangkis',
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Intan',
+        ]);
+
+        DB::table('data_siswa')->insert([
+            'siswa_id' => 1,
+            'NIS' => '12345',
+            'NISN' => '12345',
+            'jenis_kelamin' => 'Perempuan',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 1,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Joko',
+        ]);
+
+        DB::table('data_siswa')->insert([
+            'siswa_id' => 2,
+            'NIS' => '22345',
+            'NISN' => '22345',
+            'jenis_kelamin' => 'Laki-Laki',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 2,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Dewa',
+        ]);
+
+        DB::table('data_siswa')->insert([
+            'siswa_id' => 3,
+            'NIS' => '22345',
+            'NISN' => '22345',
+            'jenis_kelamin' => 'Laki-Laki',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 3,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Dewi',
+        ]);
+
+        DB::table('data_siswa')->insert([
+            'siswa_id' => 4,
+            'NIS' => '22345',
+            'NISN' => '22345',
+            'jenis_kelamin' => 'Perempuan',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 4,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Della',
+        ]);
+
+        DB::table('data_siswa')->insert([
+            'siswa_id' => 5,
+            'NIS' => '22355',
+            'NISN' => '22355',
+            'jenis_kelamin' => 'Perempuan',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 5,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
     }
 }

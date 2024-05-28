@@ -14,6 +14,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\WaliKelas\CapaianKompetensiController;
+use App\Http\Controllers\WaliKelas\EkstrakulikulerSiswaController;
 use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
 use App\Http\Controllers\WaliKelas\MataPelajaranController;
@@ -69,6 +70,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/siswa', SiswaController::class);
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
 		
+		Route::resource('/ekstrakulikuler-siswa', EkstrakulikulerSiswaController::class);
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
 		Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);

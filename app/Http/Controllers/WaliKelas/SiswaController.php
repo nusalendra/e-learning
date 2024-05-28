@@ -26,11 +26,12 @@ class SiswaController extends Controller
     {
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
-        $data = Siswa::join('kelas_semester', 'siswa.kelas_semester_id', 'kelas_semester.id')
-            ->where('kelas_semester.kelas_id', $kelasId)
-            ->where('kelas_semester.status', '=', 'Dibuka')
-            ->get();
-
+        $data = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
+            $query->where('status', 'Dibuka');
+            $query->where('kelas_id', $kelasId);
+        })
+        ->get();
+        
         return view('pages.wali-kelas.siswa.index', compact('data'));
     }
 
