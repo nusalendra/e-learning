@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\Guru\MataPelajaranGuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
@@ -36,12 +37,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::group(['middleware' => ['auth']], function () {
 	// Kepala Sekolah
 	Route::group(['middleware' => 'role:Kepala Sekolah'], function () {
-        Route::get('dashboard-kepala-sekolah', function () {
-            return view('pages.kepala-sekolah.dashboard-kepala-sekolah');
-        })->name('dashboard-kepala-sekolah');
+		Route::get('dashboard-kepala-sekolah', function () {
+			return view('pages.kepala-sekolah.dashboard-kepala-sekolah');
+		})->name('dashboard-kepala-sekolah');
 
 		Route::resource('/periode', PeriodeController::class);
 		Route::resource('/kelas', KelasController::class);
@@ -50,13 +52,13 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/identitas-siswa', IdentitasSiswaController::class);
 		Route::resource('/kategori', KategoriController::class);
 		Route::resource('/ekstrakulikuler', EkstrakulikulerController::class);
-	
+
 		Route::get('/user-profile', [InfoUserController::class, 'create']);
 		Route::post('/user-profile', [InfoUserController::class, 'store']);
 		Route::get('/login', function () {
 			return view('dashboard');
 		})->name('sign-up');
-    });
+	});
 
 	// Wali Kelas
 	Route::group(['middleware' => 'role:Wali Kelas'], function () {
@@ -66,10 +68,10 @@ Route::group(['middleware' => ['auth']], function () {
 		})->name('dashboard-wali-kelas');
 
 		Route::resource('/semester', SemesterController::class);
-		
+
 		Route::resource('/siswa', SiswaController::class);
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
-		
+
 		Route::resource('/ekstrakulikuler-siswa', EkstrakulikulerSiswaController::class);
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
@@ -78,12 +80,31 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
 		Route::resource('/presensi', PresensiController::class);
-		
+
 		Route::resource('/upload-tugas', UploadTugasController::class);
 		Route::post('/upload-tugas/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
-		
+
 		Route::resource('/capaian-koompetensi', CapaianKompetensiController::class);
 		Route::resource('/unduh-rapor', UnduhRaporController::class);
+	});
+
+	Route::group(['middleware' => 'role:Guru'], function () {
+		Route::get('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'index'])->name('mata-pelajaran-guru');
+		Route::get('/mata-pelajaran-guru/create', [MataPelajaranGuruController::class, 'create']);
+		Route::post('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'store']);
+		Route::get('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'show']);
+		Route::get('/mata-pelajaran-guru/{id}/edit', [MataPelajaranGuruController::class, 'edit']);
+		Route::put('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'update']);
+		Route::delete('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'destroy']);
+		Route::get('/mata-pelajaran-guru/{id}/input-nilai', [MataPelajaranGuruController::class, 'pageInputNilai']);
+		Route::post('/mata-pelajaran-guru/input-nilai', [MataPelajaranGuruController::class, 'inputNilaiStore']);
+
+		Route::resource('/jadwal-kelas-guru', JadwalKelasController::class);
+		Route::resource('/kelola-ruang-presensi-guru', KelolaRuangPresensiController::class);
+		Route::resource('/presensi-guru', PresensiController::class);
+
+		Route::resource('/upload-tugas-guru', UploadTugasController::class);
+		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
 	});
 
 	Route::get('billing', function () {
@@ -117,22 +138,21 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::get('static-sign-up', function () {
 		return view('static-sign-up');
 	})->name('sign-up');
-	
+
 	Route::get('/logout', [SessionsController::class, 'destroy']);
 });
 
 Route::group(['middleware' => 'guest'], function () {
-    Route::get('/register', [RegisterController::class, 'create']);
-    Route::post('/register', [RegisterController::class, 'store']);
-    Route::get('/login', [SessionsController::class, 'create']);
-    Route::post('/session', [SessionsController::class, 'store']);
+	Route::get('/register', [RegisterController::class, 'create']);
+	Route::post('/register', [RegisterController::class, 'store']);
+	Route::get('/login', [SessionsController::class, 'create']);
+	Route::post('/session', [SessionsController::class, 'store']);
 	Route::get('/login/forgot-password', [ResetController::class, 'create']);
 	Route::post('/forgot-password', [ResetController::class, 'sendEmail']);
 	Route::get('/reset-password/{token}', [ResetController::class, 'resetPass'])->name('password.reset');
 	Route::post('/reset-password', [ChangePasswordController::class, 'changePassword'])->name('password.update');
-
 });
 
 Route::get('/login', function () {
-    return view('session/login-session');
+	return view('session/login-session');
 })->name('login');

@@ -21,9 +21,7 @@
                         <div class="form-group">
                             <label for="role" class="form-control-label">Jabatan <span class="text-danger">*</span></label>
                             <select name="role" id="" class="form-select">
-                                <option value="0" selected disabled>Pilih Jabatan</option>
-                                <option value="Guru Agama" {{ $data->role === 'Guru Agama' ? 'selected' : '' }}>Guru Agama</option>
-                                <option value="Guru Penjaskes" {{ $data->role === 'Guru Penjaskes' ? 'selected' : '' }}>Guru Penjaskes</option>
+                                <option value="Guru">Guru</option>
                             </select>
                         </div>
                     </div>

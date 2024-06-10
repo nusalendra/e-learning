@@ -1,16 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\KepalaSekolah;
+namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
-use App\Models\Guru;
-use App\Models\Kelas;
-use App\Models\User;
-use App\Models\WaliKelas;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class GuruController extends Controller
+class JadwalKelasGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,8 +14,7 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $data = User::where('role', '=', 'Guru')->get();
-        return view('pages.kepala-sekolah.guru.index', compact('data'));
+        //
     }
 
     /**
@@ -30,7 +24,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return view('pages.kepala-sekolah.guru.create');
+        //
     }
 
     /**
@@ -41,15 +35,7 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-        
-        $user->save();
-
-        return redirect('/guru');
+        //
     }
 
     /**
@@ -71,10 +57,7 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $data = User::with('waliKelas')->find($id);
-        $kelas = Kelas::all();
-
-        return view('pages.kepala-sekolah.guru.edit', compact('data', 'kelas'));
+        //
     }
 
     /**
@@ -86,15 +69,7 @@ class GuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->name = $request->name;
-        $user->username = $request->username;
-        $user->password = Hash::make($request->password);
-        $user->role = $request->role;
-
-        $user->save();
-
-        return redirect('/guru');
+        //
     }
 
     /**
@@ -105,10 +80,6 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        $data = User::find($id);
-
-        $data->delete();
-
-        return redirect('/guru');
+        //
     }
 }

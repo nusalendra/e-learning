@@ -25,8 +25,8 @@ class RoleMiddleware
                 return redirect()->route('dashboard-kepala-sekolah')->with('error', 'You do not have permission to access this page.');
             case 'Wali Kelas':
                 return redirect()->route('dashboard-wali-kelas')->with('error', 'You do not have permission to access this page.');
-            case 'Admin':
-                return redirect()->route('dashboard')->with('error', 'You do not have permission to access this page.');
+            case 'Guru':
+                return redirect()->route('mata-pelajaran-guru')->with('error', 'You do not have permission to access this page.');
             default:
                 return redirect()->route('login')->with('error', 'You do not have permission to access this page.');
         }
