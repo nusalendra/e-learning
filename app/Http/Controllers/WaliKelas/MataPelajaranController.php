@@ -50,8 +50,7 @@ class MataPelajaranController extends Controller
                             $query->where('role', 'Wali Kelas')
                                 ->where('id', $user->id);
                         })
-                        ->orWhere('role', 'Guru Agama')
-                        ->orWhere('role', 'Guru Penjaskes')
+                        ->orWhere('role', 'Guru')
                         ->get();
 
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
@@ -126,8 +125,7 @@ class MataPelajaranController extends Controller
                             $query->where('role', 'Wali Kelas')
                                 ->where('id', $user->id);
                         })
-                        ->orWhere('role', 'Guru Agama')
-                        ->orWhere('role', 'Guru Penjaskes')
+                        ->orWhere('role', 'Guru')
                         ->get();
                         
         return view('pages.wali-kelas.mata-pelajaran.edit', compact('data', 'pengajar', 'kategori', 'semester'));

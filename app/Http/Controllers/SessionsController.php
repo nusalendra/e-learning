@@ -27,10 +27,8 @@ class SessionsController extends Controller
                 return redirect('dashboard-kepala-sekolah')->with(['success'=>'Kamu sudah login']);
             } else if(Auth::user()->role == "Wali Kelas") {
                 return redirect('dashboard-wali-kelas')->with(['success'=>'Kamu sudah login']);
-            } else if(Auth::user()->role == "Guru Penjaskes") {
-                return redirect('#')->with(['success'=>'Kamu sudah login']);
-            } else if(Auth::user()->role == "Guru Agama") {
-                return redirect('#')->with(['success'=>'Kamu sudah login']);
+            } else if(Auth::user()->role == "Guru") {
+                return redirect('mata-pelajaran-guru');
             }
         }
         else{
