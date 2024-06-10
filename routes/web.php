@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\Guru\JadwalKelasGuruController;
 use App\Http\Controllers\Guru\MataPelajaranGuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
@@ -99,7 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/mata-pelajaran-guru/{id}/input-nilai', [MataPelajaranGuruController::class, 'pageInputNilai']);
 		Route::post('/mata-pelajaran-guru/input-nilai', [MataPelajaranGuruController::class, 'inputNilaiStore']);
 
-		Route::resource('/jadwal-kelas-guru', JadwalKelasController::class);
+		Route::get('/jadwal-kelas-guru', [JadwalKelasGuruController::class, 'index'])->name('jadwal-kelas-guru');
 		Route::resource('/kelola-ruang-presensi-guru', KelolaRuangPresensiController::class);
 		Route::resource('/presensi-guru', PresensiController::class);
 

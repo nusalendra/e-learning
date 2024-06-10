@@ -25,7 +25,9 @@ class MataPelajaranGuruController extends Controller
     public function index()
     {
         $user = Auth::user(); 
-        $data = MataPelajaran::where('user_id', $user->id)->get();
+        $data = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function($query) {
+            $query->where('status', 'Dibuka');
+        })->get();
             
         return view('pages.guru.mata-pelajaran.index', compact('data'));
     }

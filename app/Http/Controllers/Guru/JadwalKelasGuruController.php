@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
+use App\Models\JadwalKelas;
+use App\Models\MataPelajaran;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JadwalKelasGuruController extends Controller
 {
@@ -14,7 +17,15 @@ class JadwalKelasGuruController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $data = JadwalKelas::whereHas('mataPelajaran', function($query) use ($user){
+            $query->where('user_id', $user->id)
+                  ->whereHas('kelasSemester', function($query) {
+                      $query->where('status', 'Dibuka');
+                  });
+        })->get();
+        
+        return view('pages.guru.jadwal-kelas.index', compact('data'));
     }
 
     /**
@@ -24,7 +35,7 @@ class JadwalKelasGuruController extends Controller
      */
     public function create()
     {
-        //
+        // 
     }
 
     /**
@@ -35,7 +46,7 @@ class JadwalKelasGuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
@@ -57,7 +68,7 @@ class JadwalKelasGuruController extends Controller
      */
     public function edit($id)
     {
-        //
+        // 
     }
 
     /**
@@ -69,7 +80,7 @@ class JadwalKelasGuruController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 
     }
 
     /**
@@ -80,6 +91,6 @@ class JadwalKelasGuruController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // 
     }
 }
