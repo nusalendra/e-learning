@@ -14,6 +14,7 @@
                     @foreach ($uploadTugas as $item)
                         <input type="hidden" value="{{ $item->id }}" name="upload_tugas_id[]">
                         <input type="hidden" value="{{ $data->id }}" name="siswa_id">
+                        <input type="hidden" value="{{ $mataPelajaranId }}" name="mata_pelajaran_id">
                         <div class="row">
                             <div class="col-md-2 mt-1">
                                 <div class="form-group">

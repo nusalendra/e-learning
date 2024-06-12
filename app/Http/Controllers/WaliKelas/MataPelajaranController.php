@@ -168,10 +168,11 @@ class MataPelajaranController extends Controller
 
     public function pageInputNilai($id) {
         $data = SiswaMataPelajaran::find($id);
+        $mataPelajaranId = MataPelajaran::where('id', $data->mata_pelajaran_id)->value('id');
         $uploadTugas = UploadTugas::where('mata_pelajaran_id', $data->mata_pelajaran_id)->get();
         $nilaiMataPelajaran = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $id)->get();
         
-        return view('pages.wali-kelas.mata-pelajaran.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran'));
+        return view('pages.wali-kelas.mata-pelajaran.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran', 'mataPelajaranId'));
     }
 
     public function inputNilaiStore(Request $request) {
@@ -183,6 +184,6 @@ class MataPelajaranController extends Controller
             );
         }
 
-        return redirect()->route('mata-pelajaran.show', ['mata_pelajaran' => $request->siswa_id]);
+        return redirect()->route('mata-pelajaran.show', ['mata_pelajaran' => $request->mata_pelajaran_id]);
     }
 }
