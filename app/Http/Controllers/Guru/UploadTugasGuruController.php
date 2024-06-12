@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WaliKelas;
+namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\MataPelajaran;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Response;
 
-class UploadTugasController extends Controller
+class UploadTugasGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +29,7 @@ class UploadTugasController extends Controller
                 });
         })->get();
 
-        return view('pages.wali-kelas.upload-tugas.index', compact('data'));
+        return view('pages.guru.upload-tugas.index', compact('data'));
     }
 
     /**
@@ -43,7 +43,7 @@ class UploadTugasController extends Controller
         $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
         // $siswa = SiswaMataPelajaran::where('mata_pelajaran_id', $mataPelajaran->id)->get();
 
-        return view('pages.wali-kelas.upload-tugas.create', compact('user', 'mataPelajaran'));
+        return view('pages.guru.upload-tugas.create', compact('user', 'mataPelajaran'));
     }
 
     /**
@@ -54,7 +54,7 @@ class UploadTugasController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->siswa_mata_pelajaran_id);
+
         $uploadTugas = new UploadTugas();
         $uploadTugas->user_id = $request->user_id;
         $uploadTugas->mata_pelajaran_id = $request->mata_pelajaran_id;
@@ -87,7 +87,7 @@ class UploadTugasController extends Controller
             ]);
         }
 
-        return redirect('/upload-tugas');
+        return redirect('/upload-tugas-guru');
     }
 
     /**
@@ -113,7 +113,7 @@ class UploadTugasController extends Controller
         $data = UploadTugas::find($id);
         $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
 
-        return view('pages.wali-kelas.upload-tugas.edit', compact('user', 'data', 'mataPelajaran'));
+        return view('pages.guru.upload-tugas.edit', compact('user', 'data', 'mataPelajaran'));
     }
 
     /**
@@ -156,7 +156,7 @@ class UploadTugasController extends Controller
 
         $uploadTugas->save();
 
-        return redirect('/upload-tugas');
+        return redirect('/upload-tugas-guru');
     }
 
     /**
@@ -177,7 +177,7 @@ class UploadTugasController extends Controller
         }
         $data->delete();
 
-        return redirect('/upload-tugas');
+        return redirect('/upload-tugas-guru');
     }
 
     public function unduhTugas($id)

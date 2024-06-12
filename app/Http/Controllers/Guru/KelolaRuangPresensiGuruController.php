@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WaliKelas;
+namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\KelasSemester;
@@ -9,9 +9,9 @@ use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class KelolaRuangPresensiController extends Controller
+class KelolaRuangPresensiGuruController extends Controller
 {
-    /**
+   /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -19,14 +19,12 @@ class KelolaRuangPresensiController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function($query) use ($kelasId) {
+        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function($query) {
             $query->where('status', 'Dibuka');
-            $query->where('kelas_id', '=', $kelasId);
         })
         ->get();
 
-        return view('pages.wali-kelas.kelola-ruang-presensi.index', compact('data'));
+        return view('pages.guru.kelola-ruang-presensi.index', compact('data'));
     }
 
     /**
@@ -38,7 +36,7 @@ class KelolaRuangPresensiController extends Controller
     {
         $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
 
-        return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester'));
+        return view('pages.guru.kelola-ruang-presensi.create', compact('semester'));
     }
 
     /**
@@ -56,7 +54,7 @@ class KelolaRuangPresensiController extends Controller
         $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
         $ruangPresensi->save();
 
-        return redirect('/kelola-ruang-presensi');
+        return redirect('/kelola-ruang-presensi-guru');
     }
 
     /**
@@ -81,7 +79,7 @@ class KelolaRuangPresensiController extends Controller
         $data = RuangPresensi::find($id);
         $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
 
-        return view('pages.wali-kelas.kelola-ruang-presensi.edit', compact('data', 'semester'));
+        return view('pages.guru.kelola-ruang-presensi.edit', compact('data', 'semester'));
     }
 
     /**
@@ -98,7 +96,7 @@ class KelolaRuangPresensiController extends Controller
         $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
         $ruangPresensi->save();
 
-        return redirect('/kelola-ruang-presensi');
+        return redirect('/kelola-ruang-presensi-guru');
     }
 
     /**
@@ -112,6 +110,6 @@ class KelolaRuangPresensiController extends Controller
         $ruangPresensi = RuangPresensi::find($id);
         $ruangPresensi->delete();
 
-        return redirect('/kelola-ruang-presensi');
+        return redirect('/kelola-ruang-presensi-guru');
     }
 }

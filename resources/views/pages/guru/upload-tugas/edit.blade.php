@@ -1,4 +1,4 @@
-@extends('layouts.user_type.wali-kelas.form')
+@extends('layouts.user_type.guru.form')
 
 @section('content')
 <div class="container-fluid py-4 mt-10">
@@ -7,7 +7,7 @@
             <h6 class="mb-0">Edit Tugas</h6>
         </div>
         <div class="card-body pt-4 p-3">
-            <form action="/upload-tugas/{{ $data->id }}" method="POST" role="form text-left" enctype="multipart/form-data">
+            <form action="/upload-tugas-guru/{{ $data->id }}" method="POST" role="form text-left" enctype="multipart/form-data">
                 @method('PUT')
                 @csrf
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="/upload-tugas" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
+                    <a href="/upload-tugas-guru" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
                     <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Simpan' }}</button>
                 </div>
             </form>

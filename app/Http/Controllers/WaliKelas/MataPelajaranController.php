@@ -44,7 +44,8 @@ class MataPelajaranController extends Controller
     {
         $user = Auth::user();
         $kategori = Kategori::all();
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
+        $semester = KelasSemester::where('status', '=', 'Dibuka')->whereIn('kelas_id', $kelasId)->get();
         $pengajar = User::where('role', '!=', 'Kepala Sekolah')
                         ->where(function($query) use ($user) {
                             $query->where('role', 'Wali Kelas')

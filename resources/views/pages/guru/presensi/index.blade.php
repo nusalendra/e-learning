@@ -1,20 +1,16 @@
-@extends('layouts.user_type.guru.form')
+@extends('layouts.user_type.guru.auth')
 
 @section('content')
     <div>
         <div class="py-1">
             <div class="card mb-4 p-3">
-                <div class="py-2 px-1">
-                    <h6 class="mb-0 fs-5"></h6>
-                    <h6 class="mb-0 fs-5">{{ $mataPelajaran->nama }}</h6>
-                </div>
-                <div class="card-body px-0 pt-0 pb-2 mt-3">
+                <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table id="myTable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Tanggal Presensi</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -31,19 +27,19 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->siswa->nama }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ date('d-m-Y', strtotime($item->tanggal_presensi)) }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/mata-pelajaran-guru/{{ $item->id }}/input-nilai">
-                                                        <button type="button" class="btn bg-gradient-info">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+                                                    <a href="/presensi-guru/{{ $item->id }}/edit">
+                                                        <button type="button" class="btn bg-gradient-warning">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
+                                                                <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0m0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
                                                             </svg>
-                                                            Input Nilai
+                                                            Presensi
                                                         </button>
                                                     </a>
                                                 </div>

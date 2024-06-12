@@ -1,13 +1,13 @@
-@extends('layouts.user_type.wali-kelas.form')
+@extends('layouts.user_type.guru.form')
 
 @section('content')
 <div class="container-fluid py-4 mt-10">
     <div class="card">
         <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Edit Data Presensi</h6>
+            <h6 class="mb-0">Edit Data Kelas</h6>
         </div>
         <div class="card-body pt-4 p-3">
-            <form action="/kelola-ruang-presensi/{{ $data->id }}" method="POST" role="form text-left">
+            <form action="/kelola-ruang-presensi-guru/{{ $data->id }}" method="POST" role="form text-left">
                 @method('PUT')
                 @csrf
                 <div class="row">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="/kelola-ruang-presensi" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
+                    <a href="/kelola-ruang-presensi-guru" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
                     <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Simpan' }}</button>
                 </div>
             </form>

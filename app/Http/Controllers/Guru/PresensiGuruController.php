@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\WaliKelas;
+namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
-use App\Models\KelasSemester;
+use App\Models\Presensi;
 use App\Models\RuangPresensi;
+use App\Models\Siswa;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class KelolaRuangPresensiController extends Controller
+class PresensiGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,14 +20,12 @@ class KelolaRuangPresensiController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function($query) use ($kelasId) {
+        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function($query) {
             $query->where('status', 'Dibuka');
-            $query->where('kelas_id', '=', $kelasId);
         })
         ->get();
 
-        return view('pages.wali-kelas.kelola-ruang-presensi.index', compact('data'));
+        return view('pages.guru.presensi.index', compact('data'));
     }
 
     /**
@@ -36,9 +35,7 @@ class KelolaRuangPresensiController extends Controller
      */
     public function create()
     {
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
-
-        return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester'));
+        
     }
 
     /**
@@ -49,14 +46,27 @@ class KelolaRuangPresensiController extends Controller
      */
     public function store(Request $request)
     {
-        $user = Auth::user();
-        $ruangPresensi = new RuangPresensi();
-        $ruangPresensi->kelas_semester_id = $request->semester_id;
-        $ruangPresensi->user_id = $user->id;
-        $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
-        $ruangPresensi->save();
+        $ruangPresensi = RuangPresensi::where('user_id', $request->user()->id)
+            ->where('id', $request->ruang_presensi_id)
+            ->first();
 
-        return redirect('/kelola-ruang-presensi');
+        if ($ruangPresensi) {
+            foreach ($request->siswa_id as $index => $siswaId) {
+                Presensi::updateOrCreate(
+                    [
+                        'siswa_id' => $siswaId,
+                        'ruang_presensi_id' => $ruangPresensi->id
+                    ],
+                    [
+                        'status_presensi' => $request->status_presensi[$index]
+                    ]
+                );
+            }
+        } else {
+            return response()->json(['error' => 'Ruang presensi tidak ditemukan atau tidak dimiliki oleh user saat ini.'], 404);
+        }
+
+        return redirect('/presensi-guru');
     }
 
     /**
@@ -78,10 +88,13 @@ class KelolaRuangPresensiController extends Controller
      */
     public function edit($id)
     {
-        $data = RuangPresensi::find($id);
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
-
-        return view('pages.wali-kelas.kelola-ruang-presensi.edit', compact('data', 'semester'));
+        $ruangPresensi = RuangPresensi::find($id);
+        
+        $siswa = Siswa::whereHas('kelasSemester', function($query) use ($ruangPresensi) {
+            $query->where('kelas_id', '=', $ruangPresensi->kelasSemester->kelas->id);
+        })->get();
+        
+        return view('pages.guru.presensi.presensi-siswa', compact('ruangPresensi', 'siswa'));
     }
 
     /**
@@ -93,12 +106,7 @@ class KelolaRuangPresensiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $ruangPresensi = RuangPresensi::find($id);
-        $ruangPresensi->kelas_semester_id = $request->semester_id;
-        $ruangPresensi->tanggal_presensi = $request->tanggal_presensi;
-        $ruangPresensi->save();
-
-        return redirect('/kelola-ruang-presensi');
+        //
     }
 
     /**
@@ -109,9 +117,6 @@ class KelolaRuangPresensiController extends Controller
      */
     public function destroy($id)
     {
-        $ruangPresensi = RuangPresensi::find($id);
-        $ruangPresensi->delete();
-
-        return redirect('/kelola-ruang-presensi');
+        //
     }
 }

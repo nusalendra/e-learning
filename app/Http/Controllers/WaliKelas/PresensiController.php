@@ -21,11 +21,11 @@ class PresensiController extends Controller
     {
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $data = RuangPresensi::whereHas('kelasSemester', function($query) use ($kelasId) {
+        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($kelasId) {
             $query->where('status', 'Dibuka');
             $query->where('kelas_id', '=', $kelasId);
         })
-        ->get();
+            ->get();
 
         return view('pages.wali-kelas.presensi.index', compact('data'));
     }
@@ -37,7 +37,6 @@ class PresensiController extends Controller
      */
     public function create()
     {
-        
     }
 
     /**
@@ -48,14 +47,24 @@ class PresensiController extends Controller
      */
     public function store(Request $request)
     {
-        foreach($request->siswa_id as $index => $siswaId) {
-            Presensi::updateOrCreate(
-                ['siswa_id' => $siswaId],
-                [
-                    'ruang_presensi_id' => $request->ruang_presensi_id,
-                    'status_presensi' => $request->status_presensi[$index]
-                ]
-            );
+        $ruangPresensi = RuangPresensi::where('user_id', $request->user()->id)
+            ->where('id', $request->ruang_presensi_id)
+            ->first();
+
+        if ($ruangPresensi) {
+            foreach ($request->siswa_id as $index => $siswaId) {
+                Presensi::updateOrCreate(
+                    [
+                        'siswa_id' => $siswaId,
+                        'ruang_presensi_id' => $ruangPresensi->id
+                    ],
+                    [
+                        'status_presensi' => $request->status_presensi[$index]
+                    ]
+                );
+            }
+        } else {
+            return response()->json(['error' => 'Ruang presensi tidak ditemukan atau tidak dimiliki oleh user saat ini.'], 404);
         }
 
         return redirect('/presensi');
@@ -83,10 +92,10 @@ class PresensiController extends Controller
         $ruangPresensi = RuangPresensi::find($id);
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $siswa = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
+        $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
             $query->where('kelas_id', '=', $kelasId);
         })->get();
-        
+
         return view('pages.wali-kelas.presensi.presensi-siswa', compact('ruangPresensi', 'siswa'));
     }
 
