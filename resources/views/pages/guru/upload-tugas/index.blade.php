@@ -15,6 +15,7 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Mata Pelajaran</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Nama Tugas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Tanggal Upload Tugas</th>
@@ -28,6 +29,13 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $index + 1 }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $item->mataPelajaran->kelasSemester->kelas->nama }}</h6>
                                                 </div>
                                             </div>
                                         </td>
@@ -48,7 +56,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->created_at->format('d-m-Y') }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->created_at->format('d-m-Y / H:i:s') }}</h6>
                                                 </div>
                                             </div>
                                         </td>
