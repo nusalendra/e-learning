@@ -1,4 +1,4 @@
-@extends('layouts.user_type.wali-kelas.form')
+@extends('layouts.user_type.guru.form')
 
 @section('content')
 <div class="container-fluid py-4">
@@ -7,7 +7,7 @@
             <h6 class="mb-0">Presensi Siswa</h6>
         </div>
         <div class="card-body pt-4 p-3">
-            <form action="/presensi" method="POST" role="form text-left">
+            <form action="/presensi-guru" method="POST" role="form text-left">
                 @csrf               
                 <input type="hidden" name="ruang_presensi_id" value="{{ $ruangPresensi->id }}"> 
                     <div class="card-body px-0 pt-0 pb-2">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                 <div class="d-flex justify-content-end">
-                    <a href="/presensi" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
+                    <a href="/presensi-guru" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
                     <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Submit' }}</button>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\WaliKelas;
+namespace App\Http\Controllers\Guru;
 
 use App\Http\Controllers\Controller;
 use App\Models\Presensi;
@@ -10,7 +10,7 @@ use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PresensiController extends Controller
+class PresensiGuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,14 +20,12 @@ class PresensiController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($kelasId) {
+        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function($query) {
             $query->where('status', 'Dibuka');
-            $query->where('kelas_id', '=', $kelasId);
         })
-            ->get();
+        ->get();
 
-        return view('pages.wali-kelas.presensi.index', compact('data'));
+        return view('pages.guru.presensi.index', compact('data'));
     }
 
     /**
@@ -37,6 +35,7 @@ class PresensiController extends Controller
      */
     public function create()
     {
+        
     }
 
     /**
@@ -67,7 +66,7 @@ class PresensiController extends Controller
             return response()->json(['error' => 'Ruang presensi tidak ditemukan atau tidak dimiliki oleh user saat ini.'], 404);
         }
 
-        return redirect('/presensi');
+        return redirect('/presensi-guru');
     }
 
     /**
@@ -90,13 +89,12 @@ class PresensiController extends Controller
     public function edit($id)
     {
         $ruangPresensi = RuangPresensi::find($id);
-        $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $siswa = Siswa::whereHas('kelasSemester', function ($query) use ($kelasId) {
-            $query->where('kelas_id', '=', $kelasId);
+        
+        $siswa = Siswa::whereHas('kelasSemester', function($query) use ($ruangPresensi) {
+            $query->where('kelas_id', '=', $ruangPresensi->kelasSemester->kelas->id);
         })->get();
-
-        return view('pages.wali-kelas.presensi.presensi-siswa', compact('ruangPresensi', 'siswa'));
+        
+        return view('pages.guru.presensi.presensi-siswa', compact('ruangPresensi', 'siswa'));
     }
 
     /**
