@@ -5,6 +5,7 @@ use App\Http\Controllers\Guru\JadwalKelasGuruController;
 use App\Http\Controllers\Guru\KelolaRuangPresensiGuruController;
 use App\Http\Controllers\Guru\MataPelajaranGuruController;
 use App\Http\Controllers\Guru\PresensiGuruController;
+use App\Http\Controllers\Guru\UploadTugasGuruController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
@@ -106,7 +107,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/kelola-ruang-presensi-guru', KelolaRuangPresensiGuruController::class);
 		Route::resource('/presensi-guru', PresensiGuruController::class);
 
-		Route::resource('/upload-tugas-guru', UploadTugasController::class);
+		Route::resource('/upload-tugas-guru', UploadTugasGuruController::class);
+		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasGuruController::class, 'unduhTugas']);
+
 		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
 	});
 
