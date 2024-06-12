@@ -96,11 +96,11 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'index'])->name('mata-pelajaran-guru');
 		Route::get('/mata-pelajaran-guru/create', [MataPelajaranGuruController::class, 'create']);
 		Route::post('/mata-pelajaran-guru', [MataPelajaranGuruController::class, 'store']);
-		Route::get('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'show']);
+		Route::get('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'show'])->name('mata-pelajaran-guru.show');
 		Route::get('/mata-pelajaran-guru/{id}/edit', [MataPelajaranGuruController::class, 'edit']);
 		Route::put('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'update']);
 		Route::delete('/mata-pelajaran-guru/{id}', [MataPelajaranGuruController::class, 'destroy']);
-		Route::get('/mata-pelajaran-guru/{id}/input-nilai', [MataPelajaranGuruController::class, 'pageInputNilai']);
+		Route::get('/mata-pelajaran-guru/{siswaId}/input-nilai', [MataPelajaranGuruController::class, 'pageInputNilai']);
 		Route::post('/mata-pelajaran-guru/input-nilai', [MataPelajaranGuruController::class, 'inputNilaiStore']);
 
 		Route::get('/jadwal-kelas-guru', [JadwalKelasGuruController::class, 'index'])->name('jadwal-kelas-guru');

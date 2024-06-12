@@ -63,12 +63,9 @@ class MataPelajaranGuruController extends Controller
     {
         $user = Auth::user();
         $mataPelajaran = MataPelajaran::find($id);
-        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-
-        $kelasSemester = KelasSemester::where('kelas_id', $kelasId)->get();
         $data = SiswaMataPelajaran::where('mata_pelajaran_id', $id)->get();
 
-        return view('pages.guru.mata-pelajaran.show', compact('data', 'mataPelajaran', 'kelasSemester'));
+        return view('pages.guru.mata-pelajaran.show', compact('data', 'mataPelajaran'));
     }
 
     /**
@@ -107,10 +104,11 @@ class MataPelajaranGuruController extends Controller
 
     public function pageInputNilai($id) {
         $data = SiswaMataPelajaran::find($id);
+        $mataPelajaranId = MataPelajaran::where('id', $data->mata_pelajaran_id)->value('id');
         $uploadTugas = UploadTugas::where('mata_pelajaran_id', $data->mata_pelajaran_id)->get();
         $nilaiMataPelajaran = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $id)->get();
         
-        return view('pages.guru.mata-pelajaran.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran'));
+        return view('pages.guru.mata-pelajaran.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran', 'mataPelajaranId'));
     }
 
     public function inputNilaiStore(Request $request) {
@@ -122,6 +120,6 @@ class MataPelajaranGuruController extends Controller
             );
         }
 
-        return redirect()->route('mata-pelajaran.show', ['mata_pelajaran' => $request->siswa_id]);
+    return redirect()->route('mata-pelajaran-guru.show', ['id' => $request->mata_pelajaran_id]);
     }
 }

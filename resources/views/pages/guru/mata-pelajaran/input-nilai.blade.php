@@ -7,13 +7,14 @@
             <h6 class="mb-0 fs-5 text-info">Nilai Siswa {{ $data->siswa->nama }}</h6>
         </div>
         <div class="card-body pt-4 p-3">
-            <form action="/mata-pelajaran/input-nilai" method="POST" role="form text-left">
+            <form action="/mata-pelajaran-guru/input-nilai" method="POST" role="form text-left">
                 @csrf
                 <input type="hidden" value="{{ $data->id }}" name="siswa_mata_pelajaran_id">
                 <div class="row">
                     @foreach ($uploadTugas as $item)
                         <input type="hidden" value="{{ $item->id }}" name="upload_tugas_id[]">
                         <input type="hidden" value="{{ $data->id }}" name="siswa_id">
+                        <input type="hidden" value="{{ $mataPelajaranId }}" name="mata_pelajaran_id">
                         <div class="row">
                             <div class="col-md-2 mt-1">
                                 <div class="form-group">
@@ -36,7 +37,7 @@
                     @endforeach
                 </div>
                 <div class="d-flex justify-content-end">
-                    <a href="/mata-pelajaran/{{ $data->mataPelajaran->id }}" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
+                    <a href="/mata-pelajaran-guru/{{ $data->mataPelajaran->id }}" class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
                     <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Simpan' }}</button>
                 </div>
             </form>
