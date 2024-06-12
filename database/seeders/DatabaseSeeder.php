@@ -34,6 +34,13 @@ class DatabaseSeeder extends Seeder
             'role' => 'Wali Kelas'
         ]);
 
+        DB::table('users')->insert([
+            'name' => 'Arif',
+            'username' => 'arif',
+            'password' => Hash::make('password'),
+            'role' => 'Guru'
+        ]);
+
         DB::table('periode')->insert([
             'tahun_ajaran' => 'Tahun Ajaran 2021/2022',
         ]);

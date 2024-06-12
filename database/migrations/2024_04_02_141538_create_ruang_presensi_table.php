@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('ruang_presensi', function (Blueprint $table) {
             $table->id();
             $table->foreignId('kelas_semester_id')->constrained('kelas_semester')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('tanggal_presensi');
             $table->timestamps();
         });
