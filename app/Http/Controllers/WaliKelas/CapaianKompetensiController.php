@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\CapaianKompetensi;
 use App\Models\Kategori;
 use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
@@ -107,31 +108,36 @@ class CapaianKompetensiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, Request $request)
     {
-        // 
+        $capaianKompetensi = CapaianKompetensi::find($id);
+        $capaianKompetensi->delete();
+
+        return redirect()->route('page-input-capaian-kompetensi', ['id' => $request->nilai_mata_pelajaran_id]);
     }
 
     public function pageCapaianKompetensi($id)
     {
-        $data = SiswaMataPelajaran::find($id);
-        $mataPelajaranId = MataPelajaran::where('id', $data->mata_pelajaran_id)->value('id');
-        $uploadTugas = UploadTugas::where('mata_pelajaran_id', $data->mata_pelajaran_id)->get();
-        $nilaiMataPelajaran = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $id)->get();
+        $nilaiMataPelajaran = NilaiMataPelajaran::find($id);
+        $capaianKompetensi = CapaianKompetensi::where('nilai_mata_pelajaran_id', $id)->get();
 
-        return view('pages.wali-kelas.capaian-kompetensi.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran', 'mataPelajaranId'));
+        return view('pages.wali-kelas.capaian-kompetensi.input-capaian-kompetensi', compact('nilaiMataPelajaran', 'capaianKompetensi'));
     }
 
-    public function inputNilaiStore(Request $request)
+    public function inputCapaianKompetensiStore(Request $request)
     {
-        foreach ($request->upload_tugas_id as $uploadTugas) {
-            $nilai = 'nilai_' . $uploadTugas;
-            NilaiMataPelajaran::updateOrCreate(
-                ['siswa_mata_pelajaran_id' => $request->siswa_mata_pelajaran_id, 'upload_tugas_id' => $uploadTugas],
-                ['nilai' => $request->$nilai]
-            );
-        }
+        $capaianKompetensi = new CapaianKompetensi();
+        $capaianKompetensi->nilai_mata_pelajaran_id = $request->nilai_mata_pelajaran_id;
+        $capaianKompetensi->catatan = $request->catatan;
+        $capaianKompetensi->save();
 
-        return redirect()->route('capaian-kompetensi.show', ['mata_pelajaran' => $request->mata_pelajaran_id]);
+        return redirect()->route('page-input-capaian-kompetensi', ['id' => $request->nilai_mata_pelajaran_id]);
+    }
+
+    public function pageShowCapaianKompetensi($id)
+    {
+        $capaianKompetensi = CapaianKompetensi::find($id);
+
+        return view('pages.wali-kelas.capaian-kompetensi.show-capaian-kompetensi', compact('capaianKompetensi'));
     }
 }

@@ -89,6 +89,10 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/upload-tugas/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
 
 		Route::resource('/capaian-kompetensi', CapaianKompetensiController::class);
+		Route::get('/capaian-kompetensi/{id}/input-capaian-kompetensi', [CapaianKompetensiController::class, 'pageCapaianKompetensi'])->name('page-input-capaian-kompetensi');
+		Route::post('/capaian-kompetensi/input-capaian-kompetensi', [CapaianKompetensiController::class, 'inputCapaianKompetensiStore']);
+		Route::get('/capaian-kompetensi/{id}/show-capaian-kompetensi', [CapaianKompetensiController::class, 'pageShowCapaianKompetensi']);
+
 		Route::resource('/unduh-rapor', UnduhRaporController::class);
 	});
 
