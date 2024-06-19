@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CapaianKompetensiGuruController;
 use App\Http\Controllers\ChangePasswordController;
 use App\Http\Controllers\Guru\JadwalKelasGuruController;
 use App\Http\Controllers\Guru\KelolaRuangPresensiGuruController;
@@ -113,8 +114,11 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('/upload-tugas-guru', UploadTugasGuruController::class);
 		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasGuruController::class, 'unduhTugas']);
-
-		Route::post('/upload-tugas-guru/{id}/unduh-tugas', [UploadTugasController::class, 'unduhTugas']);
+		
+		Route::resource('/capaian-kompetensi-guru', CapaianKompetensiGuruController::class);
+		Route::get('/capaian-kompetensi-guru/{id}/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageCapaianKompetensi'])->name('page-input-capaian-kompetensi-guru');
+		Route::post('/capaian-kompetensi-guru/input-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'inputCapaianKompetensiStore']);
+		Route::get('/capaian-kompetensi-guru/{id}/show-capaian-kompetensi', [CapaianKompetensiGuruController::class, 'pageShowCapaianKompetensi']);
 	});
 
 	Route::get('billing', function () {
