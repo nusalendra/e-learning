@@ -66,14 +66,14 @@ class CapaianKompetensiController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        $mataPelajaran = MataPelajaran::find($id);
+        $mataPelajaran = MataPelajaran::where('user_id', $user->id)->get();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
 
         $kelasSemester = KelasSemester::where('kelas_id', $kelasId)->get();
-        // $data = SiswaMataPelajaran::where('siswa_id', $id)->get();
 
-        $data = NilaiMataPelajaran::whereHas('siswaMataPelajaran', function ($query) use ($id) {
+        $data = NilaiMataPelajaran::whereHas('siswaMataPelajaran', function ($query) use ($id, $mataPelajaran) {
             $query->where('siswa_id', $id);
+            $query->whereIn('mata_pelajaran_id', $mataPelajaran->pluck('id'));
         })->get();
         
         return view('pages.wali-kelas.capaian-kompetensi.show', compact('data', 'mataPelajaran', 'kelasSemester'));
