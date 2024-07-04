@@ -36,7 +36,9 @@ class KelolaRuangPresensiController extends Controller
      */
     public function create()
     {
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $semester = KelasSemester::where('status', '=', 'Dibuka')->where('kelas_id', $kelasId)->get();
 
         return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester'));
     }
@@ -79,7 +81,9 @@ class KelolaRuangPresensiController extends Controller
     public function edit($id)
     {
         $data = RuangPresensi::find($id);
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
+        $semester = KelasSemester::where('status', '=', 'Dibuka')->where('kelas_id', $kelasId)->get();
 
         return view('pages.wali-kelas.kelola-ruang-presensi.edit', compact('data', 'semester'));
     }
