@@ -14,6 +14,8 @@ use App\Http\Controllers\KepalaSekolah\GuruController;
 use App\Http\Controllers\KepalaSekolah\IdentitasSiswaController;
 use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
+use App\Http\Controllers\KepalaSekolah\LaporanNilaiSiswaController;
+use App\Http\Controllers\KepalaSekolah\LaporanPresensiSiswaController;
 use App\Http\Controllers\KepalaSekolah\PeriodeController;
 use App\Http\Controllers\KepalaSekolah\WaliKelasController;
 use App\Http\Controllers\RegisterController;
@@ -24,7 +26,6 @@ use App\Http\Controllers\WaliKelas\EkstrakulikulerSiswaController;
 use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
 use App\Http\Controllers\WaliKelas\MataPelajaranController;
-use App\Http\Controllers\WaliKelas\NilaiMataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\SemesterController;
 use App\Http\Controllers\WaliKelas\SiswaController;
@@ -63,6 +64,12 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/login', function () {
 			return view('dashboard');
 		})->name('sign-up');
+
+		Route::resource('/laporan-nilai-siswa', LaporanNilaiSiswaController::class);
+		Route::get('/laporan-nilai-siswa/mata-pelajaran-siswa/{id}', [LaporanNilaiSiswaController::class, 'mataPelajaranShow']);
+		Route::get('/laporan-nilai-siswa/nilai-siswa/{id}', [LaporanNilaiSiswaController::class, 'nilaiSiswaShow']);
+
+		Route::resource('/laporan-presensi-siswa', LaporanPresensiSiswaController::class);
 	});
 
 	// Wali Kelas
