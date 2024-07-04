@@ -22,7 +22,6 @@ class LaporanNilaiSiswaController extends Controller
     public function index()
     {
         $data = KelasSemester::where('status', 'Dibuka')->get();
-        // dd($data);
 
         return view('pages.kepala-sekolah.laporan-nilai-siswa.index', compact('data'));
     }

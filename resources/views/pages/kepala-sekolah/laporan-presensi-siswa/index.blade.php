@@ -1,20 +1,16 @@
-@extends('layouts.user_type.kepala-sekolah.form')
+@extends('layouts.user_type.kepala-sekolah.auth')
 
 @section('content')
     <div>
         <div class="py-1">
             <div class="card mb-4 p-3">
-                <div class="py-2 px-1">
-                    <h6 class="mb-0 fs-5"></h6>
-                    <h6 class="mb-0 fs-5">Siswa {{ $kelasSemester->kelas->nama }}</h6>
-                </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive p-0">
                         <table id="myTable" class="table align-items-center mb-0">
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -31,19 +27,19 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->nama }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->kelas->nama }}</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/laporan-nilai-siswa/mata-pelajaran-siswa/{{ $item->id }}">
-                                                        <button type="button" class="btn bg-gradient-dark">
+                                                    <a href="/laporan-presensi-siswa/{{ $item->id }}">
+                                                        <button type="button" class="btn bg-gradient-info">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back" viewBox="0 0 16 16">
                                                                 <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
                                                             </svg>
-                                                            Tampilkan Mata Pelajaran
+                                                            Lihat Semua Siswa Kelas
                                                         </button>
                                                     </a>
                                                 </div>

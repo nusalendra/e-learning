@@ -14,8 +14,10 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Siswa</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder text-start">Nama Siswa</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder text-start">Presensi Sakit</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder text-start">Presensi Izin</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder text-start">Presensi Tanpa Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -38,14 +40,21 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/laporan-nilai-siswa/mata-pelajaran-siswa/{{ $item->id }}">
-                                                        <button type="button" class="btn bg-gradient-dark">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-back" viewBox="0 0 16 16">
-                                                                <path d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z"/>
-                                                            </svg>
-                                                            Tampilkan Mata Pelajaran
-                                                        </button>
-                                                    </a>
+                                                    <h6 class="mb-0 text-sm">{{ $item->countSakit }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $item->countIzin }}</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="d-flex px-2 py-1">
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm">{{ $item->countTanpaKeterangan }}</h6>
                                                 </div>
                                             </div>
                                         </td>
