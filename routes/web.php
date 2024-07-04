@@ -17,6 +17,7 @@ use App\Http\Controllers\KepalaSekolah\KelasController;
 use App\Http\Controllers\KepalaSekolah\LaporanNilaiSiswaController;
 use App\Http\Controllers\KepalaSekolah\LaporanPresensiSiswaController;
 use App\Http\Controllers\KepalaSekolah\PeriodeController;
+use App\Http\Controllers\KepalaSekolah\ValidasiRaporController;
 use App\Http\Controllers\KepalaSekolah\WaliKelasController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
@@ -70,6 +71,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/laporan-nilai-siswa/nilai-siswa/{id}', [LaporanNilaiSiswaController::class, 'nilaiSiswaShow']);
 
 		Route::resource('/laporan-presensi-siswa', LaporanPresensiSiswaController::class);
+		
+		Route::resource('/validasi-rapor', ValidasiRaporController::class);
 	});
 
 	// Wali Kelas
