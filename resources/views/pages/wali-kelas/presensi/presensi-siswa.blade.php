@@ -45,10 +45,12 @@
                                                         @endphp
                                                         @if($presensi)
                                                             <option value="Hadir" {{ $presensi->status_presensi === 'Hadir' ? 'selected' : '' }}>Hadir</option>
+                                                            <option value="Sakit" {{ $presensi->status_presensi === 'Sakit' ? 'selected' : '' }}>Sakit</option>
                                                             <option value="Izin" {{ $presensi->status_presensi === 'Izin' ? 'selected' : '' }}>Izin</option>
                                                             <option value="Tanpa Keterangan" {{ $presensi->status_presensi === 'Tanpa Keterangan' ? 'selected' : '' }}>Tanpa Keterangan</option>
                                                         @else
                                                             <option value="Hadir">Hadir</option>
+                                                            <option value="Sakit">Sakit</option>
                                                             <option value="Izin">Izin</option>
                                                             <option value="Tanpa Keterangan">Tanpa Keterangan</option>
                                                         @endif
