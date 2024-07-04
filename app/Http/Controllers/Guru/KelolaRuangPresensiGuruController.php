@@ -35,6 +35,7 @@ class KelolaRuangPresensiGuruController extends Controller
     public function create()
     {
         $semester = KelasSemester::where('status', '=', 'Dibuka')->get();
+        // dd($semester);
 
         return view('pages.guru.kelola-ruang-presensi.create', compact('semester'));
     }
