@@ -15,7 +15,7 @@
                             <label for="semester_id" class="form-control-label">Semester <span class="text-danger">*</span></label>
                             <select name="semester_id" id="" class="form-select">
                                 @foreach ($semester as $item)
-                                    <option value="{{ $item->id }}">{{ $item->semester->nama }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->semester->nama }} - {{ $item->kelas->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
