@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\KelasSemester;
 use App\Models\Presensi;
 use App\Models\Siswa;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LaporanPresensiSiswaController extends Controller
@@ -21,24 +22,29 @@ class LaporanPresensiSiswaController extends Controller
     {
         $kelasSemester = KelasSemester::find($id);
         $data = Siswa::where('kelas_semester_id', '=', $kelasSemester->id)->get();
+        $users = User::where('role', 'Wali Kelas')->get();
+
         foreach ($data as $siswa) {
             $countSakit = Presensi::where('siswa_id', $siswa->id)
-                ->whereHas('ruangPresensi', function ($query) use ($id) {
-                    $query->where('kelas_semester_id', $id);
+                ->whereHas('ruangPresensi', function ($query) use ($id, $users) {
+                    $query->where('kelas_semester_id', $id)
+                        ->whereIn('user_id', $users->pluck('id'));
                 })
                 ->where('status_presensi', 'Sakit')
                 ->count();
 
             $countIzin = Presensi::where('siswa_id', $siswa->id)
-                ->whereHas('ruangPresensi', function ($query) use ($id) {
-                    $query->where('kelas_semester_id', $id);
+                ->whereHas('ruangPresensi', function ($query) use ($id, $users) {
+                    $query->where('kelas_semester_id', $id)
+                        ->whereIn('user_id', $users->pluck('id'));
                 })
                 ->where('status_presensi', 'Izin')
                 ->count();
 
             $countTanpaKeterangan = Presensi::where('siswa_id', $siswa->id)
-                ->whereHas('ruangPresensi', function ($query) use ($id) {
-                    $query->where('kelas_semester_id', $id);
+                ->whereHas('ruangPresensi', function ($query) use ($id, $users) {
+                    $query->where('kelas_semester_id', $id)
+                        ->whereIn('user_id', $users->pluck('id'));
                 })
                 ->where('status_presensi', 'Tanpa Keterangan')
                 ->count();
