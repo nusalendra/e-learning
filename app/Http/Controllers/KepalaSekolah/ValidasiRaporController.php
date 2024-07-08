@@ -4,7 +4,10 @@ namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
 use App\Models\KelasSemester;
+use App\Models\NilaiMataPelajaran;
 use App\Models\Siswa;
+use App\Models\SiswaMataPelajaran;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class ValidasiRaporController extends Controller
@@ -20,6 +23,39 @@ class ValidasiRaporController extends Controller
 
         return view('pages.kepala-sekolah.validasi-rapor.index', compact('data'));
     }
+
+    public function checkRaporPDF($id)
+    {
+        $siswa = Siswa::find($id);
+        $data = SiswaMataPelajaran::where('siswa_id', $siswa->id)->get();
+
+        $nilaiAkhir = [];
+
+        foreach ($data as $item) {
+            // Menghitung total nilai berdasarkan siswa_mata_pelajaran_id
+            $totalNilai = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $item->id)
+                ->sum('nilai');
+
+            // Menghitung total upload tugas
+            $totalUploadTugas = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $item->id)
+                ->distinct('upload_tugas_id')
+                ->count('upload_tugas_id');
+
+            // Menghitung nilai akhir dengan membagi total nilai dengan total upload tugas
+            $nilaiAkhir[$item->id] = $totalUploadTugas > 0 ? $totalNilai / $totalUploadTugas : 0;
+        }
+
+        $pdf = Pdf::loadView('pages.kepala-sekolah.validasi-rapor.show-rapor-pdf', [
+            'siswa' => $siswa,
+            'data' => $data,
+            'nilaiAkhir' => $nilaiAkhir
+        ])
+            ->setPaper('a4', 'portrait');
+
+        return $pdf->stream('rapor.pdf');
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
