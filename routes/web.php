@@ -89,8 +89,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('/ekstrakulikuler-siswa', EkstrakulikulerSiswaController::class);
 		Route::get('/ekstrakulikuler-siswa/{id}/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageCatatanSiswa'])->name('page-input-catatan-siswa');
-		Route::post('/ekstrakulikuler-siswa/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'inputCatatanSiswa'])->name('inputCatatanSiswaStore');
-		Route::get('/ekstrakulikuler-siswa/{id}/show-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageShowCatatanSiswa']);
+		Route::put('/ekstrakulikuler-siswa/input-catatan-siswa/{id}', [EkstrakulikulerSiswaController::class, 'inputCatatanSiswa'])->name('inputCatatanSiswaStore');
 
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);

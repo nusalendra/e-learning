@@ -117,19 +117,13 @@ class EkstrakulikulerSiswaController extends Controller
         return view('pages.wali-kelas.ekstrakulikuler-siswa.input-catatan-siswa', compact('data'));
     }
 
-    public function inputCatatanSiswa(Request $request) {
-        $ekstrakulikulerSiswa = EkstrakulikulerSiswa::where('siswa_id', $request->siswa_id)->first();
+    public function inputCatatanSiswa(Request $request, $id) {
+        $ekstrakulikulerSiswa = EkstrakulikulerSiswa::find($id);
 
         $ekstrakulikulerSiswa->predikat = $request->predikat;
         $ekstrakulikulerSiswa->keterangan = $request->keterangan;
         $ekstrakulikulerSiswa->save();
 
         return redirect('/ekstrakulikuler-siswa/' . $ekstrakulikulerSiswa->id . '/input-catatan-siswa');
-    }
-
-    public function pageShowCatatanSiswa($id) {
-        $data = EkstrakulikulerSiswa::find($id);
-
-        return view('pages.wali-kelas.ekstrakulikuler-siswa.show-catatan-siswa', compact('data'));
     }
 }
