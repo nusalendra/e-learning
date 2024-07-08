@@ -116,7 +116,7 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $item->mataPelajaran->nama }}</td>
-                            <td>{{ $nilaiAkhir }}</td>
+                            <td>{{  }}</td>
                             <td>tes</td>
                         </tr>
                     @endforeach
