@@ -4,6 +4,7 @@ namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ekstrakulikuler;
+use App\Models\EkstrakulikulerSiswa;
 use App\Models\Siswa;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
@@ -41,7 +42,12 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $ekstrakulikulerSiswa = new EkstrakulikulerSiswa();
+        $ekstrakulikulerSiswa->ekstrakulikuler_id = $request->ekstrakulikuler_id;
+        $ekstrakulikulerSiswa->siswa_id = $request->siswa_id;
+        $ekstrakulikulerSiswa->save();
+
+        return redirect('/ekstrakulikuler-siswa/' . $request->ekstrakulikuler_id . '/edit');
     }
 
     /**
@@ -52,7 +58,7 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function show($id)
     {
-        $data = Siswa::where('ekstrakulikuler_id', $id)->get();
+        $data = EkstrakulikulerSiswa::where('ekstrakulikuler_id', $id)->get();
         $ekstrakulikuler = Ekstrakulikuler::find($id);
         
         return view('pages.wali-kelas.ekstrakulikuler-siswa.show', compact('data', 'ekstrakulikuler'));
@@ -72,7 +78,7 @@ class EkstrakulikulerSiswaController extends Controller
         $ekstrakulikuler = Ekstrakulikuler::find($id);
         $data = Siswa::whereHas('kelasSemester.kelas', function ($query) use ($waliKelas) {
             $query->where('id', $waliKelas->kelas_id);
-        })->whereNull('ekstrakulikuler_id')->get();
+        })->whereDoesntHave('ekstrakulikuler')->get();
         
         return view('pages.wali-kelas.ekstrakulikuler-siswa.edit', compact('data', 'ekstrakulikuler'));
     }
@@ -86,11 +92,7 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $siswa = Siswa::find($request->siswa_id);
-        $siswa->ekstrakulikuler_id = $request->ekstrakulikuler_id;
-        $siswa->save();
-
-        return redirect('/ekstrakulikuler-siswa/' . $id . '/edit');
+        
     }
 
     /**
@@ -101,10 +103,33 @@ class EkstrakulikulerSiswaController extends Controller
      */
     public function destroy($id, Request $request)
     {
-        $siswa = Siswa::find($request->siswa_id);
-        $siswa->ekstrakulikuler_id = null;
-        $siswa->save();
+        $ekstrakulikulerSiswa = EkstrakulikulerSiswa::where('siswa_id', $request->siswa_id)->first();
+        $ekstrakulikulerSiswa->predikat = null;
+        $ekstrakulikulerSiswa->keterangan = null;
+        $ekstrakulikulerSiswa->save();
 
-        return redirect('/ekstrakulikuler-siswa/' . $id);
+        return redirect('/ekstrakulikuler-siswa/' . $id . '/input-catatan-siswa');
+    }
+
+    public function pageCatatanSiswa($id) {
+        $data = EkstrakulikulerSiswa::find($id);
+        
+        return view('pages.wali-kelas.ekstrakulikuler-siswa.input-catatan-siswa', compact('data'));
+    }
+
+    public function inputCatatanSiswa(Request $request) {
+        $ekstrakulikulerSiswa = EkstrakulikulerSiswa::where('siswa_id', $request->siswa_id)->first();
+
+        $ekstrakulikulerSiswa->predikat = $request->predikat;
+        $ekstrakulikulerSiswa->keterangan = $request->keterangan;
+        $ekstrakulikulerSiswa->save();
+
+        return redirect('/ekstrakulikuler-siswa/' . $ekstrakulikulerSiswa->id . '/input-catatan-siswa');
+    }
+
+    public function pageShowCatatanSiswa($id) {
+        $data = EkstrakulikulerSiswa::find($id);
+
+        return view('pages.wali-kelas.ekstrakulikuler-siswa.show-catatan-siswa', compact('data'));
     }
 }

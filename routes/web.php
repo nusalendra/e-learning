@@ -88,6 +88,10 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
 
 		Route::resource('/ekstrakulikuler-siswa', EkstrakulikulerSiswaController::class);
+		Route::get('/ekstrakulikuler-siswa/{id}/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageCatatanSiswa'])->name('page-input-catatan-siswa');
+		Route::post('/ekstrakulikuler-siswa/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'inputCatatanSiswa'])->name('inputCatatanSiswaStore');
+		Route::get('/ekstrakulikuler-siswa/{id}/show-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageShowCatatanSiswa']);
+
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
 		Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);

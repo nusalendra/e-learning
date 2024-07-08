@@ -13,6 +13,6 @@ class Ekstrakulikuler extends Model
     protected $fillable = ['nama'];
 
     public function siswa() {
-        return $this->hasOne(Siswa::class);
+        return $this->belongsToMany(Siswa::class, 'ekstrakulikuler_siswa', 'ekstrakulikuler_id', 'siswa_id');
     }
 }

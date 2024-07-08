@@ -39,9 +39,8 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <form action="/ekstrakulikuler-siswa/{{ $ekstrakulikuler->id }}" method="POST">
+                                                    <form action="/ekstrakulikuler-siswa" method="POST">
                                                         @csrf
-                                                        @method('PUT')
                                                         <input type="hidden" value="{{ $ekstrakulikuler->id }}" name="ekstrakulikuler_id">
                                                         <input type="hidden" value="{{ $item->id }}" name="siswa_id">
                                                         <button type="submit" class="btn bg-gradient-dark">
