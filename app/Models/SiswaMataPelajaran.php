@@ -10,7 +10,7 @@ class SiswaMataPelajaran extends Model
     use HasFactory;
     protected $table = 'siswa_mata_pelajaran';
     protected $primarykey = 'id';
-    protected $fillable = ['siswa_id', 'mata_pelajaran_id'];
+    protected $fillable = ['siswa_id', 'mata_pelajaran_id', 'nilai_akhir'];
 
     public function siswa() {
         return $this->belongsTo(Siswa::class, 'siswa_id');
