@@ -7,8 +7,9 @@
         </div>
         <div class="card mt-4 mx-5 px-4 py-3">
             <div class="card-body pt-4 p-3">
-                <form action="/ekstrakulikuler-siswa/input-catatan-siswa" method="POST" role="form text-left">
+                <form action="/ekstrakulikuler-siswa/input-catatan-siswa/{{ $data->id }}" method="POST" role="form text-left">
                     @csrf
+                    @method('PUT')
                     <input type="hidden" value="{{ $data->siswa->id }}" name="siswa_id">
                     <div class="row">
                         <div class="row">
@@ -51,8 +52,8 @@
                                 <div class="form-group">
                                     <select name="predikat" id="" class="form-select">
                                         <option value="0" selected disabled>Pilih Predikat</option>
-                                        <option value="Berkembang">Berkembang</option>
-                                        <option value="Tidak Berkembang">Tidak Berkembang</option>
+                                        <option value="Berkembang" {{ $data->predikat === 'Berkembang' ? 'selected' : '' }}>Berkembang</option>
+                                        <option value="Tidak Berkembang" {{ $data->predikat === 'Tidak Berkembang' ? 'selected' : '' }}>Tidak Berkembang</option>
                                     </select>
                                 </div>
                             </div>
@@ -68,7 +69,7 @@
                             </div>
                             <div class="col-md-10">
                                 <div class="form-group">
-                                    <textarea class="form-control" name="keterangan" cols="30" rows="5" placeholder="Tulis Keterangan..."></textarea>
+                                    <textarea class="form-control" name="keterangan" cols="30" rows="5" placeholder="Tulis Keterangan...">{{ $data->keterangan }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -76,90 +77,9 @@
                     <div class="d-flex justify-content-end">
                         <a href="/ekstrakulikuler-siswa/{{ $data->ekstrakulikuler->id }}"
                             class="btn bg-gradient-danger btn-md mt-4 mb-4 me-2">Kembali</a>
-                        <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Tambah' }}</button>
+                        <button type="submit" class="btn bg-gradient-info btn-md mt-4 mb-4">{{ 'Simpan' }}</button>
                     </div>
                 </form>
-            </div>
-        </div>
-        <div class="py-1 mt-5">
-            <div class="card mb-4 p-3">
-                <div class="card-body px-0 pt-0 pb-2 mt-3">
-                    <div class="table-responsive p-0">
-                        <table id="myTable" class="table align-items-center mb-0">
-                            <thead>
-                                <tr>
-                                    <th class="text-uppercase text-xs font-weight-bolder text-center">Predikat</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder text-center">Catatan Siswa</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder text-start">Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if ($data->predikat && $data->keterangan)
-                                    <tr>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $data->predikat }}</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm" title="{{ $data->keterangan }}">
-                                                        {{ strlen($data->keterangan) > 100 ? substr($data->keterangan, 0, 150) . '...' : $data->keterangan }}
-                                                    </h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a
-                                                        href="/ekstrakulikuler-siswa/{{ $data->id }}/show-catatan-siswa">
-                                                        <button type="button" class="btn bg-gradient-warning">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor" class="bi bi-back"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1z" />
-                                                            </svg>
-                                                            Detail
-                                                        </button>
-                                                    </a>
-                                                </div>
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/ekstrakulikuler-siswa/{{ $data->id }}" method="POST"
-                                                        role="form text-left">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <input type="hidden" value="{{ $data->siswa_id }}"
-                                                            name="siswa_id">
-                                                        <button type="submit" class="btn bg-gradient-danger">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-trash3 mb-1" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5" />
-                                                            </svg>
-                                                            Hapus
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
-                        <script src="https://code.jquery.com/jquery-3.7.1.min.js"
-                            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-                        <script src="//cdn.datatables.net/2.0.3/js/dataTables.min.js"></script>
-                        <script>
-                            let table = new DataTable('#myTable');
-                        </script>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
