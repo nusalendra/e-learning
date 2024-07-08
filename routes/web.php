@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/laporan-presensi-siswa', LaporanPresensiSiswaController::class);
 		
 		Route::resource('/validasi-rapor', ValidasiRaporController::class);
+		Route::get('/validasi-rapor/check-rapor-pdf/{id}', [ValidasiRaporController::class, 'checkRaporPDF']);
 	});
 
 	// Wali Kelas
