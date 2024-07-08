@@ -10,7 +10,7 @@ class Siswa extends Model
     use HasFactory;
     protected $table = 'siswa';
     protected $primarykey = 'id';
-    protected $fillable = ['kelas_semester_id','ekstrakulikuler_id', 'nama', 'status_raport', 'nilai_akhir'];
+    protected $fillable = ['kelas_semester_id', 'nama', 'status_raport', 'nilai_akhir'];
 
     public function kelasSemester() {
         return $this->belongsTo(KelasSemester::class);
@@ -25,7 +25,7 @@ class Siswa extends Model
     }
 
     public function ekstrakulikuler() {
-        return $this->belongsTo(Ekstrakulikuler::class);
+        return $this->belongsToMany(Ekstrakulikuler::class, 'ekstrakulikuler_siswa', 'siswa_id', 'ekstrakulikuler_id');
     }
 
     public function dataSiswa() {
