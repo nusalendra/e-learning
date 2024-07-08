@@ -24,11 +24,11 @@ class MataPelajaranGuruController extends Controller
      */
     public function index()
     {
-        $user = Auth::user(); 
-        $data = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function($query) {
+        $user = Auth::user();
+        $data = MataPelajaran::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) {
             $query->where('status', 'Dibuka');
         })->get();
-            
+
         return view('pages.guru.mata-pelajaran.index', compact('data'));
     }
 
@@ -38,7 +38,7 @@ class MataPelajaranGuruController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {                   
+    {
         // 
     }
 
@@ -102,24 +102,36 @@ class MataPelajaranGuruController extends Controller
         // 
     }
 
-    public function pageInputNilai($id) {
+    public function pageInputNilai($id)
+    {
         $data = SiswaMataPelajaran::find($id);
         $mataPelajaranId = MataPelajaran::where('id', $data->mata_pelajaran_id)->value('id');
         $uploadTugas = UploadTugas::where('mata_pelajaran_id', $data->mata_pelajaran_id)->get();
         $nilaiMataPelajaran = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $id)->get();
-        
+
         return view('pages.guru.mata-pelajaran.input-nilai', compact('data', 'uploadTugas', 'nilaiMataPelajaran', 'mataPelajaranId'));
     }
 
-    public function inputNilaiStore(Request $request) {
-        foreach($request->upload_tugas_id as $uploadTugas) {
-            $nilai = 'nilai_' . $uploadTugas;
+    public function inputNilaiStore(Request $request)
+    {
+        $totalNilai = 0;
+        $jumlahTugas = count($request->upload_tugas_id);
+
+        foreach ($request->upload_tugas_id as $uploadTugas) {
+            $nilaiField = 'nilai_' . $uploadTugas;
+            $nilai = $request->$nilaiField;
+            $totalNilai += $nilai;
+
             NilaiMataPelajaran::updateOrCreate(
                 ['siswa_mata_pelajaran_id' => $request->siswa_mata_pelajaran_id, 'upload_tugas_id' => $uploadTugas],
-                ['nilai' => $request->$nilai]
+                ['nilai' => $nilai]
             );
         }
 
-    return redirect()->route('mata-pelajaran-guru.show', ['id' => $request->mata_pelajaran_id]);
+        $nilaiAkhir = $totalNilai / $jumlahTugas;
+
+        SiswaMataPelajaran::where('id', $request->siswa_mata_pelajaran_id)->update(['nilai_akhir' => $nilaiAkhir]);
+
+        return redirect()->route('mata-pelajaran-guru.show', ['id' => $request->mata_pelajaran_id]);
     }
 }
