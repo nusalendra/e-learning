@@ -176,14 +176,25 @@ class MataPelajaranController extends Controller
     }
 
     public function inputNilaiStore(Request $request) {
+        $totalNilai = 0;
+        $jumlahTugas = count($request->upload_tugas_id);
+    
         foreach($request->upload_tugas_id as $uploadTugas) {
-            $nilai = 'nilai_' . $uploadTugas;
+            $nilaiField = 'nilai_' . $uploadTugas;
+            $nilai = $request->$nilaiField;
+            $totalNilai += $nilai;
+    
             NilaiMataPelajaran::updateOrCreate(
                 ['siswa_mata_pelajaran_id' => $request->siswa_mata_pelajaran_id, 'upload_tugas_id' => $uploadTugas],
-                ['nilai' => $request->$nilai]
+                ['nilai' => $nilai]
             );
         }
-
+        
+        $nilaiAkhir = $totalNilai / $jumlahTugas;
+    
+        SiswaMataPelajaran::where('id', $request->siswa_mata_pelajaran_id)->update(['nilai_akhir' => $nilaiAkhir]);
+    
         return redirect()->route('mata-pelajaran.show', ['mata_pelajaran' => $request->mata_pelajaran_id]);
     }
+    
 }
