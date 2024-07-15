@@ -17,8 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('kelas_semester_id')->nullable()->constrained('kelas_semester')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
-            $table->string('status_raport')->nullable();
-            $table->integer('nilai_akhir')->nullable();
+            $table->string('NIS');
+            $table->string('NISN');
+            $table->string('jenis_kelamin');
+            $table->string('tempat_lahir');
+            $table->date('tanggal_lahir');
+            $table->string('agama');
+            $table->string('pendidikan_sebelumnya');
+            $table->string('alamat');
             $table->timestamps();
         });
     }

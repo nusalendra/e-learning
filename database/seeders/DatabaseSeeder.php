@@ -47,7 +47,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('kelas')->insert([
             'periode_id' => 1,
-            'nama' => 'Kelas 1',
+            'nama' => 'I (Satu)',
         ]);
 
         DB::table('wali_kelas')->insert([
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('semester')->insert([
-            'nama' => 'Semester Ganjil',
+            'nama' => 'I (Satu)',
         ]);
 
         DB::table('kelas_semester')->insert([
@@ -66,7 +66,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('semester')->insert([
-            'nama' => 'Semester Genap',
+            'nama' => 'II (Dua)',
         ]);
 
         DB::table('kelas_semester')->insert([
@@ -96,11 +96,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         DB::table('siswa')->insert([
-            'nama' => 'Intan',
-        ]);
-
-        DB::table('data_siswa')->insert([
-            'siswa_id' => 1,
+            'nama' => 'Intan Tri Suaka Henry',
             'NIS' => '12345',
             'NISN' => '12345',
             'jenis_kelamin' => 'Perempuan',
@@ -124,12 +120,12 @@ class DatabaseSeeder extends Seeder
             'provinsi' => 'tes',
         ]);
 
-        DB::table('siswa')->insert([
-            'nama' => 'Joko',
+        DB::table('rapor')->insert([
+            'siswa_id' => 1,
         ]);
 
-        DB::table('data_siswa')->insert([
-            'siswa_id' => 2,
+        DB::table('siswa')->insert([
+            'nama' => 'Joko',
             'NIS' => '22345',
             'NISN' => '22345',
             'jenis_kelamin' => 'Laki-Laki',
@@ -151,14 +147,14 @@ class DatabaseSeeder extends Seeder
             'kecamatan' => 'tes',
             'kota' => 'tes',
             'provinsi' => 'tes',
+        ]);
+
+        DB::table('rapor')->insert([
+            'siswa_id' => 2,
         ]);
 
         DB::table('siswa')->insert([
             'nama' => 'Dewa',
-        ]);
-
-        DB::table('data_siswa')->insert([
-            'siswa_id' => 3,
             'NIS' => '22345',
             'NISN' => '22345',
             'jenis_kelamin' => 'Laki-Laki',
@@ -182,12 +178,12 @@ class DatabaseSeeder extends Seeder
             'provinsi' => 'tes',
         ]);
 
-        DB::table('siswa')->insert([
-            'nama' => 'Dewi',
+        DB::table('rapor')->insert([
+            'siswa_id' => 3,
         ]);
 
-        DB::table('data_siswa')->insert([
-            'siswa_id' => 4,
+        DB::table('siswa')->insert([
+            'nama' => 'Dewi',
             'NIS' => '22345',
             'NISN' => '22345',
             'jenis_kelamin' => 'Perempuan',
@@ -211,12 +207,12 @@ class DatabaseSeeder extends Seeder
             'provinsi' => 'tes',
         ]);
 
-        DB::table('siswa')->insert([
-            'nama' => 'Della',
+        DB::table('rapor')->insert([
+            'siswa_id' => 4,
         ]);
 
-        DB::table('data_siswa')->insert([
-            'siswa_id' => 5,
+        DB::table('siswa')->insert([
+            'nama' => 'Della',
             'NIS' => '22355',
             'NISN' => '22355',
             'jenis_kelamin' => 'Perempuan',
@@ -238,6 +234,10 @@ class DatabaseSeeder extends Seeder
             'kecamatan' => 'tes',
             'kota' => 'tes',
             'provinsi' => 'tes',
+        ]);
+
+        DB::table('rapor')->insert([
+            'siswa_id' => 5,
         ]);
     }
 }

@@ -52,7 +52,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tanggal_lahir" class="form-control-label">Tanggal Lahir <span class="text-danger">*</span></label>
-                            <input class="form-control" type="text" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir" required>
+                            <input class="form-control" type="date" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir" required>
                         </div>
                     </div>
                 </div>

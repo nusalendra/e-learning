@@ -13,17 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('data_siswa', function (Blueprint $table) {
+        Schema::create('rapor', function (Blueprint $table) {
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnUpdate()->cascadeOnDelete();
-            $table->string('NIS');
-            $table->string('NISN');
-            $table->string('jenis_kelamin');
-            $table->string('tempat_lahir');
-            $table->string('tanggal_lahir');
-            $table->string('agama');
-            $table->string('pendidikan_sebelumnya');
-            $table->string('alamat');
+            $table->string('status_raport')->default('Belum Divalidasi');
+            $table->string('status_siswa')->default('Belum Lulus');
+            $table->string('url_rapor')->nullable();
             $table->timestamps();
         });
     }
@@ -35,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_siswa');
+        Schema::dropIfExists('rapor');
     }
 };

@@ -19,7 +19,7 @@
         }
 
         h1 {
-            font-size: 2rem; 
+            font-size: 2rem;
             font-weight: bold;
             border-bottom: 2px solid #343a40;
             display: inline-block;
@@ -39,6 +39,7 @@
 
         .info-table td {
             padding: 8px;
+            font-size: 13px;
             vertical-align: top;
         }
 
@@ -56,7 +57,8 @@
             margin-top: 20px;
         }
 
-        .table-bordered th, .table-bordered td {
+        .table-bordered th,
+        .table-bordered td {
             border: 1px solid #000;
             padding: 8px;
             text-align: left;
@@ -65,6 +67,71 @@
         .table-bordered th {
             background-color: white;
             text-align: center;
+        }
+
+        .table-ketidakhadiran {
+            width: 50%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-left: 36px;
+        }
+
+        .table-ketidakhadiran td,
+        .table-ketidakhadiran th {
+            border: 1px solid black;
+            padding: 8px;
+        }
+
+        .table-ketidakhadiran th {
+            text-align: center;
+        }
+
+        .signature-table {
+            width: 100%;
+            margin-top: 50px;
+            border-collapse: collapse;
+        }
+
+        .signature-table td {
+            text-align: center;
+            vertical-align: top;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .parent-signature {
+            margin-top: 40px;
+        }
+
+        .keterangan {
+            width: 50%;
+            margin: 20px auto;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .signature {
+            margin-top: 20px;
+            width: 100%;
+            display: table;
+        }
+
+        .signature div {
+            display: table-cell;
+            text-align: center;
+            vertical-align: bottom;
+            padding: 10px;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .signature .right {
+            text-align: right;
+        }
+
+        .parent-signature {
+            margin-top: 85px;
         }
     </style>
 </head>
@@ -78,58 +145,144 @@
         <table class="info-table">
             <tr>
                 <td>Nama Peserta Didik</td>
-                <td>: Aulia Nia Ramadani</td>
+                <td>: {{ $siswa->nama }}</td>
                 <td>Kelas</td>
-                <td>: IV (Empat)</td>
+                <td>: {{ $siswa->kelasSemester->kelas->nama }}</td>
             </tr>
             <tr>
                 <td>NISN</td>
-                <td>: 3133717078</td>
+                <td>: {{ $siswa->dataSiswa->NISN }}</td>
                 <td>Fase</td>
-                <td>: A</td>
+                <td>: </td>
             </tr>
             <tr>
                 <td>Sekolah</td>
                 <td>: SD Negeri 009 Marangkayu</td>
                 <td>Semester</td>
-                <td>: II (Dua)</td>
+                <td>: {{ $siswa->kelasSemester->semester->nama }}</td>
             </tr>
             <tr>
                 <td>Alamat</td>
                 <td>: Jl. Batu Menetes</td>
                 <td>Tahun Pelajaran</td>
-                <td>: 2022 / 2023</td>
+                <td>: {{ $siswa->kelasSemester->kelas->periode->tahun_ajaran }}</td>
             </tr>
         </table>
         <div class="table-responsive">
             <table class="table mt-4 table-bordered">
                 <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Mata Pelajaran</th>
-                        <th>Nilai Akhir</th>
-                        <th>Capaian Kompetensi</th>
+                    <tr style="font-size: 14px;">
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 25%;">Mata Pelajaran</th>
+                        <th style="width: 15%;">Nilai Akhir</th>
+                        <th style="width: 55%;">Capaian Kompetensi</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($data as $index => $item)
-                        <tr>
-                            <td>{{ $index + 1 }}</td>
-                            <td>{{ $item->mataPelajaran->nama }}</td>
-                            <td>{{  }}</td>
-                            <td>tes</td>
-                        </tr>
+                        @if ($item->mataPelajaran->kategori->nama == 'Mata Pelajaran')
+                            <tr style="font-size: 12px;">
+                                <td style="text-align: center">{{ $index + 1 }}</td>
+                                <td>{{ $item->mataPelajaran->nama }}</td>
+                                <td style="text-align: center">{{ $item->nilai_akhir }}</td>
+                                <td>tes</td>
+                            </tr>
+                        @endif
                     @endforeach
                 </tbody>
                 <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Mata Pelajaran</th>
-                        <th>Nilai Akhir</th>
-                        <th>Capaian Kompetensi</th>
+                    <tr style="font-size: 14px;">
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 25%;">Muatan Pelajaran</th>
+                        <th style="width: 15%;">Nilai Akhir</th>
+                        <th style="width: 55%;">Capaian Kompetensi</th>
                     </tr>
                 </thead>
+                <tbody>
+                    @foreach ($data as $index => $item)
+                        @if ($item->mataPelajaran->kategori->nama == 'Muatan Pelajaran')
+                            <tr style="font-size: 12px;">
+                                <td style="text-align: center">{{ $index + 1 }}</td>
+                                <td>{{ $item->mataPelajaran->nama }}</td>
+                                <td style="text-align: center">{{ $item->nilai_akhir }}</td>
+                                <td>tes</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                </tbody>
             </table>
+        </div>
+        <div>
+            <h4 class="small-margin">MUATAN LOKAL</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr style="font-size: 14px;">
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 25%;">Ekstrakulikuler</th>
+                        <th style="width: 15%;">Predikat</th>
+                        <th style="width: 55%;">Keterangan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($ekstrakulikuler as $index => $item)
+                        <tr style="font-size: 12px;">
+                            <td style="text-align: center">{{ $index + 1 }}</td>
+                            <td>{{ $item->ekstrakulikuler->nama }}</td>
+                            <td style="text-align: center;">{{ $item->predikat }}</td>
+                            <td style="text-align: justify;">{{ $item->keterangan }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="table-responsive">
+            <table class="table mt-4 table-ketidakhadiran" style="width: 50%;">
+                <thead>
+                    <tr style="font-size: 14px;">
+                        <th colspan="3" style="text-align: center;">Ketidakhadiran</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="font-size: 12px;">
+                        <td style="border-right: none; width: 60%">Sakit</td>
+                        <td style="border-left: none; border-right: none; width: 20%">0</td>
+                        <td style="border-left: none; width: 20%">hari</td>
+                    </tr>
+                    <tr style="font-size: 12px;">
+                        <td style="border-right: none; width: 60%">Izin</td>
+                        <td style="border-left: none; border-right: none; width: 20%">2</td>
+                        <td style="border-left: none; width: 20%">hari</td>
+                    </tr>
+                    <tr style="font-size: 12px;">
+                        <td style="border-right: none; width: 60%">Tanpa Keterangan</td>
+                        <td style="border-left: none; border-right: none; width: 20%">2</td>
+                        <td style="border-left: none; width: 20%">hari</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="signature">
+            <div>
+                <p>Orang Tua,</p>
+                <br><br>
+                <p class="parent-signature">.......................................................</p>
+            </div>
+            <div>
+                <p>Marangkayu, <?php echo \Carbon\Carbon::now()->isoFormat('D MMMM YYYY'); ?></p>
+                <p>Guru Kelas {{ $waliKelas->kelas->nama }}</p>
+                <br><br><br>
+                <p>{{ $waliKelas->user->name }}</p>
+                <p>NIP. 198205172008012015</p>
+            </div>
+        </div>
+        <div class="center">
+            <p>Mengetahui,</p>
+            <p>Kepala Sekolah</p>
+            <br><br><br>
+            <p>Dewi Widyawati, S.Pd</p>
+            <p>NIP. 197505261998072002</p>
         </div>
     </div>
 </body>

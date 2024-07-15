@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
+use App\Models\EkstrakulikulerSiswa;
 use App\Models\KelasSemester;
 use App\Models\NilaiMataPelajaran;
+use App\Models\Presensi;
+use App\Models\RuangPresensi;
 use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
+use App\Models\WaliKelas;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -28,33 +32,43 @@ class ValidasiRaporController extends Controller
     {
         $siswa = Siswa::find($id);
         $data = SiswaMataPelajaran::where('siswa_id', $siswa->id)->get();
+        $ekstrakulikuler = EkstrakulikulerSiswa::where('siswa_id', $siswa->id)->get();
+        $waliKelas = WaliKelas::where('kelas_id', $siswa->kelasSemester->kelas_id)->first();
 
-        $nilaiAkhir = [];
+        $countSakit = Presensi::where('siswa_id', $siswa->id)
+            ->whereHas('ruangPresensi', function ($query) use ($siswa) {
+                $query->where('kelas_semester_id', $siswa->kelas_semester_id);
+            })
+            ->where('status_presensi', 'Sakit')
+            ->count();
 
-        foreach ($data as $item) {
-            // Menghitung total nilai berdasarkan siswa_mata_pelajaran_id
-            $totalNilai = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $item->id)
-                ->sum('nilai');
+        $countIzin = Presensi::where('siswa_id', $siswa->id)
+            ->whereHas('ruangPresensi', function ($query) use ($siswa) {
+                $query->where('kelas_semester_id', $siswa->kelas_semester_id);
+            })
+            ->where('status_presensi', 'Izin')
+            ->count();
 
-            // Menghitung total upload tugas
-            $totalUploadTugas = NilaiMataPelajaran::where('siswa_mata_pelajaran_id', $item->id)
-                ->distinct('upload_tugas_id')
-                ->count('upload_tugas_id');
+        $countTanpaKeterangan = Presensi::where('siswa_id', $siswa->id)
+            ->whereHas('ruangPresensi', function ($query) use ($siswa) {
+                $query->where('kelas_semester_id', $siswa->kelas_semester_id);
+            })
+            ->where('status_presensi', 'Tanpa Keterangan')
+            ->count();
 
-            // Menghitung nilai akhir dengan membagi total nilai dengan total upload tugas
-            $nilaiAkhir[$item->id] = $totalUploadTugas > 0 ? $totalNilai / $totalUploadTugas : 0;
-        }
+        $siswa->countSakit = $countSakit;
+        $siswa->countIzin = $countIzin;
+        $siswa->countTanpaKeterangan = $countTanpaKeterangan;
 
         $pdf = Pdf::loadView('pages.kepala-sekolah.validasi-rapor.show-rapor-pdf', [
             'siswa' => $siswa,
             'data' => $data,
-            'nilaiAkhir' => $nilaiAkhir
-        ])
-            ->setPaper('a4', 'portrait');
+            'ekstrakulikuler' => $ekstrakulikuler,
+            'waliKelas' => $waliKelas
+        ])->setPaper('a4', 'potrait');
 
         return $pdf->stream('rapor.pdf');
     }
-
 
 
     /**
@@ -112,7 +126,7 @@ class ValidasiRaporController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $siswa = Siswa::find($id);
     }
 
     /**

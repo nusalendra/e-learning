@@ -10,7 +10,7 @@ class Siswa extends Model
     use HasFactory;
     protected $table = 'siswa';
     protected $primarykey = 'id';
-    protected $fillable = ['kelas_semester_id', 'nama', 'status_raport', 'nilai_akhir'];
+    protected $fillable = ['kelas_semester_id', 'nama', 'NIS', 'NISN', 'jenis_kelamin', 'tempat_Lahir', 'tanggal_lahir', 'agama', 'pendidikan_sebelumnya', 'alamat'];
 
     public function kelasSemester() {
         return $this->belongsTo(KelasSemester::class);
@@ -20,16 +20,16 @@ class Siswa extends Model
         return $this->hasMany(Presensi::class);
     }
 
+    public function rapor() {
+        return $this->hasMany(Rapor::class);
+    }
+
     public function nilaiMataPelajaran() {
         return $this->hasMany(NilaiMataPelajaran::class);
     }
 
     public function ekstrakulikuler() {
         return $this->belongsToMany(Ekstrakulikuler::class, 'ekstrakulikuler_siswa', 'siswa_id', 'ekstrakulikuler_id');
-    }
-
-    public function dataSiswa() {
-        return $this->hasOne(DataSiswa::class);
     }
 
     public function dataOrangTua() {
