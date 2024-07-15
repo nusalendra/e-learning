@@ -5,14 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class DataSiswa extends Model
+class Rapor extends Model
 {
     use HasFactory;
-    protected $table = 'data_siswa';
+    protected $table = 'rapor';
     protected $primarykey = 'id';
-    protected $fillable = ['user_id', 'NIS', 'NISN', 'jenis_kelamin', 'tempat_Lahir', 'tanggal_lahir', 'agama', 'pendidikan_sebelumnya', 'alamat'];
+    protected $fillable = ['status_raport', 'status_siswa', 'url_rapor'];
 
     public function siswa() {
         return $this->belongsTo(Siswa::class);
     }
 }
+
+

@@ -126,7 +126,7 @@ class ValidasiRaporController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $siswa = Siswa::find($id);
     }
 
     /**

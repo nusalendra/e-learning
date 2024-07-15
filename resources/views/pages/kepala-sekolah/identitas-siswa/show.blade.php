@@ -15,13 +15,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="NIS" class="form-control-label">NIS</label>
-                            <input class="form-control" type="text" value="{{ $data->dataSiswa->NIS }}" placeholder="Masukkan NIS" name="NIS" disabled>
+                            <input class="form-control" type="text" value="{{ $data->NIS }}" placeholder="Masukkan NIS" name="NIS" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="NISN" class="form-control-label">NISN</label>
-                            <input class="form-control" type="text" max="10" value="{{ $data->dataSiswa->NISN }}" placeholder="Masukkan NISN" name="NISN" disabled>
+                            <input class="form-control" type="text" max="10" value="{{ $data->NISN }}" placeholder="Masukkan NISN" name="NISN" disabled>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="jenis_kelamin" class="form-control-label">Jenis Kelamin</label>
-                            <input class="form-control" type="text" value="{{ $data->dataSiswa->jenis_kelamin }}" placeholder="Masukkan Jenis Kelamin" name="jenis_kelamin" disabled>
+                            <input class="form-control" type="text" value="{{ $data->jenis_kelamin }}" placeholder="Masukkan Jenis Kelamin" name="jenis_kelamin" disabled>
                         </div>
                     </div>
                 </div>
@@ -43,13 +43,13 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tempat_lahir" class="form-control-label">Tempat Lahir</label>
-                            <input class="form-control" value="{{ $data->dataSiswa->tempat_lahir }}" type="text" placeholder="Masukkan Tempat Lahir" name="tempat_lahir" disabled>
+                            <input class="form-control" value="{{ $data->tempat_lahir }}" type="text" placeholder="Masukkan Tempat Lahir" name="tempat_lahir" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tanggal_lahir" class="form-control-label">Tanggal Lahir</label>
-                            <input class="form-control" value="{{ $data->dataSiswa->tanggal_lahir }}" type="text" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir" disabled>
+                            <input class="form-control" value="{{ $data->tanggal_lahir }}" type="text" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir" disabled>
                         </div>
                     </div>
                 </div>
@@ -57,19 +57,19 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="agama" class="form-control-label">Agama</label>
-                            <input class="form-control" value="{{ $data->dataSiswa->agama }}" type="text" placeholder="Masukkan Agama" name="agama" disabled>
+                            <input class="form-control" value="{{ $data->agama }}" type="text" placeholder="Masukkan Agama" name="agama" disabled>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="pendidikan_sebelumnya" class="form-control-label">Pendidikan Sebelumnya</label>
-                            <input class="form-control" value="{{ $data->dataSiswa->pendidikan_sebelumnya }}" type="text" placeholder="Masukkan Pendidikan Sebelumnya" name="pendidikan_sebelumnya" disabled>
+                            <input class="form-control" value="{{ $data->pendidikan_sebelumnya }}" type="text" placeholder="Masukkan Pendidikan Sebelumnya" name="pendidikan_sebelumnya" disabled>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="alamat" class="form-control-label">Alamat Siswa</label>
-                            <input class="form-control" value="{{ $data->dataSiswa->alamat }}" type="text" placeholder="Masukkan Alamat Siswa" name="alamat" disabled>
+                            <input class="form-control" value="{{ $data->alamat }}" type="text" placeholder="Masukkan Alamat Siswa" name="alamat" disabled>
                         </div>
                     </div>
                 </div>
