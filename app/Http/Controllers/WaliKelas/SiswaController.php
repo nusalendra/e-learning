@@ -128,20 +128,16 @@ class SiswaController extends Controller
     {
         $siswa = Siswa::find($id);
         $siswa->nama = $request->nama;
+        $siswa->NIS = $request->NIS;
+        $siswa->NISN = $request->NISN;
+        $siswa->jenis_kelamin = $request->jenis_kelamin;
+        $siswa->tempat_Lahir = $request->tempat_lahir;
+        $siswa->tanggal_lahir = $request->tanggal_lahir;
+        $siswa->agama = $request->agama;
+        $siswa->pendidikan_sebelumnya = $request->pendidikan_sebelumnya;
+        $siswa->alamat = $request->alamat;
         $siswa->save();
-
-        $dataSiswa = DataSiswa::where('siswa_id', $siswa->id)->first();
-        $dataSiswa->siswa_id = $siswa->id;
-        $dataSiswa->NIS = $request->NIS;
-        $dataSiswa->NISN = $request->NISN;
-        $dataSiswa->jenis_kelamin = $request->jenis_kelamin;
-        $dataSiswa->tempat_Lahir = $request->tempat_lahir;
-        $dataSiswa->tanggal_lahir = $request->tanggal_lahir;
-        $dataSiswa->agama = $request->agama;
-        $dataSiswa->pendidikan_sebelumnya = $request->pendidikan_sebelumnya;
-        $dataSiswa->alamat = $request->alamat;
-        $dataSiswa->save();
-
+        
         $dataOrangTua = DataOrangTua::where('siswa_id', $siswa->id)->first();
         $dataOrangTua->siswa_id = $siswa->id;
         $dataOrangTua->nama_ayah = $request->nama_ayah;
