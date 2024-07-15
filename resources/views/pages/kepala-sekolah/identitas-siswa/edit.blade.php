@@ -53,7 +53,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="tanggal_lahir" class="form-control-label">Tanggal Lahir</label>
-                            <input class="form-control" value="{{ $data->tanggal_lahir }}" type="text" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir">
+                            <input class="form-control" value="{{ $data->tanggal_lahir }}" type="date" placeholder="Masukkan Tanggal Lahir" name="tanggal_lahir">
                         </div>
                     </div>
                 </div>

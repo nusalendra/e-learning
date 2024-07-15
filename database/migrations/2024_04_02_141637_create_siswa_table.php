@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('NISN');
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
-            $table->string('tanggal_lahir');
+            $table->date('tanggal_lahir');
             $table->string('agama');
             $table->string('pendidikan_sebelumnya');
             $table->string('alamat');
