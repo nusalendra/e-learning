@@ -151,7 +151,7 @@
             </tr>
             <tr>
                 <td>NISN</td>
-                <td>: {{ $siswa->dataSiswa->NISN }}</td>
+                <td>: {{ $siswa->NISN }}</td>
                 <td>Fase</td>
                 <td>: </td>
             </tr>

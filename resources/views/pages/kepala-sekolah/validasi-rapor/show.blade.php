@@ -51,10 +51,11 @@
                                                         </button>
                                                     </a>
                                                 </div>
+
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
                                                     <form id="validasi-rapor-{{ $item->id }}"
-                                                        action="validasi-rapor/{{ $item->id }}" method="POST"
-                                                        role="form text-left"
+                                                        action="{{ route('validasi-rapor.update', $item->id) }}"
+                                                        method="POST" role="form text-left"
                                                         onsubmit="event.preventDefault(); validasiRapor({{ $item->id }})">
                                                         @csrf
                                                         @method('PUT')
