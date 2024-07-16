@@ -96,7 +96,7 @@
         function validasiRapor(id) {
             Swal.fire({
                 title: "Validasi Rapor",
-                text: "Apakah rapor siswa sudah benar dan siap diunduh?",
+                text: "Apakah rapor siswa sudah benar dan siap diunduh? Melakukan validasi 2x kemungkinan akan menyebabkan pengaruh pada file rapor!",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
