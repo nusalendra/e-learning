@@ -274,15 +274,15 @@
                 <p>Guru Kelas {{ $waliKelas->kelas->nama }}</p>
                 <br><br><br>
                 <p>{{ $waliKelas->user->name }}</p>
-                <p>NIP. 198205172008012015</p>
+                <p>NIP. {{ $waliKelas->user->NIP }}</p>
             </div>
         </div>
         <div class="center">
             <p>Mengetahui,</p>
             <p>Kepala Sekolah</p>
             <br><br><br>
-            <p>Dewi Widyawati, S.Pd</p>
-            <p>NIP. 197505261998072002</p>
+            <p>{{ $user->name }}</p>
+            <p>NIP. {{ $user->NIP }}</p>
         </div>
     </div>
 </body>

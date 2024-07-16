@@ -14,6 +14,7 @@ use App\Models\SiswaMataPelajaran;
 use App\Models\WaliKelas;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class ValidasiRaporController extends Controller
@@ -36,7 +37,8 @@ class ValidasiRaporController extends Controller
         $data = SiswaMataPelajaran::where('siswa_id', $siswa->id)->get();
         $ekstrakulikuler = EkstrakulikulerSiswa::where('siswa_id', $siswa->id)->get();
         $waliKelas = WaliKelas::where('kelas_id', $siswa->kelasSemester->kelas_id)->first();
-
+        $user = Auth::user();
+        
         $countSakit = Presensi::where('siswa_id', $siswa->id)
             ->whereHas('ruangPresensi', function ($query) use ($siswa) {
                 $query->where('kelas_semester_id', $siswa->kelas_semester_id);
@@ -66,7 +68,8 @@ class ValidasiRaporController extends Controller
             'siswa' => $siswa,
             'data' => $data,
             'ekstrakulikuler' => $ekstrakulikuler,
-            'waliKelas' => $waliKelas
+            'waliKelas' => $waliKelas,
+            'user' => $user
         ])->setPaper('a4', 'potrait');
 
         return $pdf->stream('rapor.pdf');
@@ -133,6 +136,7 @@ class ValidasiRaporController extends Controller
         $ekstrakulikuler = EkstrakulikulerSiswa::where('siswa_id', $siswa->id)->get();
         $waliKelas = WaliKelas::where('kelas_id', $siswa->kelasSemester->kelas_id)->first();
         $rapor = Rapor::where('siswa_id', $siswa->id)->first();
+        $user = Auth::user();
 
         $countSakit = Presensi::where('siswa_id', $siswa->id)
             ->whereHas('ruangPresensi', function ($query) use ($siswa) {
@@ -163,7 +167,8 @@ class ValidasiRaporController extends Controller
             'siswa' => $siswa,
             'data' => $data,
             'ekstrakulikuler' => $ekstrakulikuler,
-            'waliKelas' => $waliKelas
+            'waliKelas' => $waliKelas,
+            'user' => $user
         ])->setPaper('a4', 'potrait');
 
         $folder = public_path('Rapor Siswa/' . 'Tahun Ajaran ' . $siswa->kelasSemester->kelas->periode->tahun_ajaran . '/' . 'Kelas ' . $siswa->kelasSemester->kelas->nama . '/' . 'Semester ' . $siswa->kelasSemester->semester->nama);

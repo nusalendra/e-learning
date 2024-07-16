@@ -43,6 +43,7 @@ class WaliKelasController extends Controller
     {
         $user = new User();
         $user->name = $request->name;
+        $user->NIP = $request->NIP;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         $user->role = 'Wali Kelas';
@@ -96,6 +97,7 @@ class WaliKelasController extends Controller
     {
         $user = User::find($id);
         $user->name = $request->name;
+        $user->NIP = $request->NIP;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
         

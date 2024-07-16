@@ -11,7 +11,7 @@
                 @method('PUT')
                 @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="name" class="form-control-label">Nama Wali Kelas</label>
                             @if ($data->waliKelas)
@@ -21,7 +21,13 @@
                             @endif
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="NIP" class="form-control-label">NIP</label>
+                            <input class="form-control" type="text" value="{{ $data->NIP }}" placeholder="Masukkan Nama User Untuk Login" name="NIP">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="nama" class="form-control-label">Kelas</label>
                             <select name="kelas_id" id="" class="form-select">
