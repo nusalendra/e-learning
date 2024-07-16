@@ -13,9 +13,9 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label for="periode_id" class="form-control-label">Kelas</label>
+                            <label for="periode_id" class="form-control-label">Periode</label>
                             <select name="periode_id" id="" class="form-select">
-                                <option value="0" selected disabled>Pilih Kelas</option>
+                                <option value="0" selected disabled>Pilih Periode</option>
                                 @foreach ($periode as $item)
                                     <option value="{{ $item->id }}" {{ $data && $data->periode_id == $item->id ? 'selected' : '' }}>
                                         {{ $item->tahun_ajaran }}

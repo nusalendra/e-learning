@@ -10,13 +10,19 @@
             <form action="/wali-kelas" method="POST" role="form text-left">
                 @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="name" class="form-control-label">Nama Wali Kelas <span class="text-danger">*</span></label>
                             <input class="form-control" type="text" placeholder="Masukkan Nama Wali Kelas" name="name" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="NIP" class="form-control-label">NIP <span class="text-danger">*</span></label>
+                            <input class="form-control" type="number" placeholder="Masukkan NIP Wali Kelas" name="NIP" required>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="nama" class="form-control-label">Kelas <span class="text-danger">*</span></label>
                             <select name="kelas_id" id="" class="form-select">

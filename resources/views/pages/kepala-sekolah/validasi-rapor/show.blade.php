@@ -51,10 +51,11 @@
                                                         </button>
                                                     </a>
                                                 </div>
+
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
                                                     <form id="validasi-rapor-{{ $item->id }}"
-                                                        action="validasi-rapor/{{ $item->id }}" method="POST"
-                                                        role="form text-left"
+                                                        action="{{ route('validasi-rapor.update', $item->id) }}"
+                                                        method="POST" role="form text-left"
                                                         onsubmit="event.preventDefault(); validasiRapor({{ $item->id }})">
                                                         @csrf
                                                         @method('PUT')
@@ -95,7 +96,7 @@
         function validasiRapor(id) {
             Swal.fire({
                 title: "Validasi Rapor",
-                text: "Apakah rapor siswa sudah benar dan siap diunduh?",
+                text: "Apakah rapor siswa sudah benar dan siap diunduh? Melakukan validasi 2x kemungkinan akan menyebabkan pengaruh pada file rapor!",
                 icon: "question",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",

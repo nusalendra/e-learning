@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Nusalendra Putra Restu Bumi',
+            'NIP' => '197505261998072002',
             'username' => 'nusalendra',
             'password' => Hash::make('nusalendra'),
             'role' => 'Kepala Sekolah'
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Budi Setyo',
+            'NIP' => '198205172008012015',
             'username' => 'budisetyo',
             'password' => Hash::make('password'),
             'role' => 'Wali Kelas'
@@ -36,13 +38,14 @@ class DatabaseSeeder extends Seeder
 
         DB::table('users')->insert([
             'name' => 'Arif',
+            'NIP' => '198205172008012015',
             'username' => 'arif',
             'password' => Hash::make('password'),
             'role' => 'Guru'
         ]);
 
         DB::table('periode')->insert([
-            'tahun_ajaran' => 'Tahun Ajaran 2021/2022',
+            'tahun_ajaran' => '2021 - 2022',
         ]);
 
         DB::table('kelas')->insert([

@@ -11,13 +11,19 @@
                 @method('PUT')
                 @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="name" class="form-control-label">Nama Guru <span class="text-danger">*</span></label>
                             <input class="form-control" value="{{ $data->name }}" type="text" placeholder="Masukkan Nama Wali Kelas" name="name" required>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="NIP" class="form-control-label">NIP</label>
+                            <input class="form-control" type="text" value="{{ $data->NIP }}" placeholder="Masukkan Nama User Untuk Login" name="NIP">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="role" class="form-control-label">Jabatan <span class="text-danger">*</span></label>
                             <select name="role" id="" class="form-select">
