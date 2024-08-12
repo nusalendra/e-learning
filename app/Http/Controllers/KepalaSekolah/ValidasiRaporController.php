@@ -183,7 +183,7 @@ class ValidasiRaporController extends Controller
         $pdf->save($filePath);
 
         $rapor->url_rapor = 'Rapor Siswa/' . 'Tahun Ajaran ' . $siswa->kelasSemester->kelas->periode->tahun_ajaran . '/' . 'Kelas ' . $siswa->kelasSemester->kelas->nama . '/' . 'Semester ' . $siswa->kelasSemester->semester->nama . '/' . $filename;
-        $rapor->status_raport = 'Divalidasi';
+        $rapor->status_rapor = 'Divalidasi';
         $rapor->save();
 
         return redirect('/validasi-rapor/' . $siswa->kelas_semester_id);

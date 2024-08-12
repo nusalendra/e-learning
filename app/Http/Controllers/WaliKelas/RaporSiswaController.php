@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\Rapor;
+use App\Models\Siswa;
+use App\Models\WaliKelas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class UnduhRaporController extends Controller
+class RaporSiswaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +18,22 @@ class UnduhRaporController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
+        $data = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
+            $query->where('status', 'Dibuka');
+            $query->where('kelas_id', $kelasId);
+        })
+        ->whereHas('rapor', function($query) {
+            $query->where('status_rapor', 'Divalidasi');
+        })
+        ->with(['rapor' => function($query) {
+            $query->where('status_rapor', 'Divalidasi')->limit(1);
+        }])
+        ->get();
+        // dd($data);
+
+        return view('pages.wali-kelas.rapor-siswa.index', compact('data'));
     }
 
     /**
@@ -69,7 +88,17 @@ class UnduhRaporController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $siswa = Siswa::find($id);
+        $rapor = Rapor::where('siswa_id', $siswa->id)->where('status_rapor', 'Divalidasi')->first();
+
+        if ($request->has('lulus')) {
+            $siswa->status = 'Lulus';
+        } elseif ($request->has('tidak_lulus')) {
+            $rapor->status_siswa = 'Tidak Lulus';
+            $rapor->save();
+        }
+
+        return redirect('/rapor-siswa');
     }
 
     /**
