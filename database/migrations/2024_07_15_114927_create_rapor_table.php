@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('rapor', function (Blueprint $table) {
             $table->id();
             $table->foreignId('siswa_id')->constrained('siswa')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('kelas_semester_id')->nullable()->constrained('kelas_semester')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('status_rapor')->default('Belum Divalidasi');
             $table->string('status_siswa')->default('Belum Lulus');
             $table->string('url_rapor')->nullable();

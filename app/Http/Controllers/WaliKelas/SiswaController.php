@@ -8,6 +8,7 @@ use App\Models\DataSiswa;
 use App\Models\KelasSemester;
 use App\Models\MataPelajaran;
 use App\Models\NilaiMataPelajaran;
+use App\Models\Rapor;
 use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
 use App\Models\UploadTugas;
@@ -95,6 +96,10 @@ class SiswaController extends Controller
         $data = Siswa::find($id);
         $data->kelas_semester_id = $request->kelas_semester_id;
         $data->save();
+
+        $rapor = Rapor::where('siswa_id', $id)->first();
+        $rapor->kelas_semester_id = $request->kelas_semester_id;
+        $rapor->save();
 
         if($request->mata_pelajaran_id) {
             foreach($request->mata_pelajaran_id as $mataPelajaran) {
