@@ -10,7 +10,7 @@ class Rapor extends Model
     use HasFactory;
     protected $table = 'rapor';
     protected $primarykey = 'id';
-    protected $fillable = ['status_raport', 'status_siswa', 'url_rapor'];
+    protected $fillable = ['status_rapor', 'status_siswa', 'url_rapor'];
 
     public function siswa() {
         return $this->belongsTo(Siswa::class);

@@ -28,9 +28,9 @@ use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
 use App\Http\Controllers\WaliKelas\MataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
+use App\Http\Controllers\WaliKelas\RaporSiswaController;
 use App\Http\Controllers\WaliKelas\SemesterController;
 use App\Http\Controllers\WaliKelas\SiswaController;
-use App\Http\Controllers\WaliKelas\UnduhRaporController;
 use App\Http\Controllers\WaliKelas\UploadTugasController;
 use Illuminate\Support\Facades\Route;
 
@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::post('/capaian-kompetensi/input-capaian-kompetensi', [CapaianKompetensiController::class, 'inputCapaianKompetensiStore']);
 		Route::get('/capaian-kompetensi/{id}/show-capaian-kompetensi', [CapaianKompetensiController::class, 'pageShowCapaianKompetensi']);
 
-		Route::resource('/unduh-rapor', UnduhRaporController::class);
+		Route::resource('/rapor-siswa', RaporSiswaController::class);
 	});
 
 	Route::group(['middleware' => 'role:Guru'], function () {
