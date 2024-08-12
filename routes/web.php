@@ -26,6 +26,7 @@ use App\Http\Controllers\WaliKelas\CapaianKompetensiController;
 use App\Http\Controllers\WaliKelas\EkstrakulikulerSiswaController;
 use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
+use App\Http\Controllers\WaliKelas\KenaikanKelasController;
 use App\Http\Controllers\WaliKelas\MataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\RaporSiswaController;
@@ -107,6 +108,8 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/capaian-kompetensi/{id}/input-capaian-kompetensi', [CapaianKompetensiController::class, 'pageCapaianKompetensi'])->name('page-input-capaian-kompetensi');
 		Route::post('/capaian-kompetensi/input-capaian-kompetensi', [CapaianKompetensiController::class, 'inputCapaianKompetensiStore']);
 		Route::get('/capaian-kompetensi/{id}/show-capaian-kompetensi', [CapaianKompetensiController::class, 'pageShowCapaianKompetensi']);
+
+		Route::resource('/kenaikan-kelas', KenaikanKelasController::class);
 
 		Route::resource('/rapor-siswa', RaporSiswaController::class);
 	});
