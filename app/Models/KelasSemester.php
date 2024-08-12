@@ -24,6 +24,10 @@ class KelasSemester extends Model
         return $this->hasMany(Siswa::class);
     }
 
+    public function rapor() {
+        return $this->hasMany(Rapor::class);
+    }
+
     public function mataPelajaran() {
         return $this->hasMany(MataPelajaran::class);
     }
