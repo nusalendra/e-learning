@@ -112,7 +112,12 @@ class ValidasiRaporController extends Controller
     public function show($id)
     {
         $kelasSemester = KelasSemester::find($id);
-        $data = Siswa::where('kelas_semester_sebelumnya_id', '=', $kelasSemester->id)->get();
+        $data = Siswa::where('kelas_semester_sebelumnya_id', '=', $kelasSemester->id)
+                ->whereHas('rapor', function ($query) {
+                    $query->where('status_rapor', 'Belum Divalidasi')
+                          ->whereIn('status_siswa', ['Lulus', 'Tidak Lulus']);
+                })
+                ->get();
 
         return view('pages.kepala-sekolah.validasi-rapor.show', compact('data', 'kelasSemester'));
     }
