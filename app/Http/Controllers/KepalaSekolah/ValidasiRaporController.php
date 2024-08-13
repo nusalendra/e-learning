@@ -34,10 +34,14 @@ class ValidasiRaporController extends Controller
     public function checkRaporPDF($id)
     {
         $siswa = Siswa::find($id);
+        $rapor = Rapor::where('siswa_id', $id)->where('status_rapor', 'Belum Divalidasi')->first();
         $data = SiswaMataPelajaran::where('siswa_id', $siswa->id)->get();
         $ekstrakulikuler = EkstrakulikulerSiswa::where('siswa_id', $siswa->id)->get();
         $waliKelas = WaliKelas::where('kelas_id', $siswa->kelasSemester->kelas_id)->first();
         $user = Auth::user();
+        $kelasSemesterSebelumnya = KelasSemester::find($siswa->kelas_semester_sebelumnya_id);
+        // dd($kelasSemesterSebelumnya);
+        
         
         $countSakit = Presensi::where('siswa_id', $siswa->id)
             ->whereHas('ruangPresensi', function ($query) use ($siswa) {
@@ -66,6 +70,8 @@ class ValidasiRaporController extends Controller
 
         $pdf = Pdf::loadView('pages.kepala-sekolah.validasi-rapor.show-rapor-pdf', [
             'siswa' => $siswa,
+            'rapor' => $rapor,
+            'kelasSemesterSebelumnya' => $kelasSemesterSebelumnya,
             'data' => $data,
             'ekstrakulikuler' => $ekstrakulikuler,
             'waliKelas' => $waliKelas,
@@ -106,7 +112,7 @@ class ValidasiRaporController extends Controller
     public function show($id)
     {
         $kelasSemester = KelasSemester::find($id);
-        $data = Siswa::where('kelas_semester_id', '=', $kelasSemester->id)->get();
+        $data = Siswa::where('kelas_semester_sebelumnya_id', '=', $kelasSemester->id)->get();
 
         return view('pages.kepala-sekolah.validasi-rapor.show', compact('data', 'kelasSemester'));
     }
@@ -132,11 +138,12 @@ class ValidasiRaporController extends Controller
     public function update(Request $request, $id)
     {
         $siswa = Siswa::find($id);
+        $rapor = Rapor::where('siswa_id', $id)->where('status_rapor', 'Belum Divalidasi')->first();
         $data = SiswaMataPelajaran::where('siswa_id', $siswa->id)->get();
         $ekstrakulikuler = EkstrakulikulerSiswa::where('siswa_id', $siswa->id)->get();
         $waliKelas = WaliKelas::where('kelas_id', $siswa->kelasSemester->kelas_id)->first();
-        $rapor = Rapor::where('siswa_id', $siswa->id)->first();
         $user = Auth::user();
+        $kelasSemesterSebelumnya = KelasSemester::find($siswa->kelas_semester_sebelumnya_id);
 
         $countSakit = Presensi::where('siswa_id', $siswa->id)
             ->whereHas('ruangPresensi', function ($query) use ($siswa) {
@@ -165,13 +172,15 @@ class ValidasiRaporController extends Controller
 
         $pdf = Pdf::loadView('pages.kepala-sekolah.validasi-rapor.show-rapor-pdf', [
             'siswa' => $siswa,
+            'rapor' => $rapor,
+            'kelasSemesterSebelumnya' => $kelasSemesterSebelumnya,
             'data' => $data,
             'ekstrakulikuler' => $ekstrakulikuler,
             'waliKelas' => $waliKelas,
             'user' => $user
         ])->setPaper('a4', 'potrait');
 
-        $folder = public_path('Rapor Siswa/' . 'Tahun Ajaran ' . $siswa->kelasSemester->kelas->periode->tahun_ajaran . '/' . 'Kelas ' . $siswa->kelasSemester->kelas->nama . '/' . 'Semester ' . $siswa->kelasSemester->semester->nama);
+        $folder = public_path('Rapor Siswa/' . 'Tahun Ajaran ' . $siswa->kelasSemester->kelas->periode->tahun_ajaran . '/' . 'Kelas ' . $kelasSemesterSebelumnya->kelas->nama . '/' . 'Semester ' . $kelasSemesterSebelumnya->semester->nama);
 
         if (!File::exists($folder)) {
             File::makeDirectory($folder, 0755, true);
@@ -182,11 +191,11 @@ class ValidasiRaporController extends Controller
 
         $pdf->save($filePath);
 
-        $rapor->url_rapor = 'Rapor Siswa/' . 'Tahun Ajaran ' . $siswa->kelasSemester->kelas->periode->tahun_ajaran . '/' . 'Kelas ' . $siswa->kelasSemester->kelas->nama . '/' . 'Semester ' . $siswa->kelasSemester->semester->nama . '/' . $filename;
+        $rapor->url_rapor = 'Rapor Siswa/' . 'Tahun Ajaran ' . $siswa->kelasSemester->kelas->periode->tahun_ajaran . '/' . 'Kelas ' . $kelasSemesterSebelumnya->kelas->nama . '/' . 'Semester ' . $kelasSemesterSebelumnya->semester->nama . '/' . $filename;
         $rapor->status_rapor = 'Divalidasi';
         $rapor->save();
 
-        return redirect('/validasi-rapor/' . $siswa->kelas_semester_id);
+        return redirect('/validasi-rapor/' . $siswa->kelas_semester_sebelumnya_id);
     }
 
     /**
