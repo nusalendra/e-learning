@@ -13,6 +13,7 @@ use App\Models\Siswa;
 use App\Models\SiswaMataPelajaran;
 use App\Models\WaliKelas;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -190,8 +191,11 @@ class ValidasiRaporController extends Controller
         if (!File::exists($folder)) {
             File::makeDirectory($folder, 0755, true);
         }
-
-        $filename = 'Rapor ' . $siswa->nama . '.pdf';
+        
+        Carbon::setLocale('id');
+        $tanggalSekarang = Carbon::now()->translatedFormat('d F Y');
+        
+        $filename = 'Rapor ' . $siswa->nama . '_Divalidasi Pada ' .  $tanggalSekarang . '.pdf';
         $filePath = $folder . '/' . $filename;
 
         $pdf->save($filePath);
