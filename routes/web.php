@@ -112,6 +112,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/kenaikan-kelas', KenaikanKelasController::class);
 
 		Route::resource('/rapor-siswa', RaporSiswaController::class);
+		Route::post('/rapor-siswa/unduh-rapor/{id}', [RaporSiswaController::class, 'unduhRapor']);
 	});
 
 	Route::group(['middleware' => 'role:Guru'], function () {

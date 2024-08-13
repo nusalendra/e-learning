@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\WaliKelas;
 
 use App\Http\Controllers\Controller;
+use App\Models\KelasSemester;
 use App\Models\Rapor;
 use App\Models\Siswa;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Response;
 
 class RaporSiswaController extends Controller
 {
@@ -20,17 +23,18 @@ class RaporSiswaController extends Controller
     {
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
-        $data = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
-            $query->where('status', 'Dibuka');
-            $query->where('kelas_id', $kelasId);
-        })
-        ->whereHas('rapor', function($query) {
-            $query->where('status_rapor', 'Divalidasi');
-        })
-        ->with(['rapor' => function($query) {
-            $query->where('status_rapor', 'Divalidasi')->limit(1);
-        }])
-        ->get();
+        $data = Siswa::where('kelas_semester_sebelumnya_id', $kelasId)
+            ->whereHas('rapor', function ($query) {
+                $query->where('status_rapor', 'Divalidasi');
+            })->get();
+        // dd($data);
+        // $data = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
+        //     $query->where('status', 'Dibuka');
+        //     $query->where('kelas_id', $kelasId);
+        // })
+        // ->whereHas('rapor', function($query) {
+        //     $query->where('status_rapor', 'Divalidasi');
+        // })->get();
         // dd($data);
 
         return view('pages.wali-kelas.rapor-siswa.index', compact('data'));
@@ -110,5 +114,30 @@ class RaporSiswaController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function unduhRapor($id)
+    {
+        $user = Auth::user();
+        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
+        $siswa = Siswa::find($id);
+        $kelasSemesterSebelumnya = KelasSemester::find($siswa->kelas_semester_sebelumnya_id);
+        $rapor = Rapor::where('siswa_id', $id)
+            ->where('kelas_semester_id', $kelasId)
+            ->where('status_rapor', 'Divalidasi')
+            ->first();
+
+        $filePath = public_path($rapor->url_rapor);
+
+        if (File::exists($filePath)) {
+            $rapor->status_rapor = 'Selesai Diunduh';
+            $rapor->save();
+
+            session()->flash('rapor_downloaded', true);
+
+            return Response::download($filePath);
+        }
+
+        return redirect()->back()->withErrors('File tidak ditemukan.');
     }
 }
