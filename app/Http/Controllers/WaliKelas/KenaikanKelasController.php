@@ -26,7 +26,6 @@ class KenaikanKelasController extends Controller
             $query->where('kelas_id', $kelasId);
         })->get();
         $kelasSemester = KelasSemester::all();
-        // dd($kelasSemester);
 
         return view('pages.wali-kelas.kenaikan-kelas.index', compact('data', 'kelasSemester'));
     }
@@ -93,9 +92,22 @@ class KenaikanKelasController extends Controller
 
             $rapor->status_siswa = 'Lulus';
             $rapor->save();
+
+            $raporBaru = new Rapor();
+            $raporBaru->siswa_id = $id;
+            $raporBaru->kelas_semester_id = $request->kelas_semester_id;
+            $raporBaru->save();
         } elseif ($request->has('tidak_lulus')) {
-            $rapor->status_siswa = 'Belum Lulus';
+            $siswa->kelas_semester_sebelumnya_id = $siswa->kelas_semester_id;
+            $siswa->save();
+            
+            $rapor->status_siswa = 'Tidak Lulus';
             $rapor->save();
+
+            $raporBaru = new Rapor();
+            $raporBaru->siswa_id = $id;
+            $raporBaru->kelas_semester_id = $siswa->kelas_semester_id;
+            $raporBaru->save();
         }
 
         return redirect('/kenaikan-kelas');
