@@ -147,7 +147,7 @@
                 <td>Nama Peserta Didik</td>
                 <td>: {{ $siswa->nama }}</td>
                 <td>Kelas</td>
-                <td>: {{ $siswa->kelasSemester->kelas->nama }}</td>
+                <td>: {{ $kelasSemesterSebelumnya->kelas->nama }}</td>
             </tr>
             <tr>
                 <td>NISN</td>
@@ -159,7 +159,7 @@
                 <td>Sekolah</td>
                 <td>: SD Negeri 009 Marangkayu</td>
                 <td>Semester</td>
-                <td>: {{ $siswa->kelasSemester->semester->nama }}</td>
+                <td>: {{ $kelasSemesterSebelumnya->semester->nama }}</td>
             </tr>
             <tr>
                 <td>Alamat</td>
@@ -238,30 +238,43 @@
             </table>
         </div>
         <div class="table-responsive">
-            <table class="table mt-4 table-ketidakhadiran" style="width: 50%;">
-                <thead>
-                    <tr style="font-size: 14px;">
-                        <th colspan="3" style="text-align: center;">Ketidakhadiran</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="font-size: 12px;">
-                        <td style="border-right: none; width: 60%">Sakit</td>
-                        <td style="border-left: none; border-right: none; width: 20%">0</td>
-                        <td style="border-left: none; width: 20%">hari</td>
-                    </tr>
-                    <tr style="font-size: 12px;">
-                        <td style="border-right: none; width: 60%">Izin</td>
-                        <td style="border-left: none; border-right: none; width: 20%">2</td>
-                        <td style="border-left: none; width: 20%">hari</td>
-                    </tr>
-                    <tr style="font-size: 12px;">
-                        <td style="border-right: none; width: 60%">Tanpa Keterangan</td>
-                        <td style="border-left: none; border-right: none; width: 20%">2</td>
-                        <td style="border-left: none; width: 20%">hari</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div style="display: flex; justify-content: space-between;">
+                <table class="table mt-4 table-ketidakhadiran" style="width: 50%;">
+                    <thead>
+                        <tr style="font-size: 14px;">
+                            <th colspan="3" style="text-align: center;">Ketidakhadiran</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="font-size: 12px;">
+                            <td style="border-right: none; width: 60%">Sakit</td>
+                            <td style="border-left: none; border-right: none; width: 20%">0</td>
+                            <td style="border-left: none; width: 20%">hari</td>
+                        </tr>
+                        <tr style="font-size: 12px;">
+                            <td style="border-right: none; width: 60%">Izin</td>
+                            <td style="border-left: none; border-right: none; width: 20%">2</td>
+                            <td style="border-left: none; width: 20%">hari</td>
+                        </tr>
+                        <tr style="font-size: 12px;">
+                            <td style="border-right: none; width: 60%">Tanpa Keterangan</td>
+                            <td style="border-left: none; border-right: none; width: 20%">2</td>
+                            <td style="border-left: none; width: 20%">hari</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div style="width: 50%; text-align: left; font-size: 12px; padding-left: 10px; margin-top: 10px;">
+                    <p>Keterangan:</p>
+                    @if ($rapor->status_siswa == 'Lulus')
+                        <p>Berdasarkan pencapaian kompetensi pada Semester {{ $rapor->kelasSemester->semester->nama }},
+                            peserta didik dinyatakan naik ke Kelas {{ $siswa->kelasSemester->kelas->nama }} Semester {{ $siswa->kelasSemester->semester->nama }}.</p>
+                    @elseif ($rapor->status_siswa == 'Belum Lulus')
+                        <p>Berdasarkan pencapaian kompetensi pada Semester {{ $rapor->kelasSemester->semester->nama }},
+                            peserta didik dinyatakan harus mengulang di Kelas {{ $siswa->kelasSemester->kelas->nama }} Semester {{ $siswa->kelasSemester->semester->nama }}.
+                        </p>
+                    @endif
+                </div>
+            </div>
         </div>
         <div class="signature">
             <div>
