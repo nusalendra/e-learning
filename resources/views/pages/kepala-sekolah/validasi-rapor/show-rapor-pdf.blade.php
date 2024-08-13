@@ -268,7 +268,7 @@
                     @if ($rapor->status_siswa == 'Lulus')
                         <p>Berdasarkan pencapaian kompetensi pada Semester {{ $rapor->kelasSemester->semester->nama }},
                             peserta didik dinyatakan naik ke Kelas {{ $siswa->kelasSemester->kelas->nama }} Semester {{ $siswa->kelasSemester->semester->nama }}.</p>
-                    @elseif ($rapor->status_siswa == 'Belum Lulus')
+                    @elseif ($rapor->status_siswa == 'Tidak Lulus')
                         <p>Berdasarkan pencapaian kompetensi pada Semester {{ $rapor->kelasSemester->semester->nama }},
                             peserta didik dinyatakan harus mengulang di Kelas {{ $siswa->kelasSemester->kelas->nama }} Semester {{ $siswa->kelasSemester->semester->nama }}.
                         </p>
