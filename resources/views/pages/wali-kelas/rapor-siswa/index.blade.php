@@ -48,58 +48,23 @@
                                             </div>
                                         </td>
                                         <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/rapor-siswa/{{ $item->id }}" method="POST"
-                                                        role="form text-left">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="hidden" name="lulus" value="1">
-                                                        <button type="submit" class="btn bg-gradient-info">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-arrow-up mb-1" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5" />
-                                                            </svg>
-                                                            Lulus
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/rapor-siswa/{{ $item->id }}" method="POST"
-                                                        role="form text-left">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="hidden" name="tidak_lulus" value="1">
-                                                        <button type="submit" class="btn bg-gradient-danger">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-arrow-down mb-1" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
-                                                            </svg>
-                                                            Tidak Lulus
-                                                        </button>
-                                                    </form>
-                                                </div>
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/rapor-siswa/{{ $item->id }}" method="POST"
-                                                        role="form text-left">
-                                                        @csrf
-                                                        @method('PUT')
-                                                        <input type="hidden" name="tidak_lulus" value="1">
-                                                        <button type="submit" class="btn bg-gradient-dark">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16"
-                                                                height="16" fill="currentColor"
-                                                                class="bi bi-arrow-down mb-1" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd"
-                                                                    d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
-                                                            </svg>
-                                                            Unduh Rapor
-                                                        </button>
-                                                    </form>
-                                                </div>
+                                            <div class="ms-2 d-flex flex-column justify-content-center">
+                                                <form action="/rapor-siswa/{{ $item->id }}" method="POST"
+                                                    role="form text-left">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <input type="hidden" name="tidak_lulus" value="1">
+                                                    <button type="submit" class="btn bg-gradient-dark">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                            height="16" fill="currentColor"
+                                                            class="bi bi-arrow-down mb-1" viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                d="M8 1a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L7.5 13.293V1.5A.5.5 0 0 1 8 1" />
+                                                        </svg>
+                                                        Unduh Rapor
+                                                    </button>
+                                                </form>
+                                            </div>
                                             </div>
                                         </td>
                                     </tr>
