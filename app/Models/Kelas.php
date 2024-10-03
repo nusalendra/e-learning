@@ -10,14 +10,10 @@ class Kelas extends Model
     use HasFactory;
     protected $table = 'kelas';
     protected $primarykey = 'id';
-    protected $fillable = ['periode_id', 'nama'];
+    protected $fillable = ['nama'];
 
     public function waliKelas() {
         return $this->hasOne(WaliKelas::class);
-    }
-
-    public function periode(){
-        return $this->belongsTo(Periode::class);
     }
 
     public function kelasSemester() {
