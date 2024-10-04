@@ -74,11 +74,8 @@ class SemesterController extends Controller
      */
     public function edit($id)
     {
-        $user = Auth::user();
-        $waliKelas = WaliKelas::where('user_id', $user->id)->first();
         $data = KelasSemester::find($id);
-
-        return view('pages.kepala-sekolah.semester.edit', compact('data', 'waliKelas'));
+        return view('pages.kepala-sekolah.semester.edit', compact('data'));
     }
 
     /**
@@ -93,12 +90,14 @@ class SemesterController extends Controller
         $kelasSemester = KelasSemester::find($id);
 
         $semester = Semester::where('id', $kelasSemester->semester_id)->first();
+        $semester->tahun_ajaran = $request->tahun_ajaran;
         $semester->nama = $request->nama;
+        $semester->tanggal_mulai = $request->tanggal_mulai;
+        $semester->tanggal_akhir = $request->tanggal_akhir;
         $semester->save();
 
         $kelasSemester->kelas_id = $request->kelas_id;
         $kelasSemester->semester_id = $semester->id;
-        $kelasSemester->status = $request->status;
         $kelasSemester->save();
 
         return redirect('/semester');
