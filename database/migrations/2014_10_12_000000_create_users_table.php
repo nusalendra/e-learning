@@ -19,6 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('NIP');
             $table->string('username');
             $table->string('password');
+            $table->string('TTL');
+            $table->string('alamat');
+            $table->string('agama');
             $table->string('role');
             $table->rememberToken();
             $table->timestamps();
