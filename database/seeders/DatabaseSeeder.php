@@ -25,24 +25,27 @@ class DatabaseSeeder extends Seeder
             'NIP' => '197505261998072002',
             'username' => 'nusalendra',
             'password' => Hash::make('nusalendra'),
+            'TTL' => 'Denpasar, 17 Oktober 1998',
+            'alamat' => 'Perumahan Denpasar No. 1',
+            'agama' => 'Islam',
             'role' => 'Kepala Sekolah'
         ]);
 
-        DB::table('users')->insert([
-            'name' => 'Budi Setyo',
-            'NIP' => '198205172008012015',
-            'username' => 'budisetyo',
-            'password' => Hash::make('password'),
-            'role' => 'Wali Kelas'
-        ]);
+        // DB::table('users')->insert([
+        //     'name' => 'Budi Setyo',
+        //     'NIP' => '198205172008012015',
+        //     'username' => 'budisetyo',
+        //     'password' => Hash::make('password'),
+        //     'role' => 'Wali Kelas'
+        // ]);
 
-        DB::table('users')->insert([
-            'name' => 'Arif',
-            'NIP' => '198205172008012015',
-            'username' => 'arif',
-            'password' => Hash::make('password'),
-            'role' => 'Guru'
-        ]);
+        // DB::table('users')->insert([
+        //     'name' => 'Arif',
+        //     'NIP' => '198205172008012015',
+        //     'username' => 'arif',
+        //     'password' => Hash::make('password'),
+        //     'role' => 'Guru'
+        // ]);
 
         // DB::table('periode')->insert([
         //     'tahun_ajaran' => '2021 - 2022',

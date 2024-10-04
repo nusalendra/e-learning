@@ -3,7 +3,7 @@
 @section('content')
     <div>
         <div class="text-end">
-            <a href="/guru/create">
+            <a href="/tenaga-pengajar/create">
                 <button type="button" class="btn bg-gradient-info">Tambah Data</button>
             </a>
         </div>
@@ -16,9 +16,8 @@
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">NIP</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Guru</th>
+                                    <th class="text-uppercase text-xs font-weight-bolder">Nama Tenaga Pengajar</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Jabatan</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Nama User</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
                             </thead>
@@ -42,28 +41,32 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->name }}</h6>
+                                                    {{ $item->name }}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->role }}</h6>
+                                                    {{ $item->role }}
                                                 </div>
                                             </div>
                                         </td>
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->username }}</h6>
+                                                    <a href="/tenaga-pengajar/{{ $item->id }}">
+                                                        <button type="button" class="btn bg-gradient-info">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                                                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                                                                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+                                                            </svg>
+                                                            Detail
+                                                        </button>
+                                                    </a>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <a href="/guru/{{ $item->id }}/edit">
+                                                <div class="ms-2 d-flex flex-column justify-content-center">
+                                                    <a href="/tenaga-pengajar/{{ $item->id }}/edit">
                                                         <button type="button" class="btn bg-gradient-warning">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                                 <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -74,7 +77,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="ms-2 d-flex flex-column justify-content-center">
-                                                    <form action="/guru/{{ $item->id }}" method="POST" role="form text-left">
+                                                    <form action="/tenaga-pengajar/{{ $item->id }}" method="POST" role="form text-left">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" class="btn bg-gradient-danger">
