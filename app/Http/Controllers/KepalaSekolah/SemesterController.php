@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\WaliKelas;
+namespace App\Http\Controllers\KepalaSekolah;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Kelas;
 use App\Models\KelasSemester;
-use App\Models\Periode;
 use App\Models\Semester;
 use App\Models\WaliKelas;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SemesterController extends Controller
@@ -20,10 +19,8 @@ class SemesterController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
-        $data = KelasSemester::with('kelas', 'semester')->whereIn('kelas_id', $kelasId)->get();
-        return view('pages.wali-kelas.semester.index', compact('data'));
+        $data = KelasSemester::with('kelas', 'semester')->get();
+        return view('pages.kepala-sekolah.semester.index', compact('data'));
     }
 
     /**
@@ -33,9 +30,8 @@ class SemesterController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $waliKelas = WaliKelas::where('user_id', $user->id)->first();
-        return view('pages.wali-kelas.semester.create', compact('waliKelas'));
+        $kelas = Kelas::all();
+        return view('pages.kepala-sekolah.semester.create', compact('kelas'));
     }
 
     /**
@@ -47,13 +43,16 @@ class SemesterController extends Controller
     public function store(Request $request)
     {
         $semester = new Semester();
+        $semester->tahun_ajaran = $request->tahun_ajaran;
         $semester->nama = $request->nama;
+        $semester->tanggal_mulai = $request->tanggal_mulai;
+        $semester->tanggal_akhir = $request->tanggal_akhir;
         $semester->save();
 
         $kelasSemester = new KelasSemester();
         $kelasSemester->kelas_id = $request->kelas_id;
         $kelasSemester->semester_id = $semester->id;
-        $kelasSemester->status = $request->status;
+        $kelasSemester->status = 'Non Aktif';
         $kelasSemester->save();
 
         return redirect('/semester');
@@ -65,10 +64,7 @@ class SemesterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        
-    }
+    public function show($id) {}
 
     /**
      * Show the form for editing the specified resource.
@@ -82,7 +78,7 @@ class SemesterController extends Controller
         $waliKelas = WaliKelas::where('user_id', $user->id)->first();
         $data = KelasSemester::find($id);
 
-        return view('pages.wali-kelas.semester.edit', compact('data', 'waliKelas'));
+        return view('pages.kepala-sekolah.semester.edit', compact('data', 'waliKelas'));
     }
 
     /**
@@ -104,7 +100,7 @@ class SemesterController extends Controller
         $kelasSemester->semester_id = $semester->id;
         $kelasSemester->status = $request->status;
         $kelasSemester->save();
-        
+
         return redirect('/semester');
     }
 
@@ -118,6 +114,15 @@ class SemesterController extends Controller
     {
         $kelasSemester = KelasSemester::find($id);
         $kelasSemester->delete();
+
+        return redirect('/semester');
+    }
+
+    public function ubahStatus(Request $request, $id)
+    {
+        $kelasSemester = KelasSemester::find($id);
+        $kelasSemester->status = $request->status;
+        $kelasSemester->save();
 
         return redirect('/semester');
     }
