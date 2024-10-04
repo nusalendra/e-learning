@@ -16,7 +16,7 @@ use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
 use App\Http\Controllers\KepalaSekolah\LaporanNilaiSiswaController;
 use App\Http\Controllers\KepalaSekolah\LaporanPresensiSiswaController;
-use App\Http\Controllers\KepalaSekolah\PeriodeController;
+use App\Http\Controllers\KepalaSekolah\SemesterController;
 use App\Http\Controllers\KepalaSekolah\ValidasiRaporController;
 use App\Http\Controllers\KepalaSekolah\WaliKelasController;
 use App\Http\Controllers\RegisterController;
@@ -30,7 +30,6 @@ use App\Http\Controllers\WaliKelas\KenaikanKelasController;
 use App\Http\Controllers\WaliKelas\MataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\RaporSiswaController;
-use App\Http\Controllers\WaliKelas\SemesterController;
 use App\Http\Controllers\WaliKelas\SiswaController;
 use App\Http\Controllers\WaliKelas\UploadTugasController;
 use Illuminate\Support\Facades\Route;
@@ -53,8 +52,9 @@ Route::group(['middleware' => ['auth']], function () {
 			return view('pages.kepala-sekolah.dashboard-kepala-sekolah');
 		})->name('dashboard-kepala-sekolah');
 
-		Route::resource('/periode', PeriodeController::class);
 		Route::resource('/kelas', KelasController::class);
+		Route::resource('/semester', SemesterController::class);
+		Route::put('/semester/{id}/ubah-status', [SemesterController::class, 'ubahStatus']);
 		Route::resource('/wali-kelas', WaliKelasController::class);
 		Route::resource('/guru', GuruController::class);
 		Route::resource('/identitas-siswa', IdentitasSiswaController::class);
@@ -83,8 +83,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('dashboard-wali-kelas', function () {
 			return view('pages.wali-kelas.dashboard-wali-kelas');
 		})->name('dashboard-wali-kelas');
-
-		Route::resource('/semester', SemesterController::class);
 
 		Route::resource('/siswa', SiswaController::class);
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);

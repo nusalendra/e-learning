@@ -15,7 +15,6 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-xs font-weight-bolder text-start">No</th>
-                                    <th class="text-uppercase text-xs font-weight-bolder">Periode</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Kelas</th>
                                     <th class="text-uppercase text-xs font-weight-bolder">Aksi</th>
                                 </tr>
@@ -27,13 +26,6 @@
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
                                                     <h6 class="mb-0 text-sm">{{ $index + 1 }}</h6>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="d-flex px-2 py-1">
-                                                <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->periode->tahun_ajaran }}</h6>
                                                 </div>
                                             </div>
                                         </td>
