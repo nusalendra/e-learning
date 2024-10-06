@@ -31,7 +31,8 @@ class IdentitasSiswaController extends Controller
      */
     public function create()
     {
-        return view('pages.kepala-sekolah.identitas-siswa.create');
+        $kelasSemester = KelasSemester::where('status', 'Aktif')->get();
+        return view('pages.kepala-sekolah.identitas-siswa.create', compact('kelasSemester'));
     }
 
     /**
@@ -43,6 +44,7 @@ class IdentitasSiswaController extends Controller
     public function store(Request $request)
     {
         $siswa = new Siswa();
+        $siswa->kelas_semester_id = $request->kelas_id;
         $siswa->nama = $request->nama;
         $siswa->NIS = $request->NIS;
         $siswa->NISN = $request->NISN;

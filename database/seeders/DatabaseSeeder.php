@@ -51,10 +51,13 @@ class DatabaseSeeder extends Seeder
         //     'tahun_ajaran' => '2021 - 2022',
         // ]);
 
-        // DB::table('kelas')->insert([
-        //     'periode_id' => 1,
-        //     'nama' => 'I (Satu)',
-        // ]);
+        DB::table('kelas')->insert([
+            'nama' => 'I (Satu)',
+        ]);
+
+        DB::table('kelas')->insert([
+            'nama' => 'II (Dua)',
+        ]);
 
         // DB::table('wali_kelas')->insert([
         //     'user_id' => 2,
