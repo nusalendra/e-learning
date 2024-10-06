@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('siswa', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('kelas_semester_id')->nullable()->constrained('kelas_semester')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('kelas_semester_id')->constrained('kelas_semester')->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('kelas_semester_sebelumnya_id')->nullable()->constrained('kelas_semester')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('nama');
             $table->string('NIS');
