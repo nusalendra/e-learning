@@ -120,6 +120,18 @@ class SemesterController extends Controller
     public function ubahStatus(Request $request, $id)
     {
         $kelasSemester = KelasSemester::find($id);
+
+        if ($request->status == 'Aktif') {
+            $semesterAktif = KelasSemester::where('kelas_id', $kelasSemester->kelas_id)
+                                           ->where('status', 'Aktif')
+                                           ->where('id', '!=', $id)
+                                           ->first();
+    
+            if ($semesterAktif) {
+                return redirect()->back()->with('error', 'Tidak bisa mengaktifkan semester ini. Hanya satu semester yang bisa aktif untuk kelas yang sama.');
+            }
+        }
+
         $kelasSemester->status = $request->status;
         $kelasSemester->save();
 
