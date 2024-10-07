@@ -15,7 +15,7 @@
                             <div class="form-group">
                                 <label for="NIS" class="form-control-label">NIS <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Masukkan NIS" name="NIS"
+                                <input class="form-control" type="number" placeholder="Masukkan NIS" name="NIS"
                                     required>
                             </div>
                         </div>
@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <label for="NISN" class="form-control-label">NISN <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="text" max="10" placeholder="Masukkan NISN"
+                                <input class="form-control" type="number" max="10" placeholder="Masukkan NISN"
                                     name="NISN" required>
                             </div>
                         </div>

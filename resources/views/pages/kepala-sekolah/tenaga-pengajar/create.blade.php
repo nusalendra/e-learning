@@ -52,16 +52,23 @@
                                         class="text-danger">*</span></label>
                                 <input class="form-control" type="text" placeholder="Masukkan Alamat" name="alamat"
                                     required>
+                                    
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="agama" class="form-control-label">Agama <span
-                                        class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Masukkan Agama" name="agama"
-                                    required>
-                            </div>
-                        </div>
+                            
+    <div class="form-group">
+        <label for="agama" class="form-control-label">Agama <span class="text-danger">*</span></label>
+        <select class="form-control" id="agama" name="agama" required>
+            <option value="" disabled selected>Pilih Agama</option>
+            <option value="Islam">Islam</option>
+            <option value="Kristen">Kristen</option>
+            <option value="Katolik">Katolik</option>
+            <option value="Hindu">Hindu</option>
+            <option value="Buddha">Buddha</option>
+        </select>
+    </div>
+</div>
                         <div class="col-md-12" id="kelas-section" style="display: none;">
                             <div class="form-group">
                                 <label for="kelas_id" class="form-control-label">Kelas <span
