@@ -15,6 +15,7 @@ use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
 use App\Http\Controllers\KepalaSekolah\LaporanNilaiSiswaController;
 use App\Http\Controllers\KepalaSekolah\LaporanPresensiSiswaController;
+use App\Http\Controllers\KepalaSekolah\MataPelajaranController;
 use App\Http\Controllers\KepalaSekolah\SemesterController;
 use App\Http\Controllers\KepalaSekolah\TenagaPengajarController;
 use App\Http\Controllers\KepalaSekolah\ValidasiRaporController;
@@ -26,7 +27,6 @@ use App\Http\Controllers\WaliKelas\EkstrakulikulerSiswaController;
 use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
 use App\Http\Controllers\WaliKelas\KenaikanKelasController;
-use App\Http\Controllers\WaliKelas\MataPelajaranController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\RaporSiswaController;
 use App\Http\Controllers\WaliKelas\SiswaController;
@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::put('/semester/{id}/ubah-status', [SemesterController::class, 'ubahStatus']);
 		Route::resource('/tenaga-pengajar', TenagaPengajarController::class);
 		Route::resource('/identitas-siswa', IdentitasSiswaController::class);
+		Route::resource('/mata-pelajaran', MataPelajaranController::class);
 		Route::resource('/kategori', KategoriController::class);
 		Route::resource('/ekstrakulikuler', EkstrakulikulerController::class);
 
@@ -89,9 +90,9 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/ekstrakulikuler-siswa/{id}/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageCatatanSiswa'])->name('page-input-catatan-siswa');
 		Route::put('/ekstrakulikuler-siswa/input-catatan-siswa/{id}', [EkstrakulikulerSiswaController::class, 'inputCatatanSiswa'])->name('inputCatatanSiswaStore');
 
-		Route::resource('/mata-pelajaran', MataPelajaranController::class);
-		Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
-		Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);
+		// Route::resource('/mata-pelajaran', MataPelajaranController::class);
+		// Route::get('/mata-pelajaran/{id}/input-nilai', [MataPelajaranController::class, 'pageInputNilai']);
+		// Route::post('/mata-pelajaran/input-nilai', [MataPelajaranController::class, 'inputNilaiStore']);
 
 		Route::resource('/jadwal-kelas', JadwalKelasController::class);
 		Route::resource('/kelola-ruang-presensi', KelolaRuangPresensiController::class);
