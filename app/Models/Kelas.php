@@ -23,4 +23,8 @@ class Kelas extends Model
     public function semester() {
         return $this->belongsToMany(Semester::class);
     }
+    
+    public function mataPelajaran() {
+        return $this->hasMany(MataPelajaran::class);
+    }
 }
