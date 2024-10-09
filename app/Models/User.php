@@ -22,7 +22,8 @@ class User extends Authenticatable
         'NIP',
         'username',
         'password',
-        'TTL',
+        'tempat_lahir',
+        'tanggal_lahir',
         'alamat',
         'agama',
         'role'
