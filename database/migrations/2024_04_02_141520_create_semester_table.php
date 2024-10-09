@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('semester', function (Blueprint $table) {
             $table->id();
-            $table->string('tahun_ajaran');
+            $table->string('awal_tahun_ajaran');
+            $table->string('akhir_tahun_ajaran');
             $table->string('nama');
             $table->date('tanggal_mulai');
             $table->date('tanggal_akhir');

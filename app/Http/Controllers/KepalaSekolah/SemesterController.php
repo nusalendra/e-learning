@@ -42,18 +42,29 @@ class SemesterController extends Controller
      */
     public function store(Request $request)
     {
-        $semester = new Semester();
-        $semester->tahun_ajaran = $request->tahun_ajaran;
-        $semester->nama = $request->nama;
-        $semester->tanggal_mulai = $request->tanggal_mulai;
-        $semester->tanggal_akhir = $request->tanggal_akhir;
-        $semester->save();
+        $existingAwalTahunAjaran = Semester::where('awal_tahun_ajaran', $request->awal_tahun_ajaran)->first();
 
-        $kelasSemester = new KelasSemester();
-        $kelasSemester->kelas_id = $request->kelas_id;
-        $kelasSemester->semester_id = $semester->id;
-        $kelasSemester->status = 'Non Aktif';
-        $kelasSemester->save();
+        if($existingAwalTahunAjaran) {
+            return redirect()->back()->with('error', 'Awal tahun ajaran sudah ada di database.');
+        }
+
+        foreach ($request->nama as $namaSemester) {
+            $semester = new Semester();
+            $semester->awal_tahun_ajaran = $request->awal_tahun_ajaran;
+            $semester->akhir_tahun_ajaran = $request->akhir_tahun_ajaran;
+            $semester->nama = $namaSemester;
+            $semester->tanggal_mulai = $request->tanggal_mulai;
+            $semester->tanggal_akhir = $request->tanggal_akhir;
+            $semester->save();
+            
+            foreach ($request->kelas_id as $kelasId) {
+                $kelasSemester = new KelasSemester();
+                $kelasSemester->kelas_id = $kelasId;
+                $kelasSemester->semester_id = $semester->id;
+                $kelasSemester->status = 'Non Aktif';
+                $kelasSemester->save();
+            }
+        }
 
         return redirect('/semester');
     }
@@ -87,10 +98,17 @@ class SemesterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $existingAwalTahunAjaran = Semester::where('awal_tahun_ajaran', $request->awal_tahun_ajaran)->first();
+
+        if($existingAwalTahunAjaran) {
+            return redirect()->back()->with('error', 'Awal tahun ajaran sudah ada di database.');
+        }
+
         $kelasSemester = KelasSemester::find($id);
 
         $semester = Semester::where('id', $kelasSemester->semester_id)->first();
-        $semester->tahun_ajaran = $request->tahun_ajaran;
+        $semester->awal_tahun_ajaran = $request->awal_tahun_ajaran;
+        $semester->akhir_tahun_ajaran = $request->akhir_tahun_ajaran;
         $semester->nama = $request->nama;
         $semester->tanggal_mulai = $request->tanggal_mulai;
         $semester->tanggal_akhir = $request->tanggal_akhir;
