@@ -29,11 +29,18 @@ class TenagaPengajarController extends Controller
 
         $user = new User();
         if ($jabatan == 'Wali Kelas') {
+            $existingClass = WaliKelas::where('kelas_id', $request->kelas_id)->first();
+
+            if ($existingClass) {
+                return redirect()->back()->with('error', 'Kelas yang dipilih telah mempunyai wali kelas')->withInput();
+            }
+
             $user->name = $request->name;
             $user->NIP = $request->NIP;
             $user->username = $request->username;
             $user->password = Hash::make($request->password);
-            $user->TTL = $request->TTL;
+            $user->tempat_lahir = $request->tempat_lahir;
+            $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
             $user->role = $jabatan;
@@ -52,7 +59,8 @@ class TenagaPengajarController extends Controller
             $user->NIP = $request->NIP;
             $user->username = $request->username;
             $user->password = Hash::make($request->password);
-            $user->TTL = $request->TTL;
+            $user->tempat_lahir = $request->tempat_lahir;
+            $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
             $user->role = $jabatan;
@@ -63,7 +71,8 @@ class TenagaPengajarController extends Controller
         return redirect('/tenaga-pengajar');
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $data = User::find($id);
         return view('pages.kepala-sekolah.tenaga-pengajar.show', compact('data'));
     }
@@ -78,13 +87,25 @@ class TenagaPengajarController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        
+
         if ($user->role == 'Wali Kelas') {
+
+            $waliKelas = WaliKelas::where('user_id', $user->id)->first();
+
+            if ($waliKelas && $waliKelas->kelas_id != $request->kelas_id) {
+                $existingClass = WaliKelas::where('kelas_id', $request->kelas_id)->first();
+
+                if ($existingClass) {
+                    return redirect()->back()->with('error', 'Kelas yang dipilih telah mempunyai wali kelas');
+                }
+            }
+
             $user->name = $request->name;
             $user->NIP = $request->NIP;
             $user->username = $request->username;
             $user->password = Hash::make($request->password);
-            $user->TTL = $request->TTL;
+            $user->tempat_lahir = $request->tempat_lahir;
+            $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
 
@@ -101,7 +122,8 @@ class TenagaPengajarController extends Controller
             $user->NIP = $request->NIP;
             $user->username = $request->username;
             $user->password = Hash::make($request->password);
-            $user->TTL = $request->TTL;
+            $user->tempat_lahir = $request->tempat_lahir;
+            $user->tanggal_lahir = $request->tanggal_lahir;
             $user->alamat = $request->alamat;
             $user->agama = $request->agama;
 
@@ -111,7 +133,8 @@ class TenagaPengajarController extends Controller
         return redirect('/tenaga-pengajar');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         $data = User::find($id);
 
         $data->delete();
