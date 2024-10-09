@@ -11,14 +11,10 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\InfoUserController;
 use App\Http\Controllers\KepalaSekolah\EkstrakulikulerController;
 use App\Http\Controllers\KepalaSekolah\IdentitasSiswaController;
-use App\Http\Controllers\KepalaSekolah\KategoriController;
 use App\Http\Controllers\KepalaSekolah\KelasController;
-use App\Http\Controllers\KepalaSekolah\LaporanNilaiSiswaController;
-use App\Http\Controllers\KepalaSekolah\LaporanPresensiSiswaController;
 use App\Http\Controllers\KepalaSekolah\MataPelajaranController;
 use App\Http\Controllers\KepalaSekolah\SemesterController;
 use App\Http\Controllers\KepalaSekolah\TenagaPengajarController;
-use App\Http\Controllers\KepalaSekolah\ValidasiRaporController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -57,7 +53,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::resource('/tenaga-pengajar', TenagaPengajarController::class);
 		Route::resource('/identitas-siswa', IdentitasSiswaController::class);
 		Route::resource('/mata-pelajaran', MataPelajaranController::class);
-		Route::resource('/kategori', KategoriController::class);
 		Route::resource('/ekstrakulikuler', EkstrakulikulerController::class);
 
 		Route::get('/user-profile', [InfoUserController::class, 'create']);
@@ -65,15 +60,6 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('/login', function () {
 			return view('dashboard');
 		})->name('sign-up');
-
-		Route::resource('/laporan-nilai-siswa', LaporanNilaiSiswaController::class);
-		Route::get('/laporan-nilai-siswa/mata-pelajaran-siswa/{id}', [LaporanNilaiSiswaController::class, 'mataPelajaranShow']);
-		Route::get('/laporan-nilai-siswa/nilai-siswa/{id}', [LaporanNilaiSiswaController::class, 'nilaiSiswaShow']);
-
-		Route::resource('/laporan-presensi-siswa', LaporanPresensiSiswaController::class);
-		
-		Route::resource('/validasi-rapor', ValidasiRaporController::class);
-		Route::get('/validasi-rapor/check-rapor-pdf/{id}', [ValidasiRaporController::class, 'checkRaporPDF']);
 	});
 
 	// Wali Kelas
