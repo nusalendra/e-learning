@@ -36,7 +36,7 @@
                                         <td>
                                             <div class="d-flex px-2 py-1">
                                                 <div class="d-flex flex-column justify-content-center">
-                                                    <h6 class="mb-0 text-sm">{{ $item->semester->tahun_ajaran }}</h6>
+                                                    <h6 class="mb-0 text-sm">{{ $item->semester->awal_tahun_ajaran }}/{{ $item->semester->akhir_tahun_ajaran }}</h6>
                                                 </div>
                                             </div>
                                         </td>
