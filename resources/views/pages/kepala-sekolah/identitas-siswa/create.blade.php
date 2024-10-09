@@ -23,7 +23,7 @@
                             <div class="form-group">
                                 <label for="NISN" class="form-control-label">NISN <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="number" max="10" placeholder="Masukkan NISN"
+                                <input class="form-control" type="number" placeholder="Masukkan NISN"
                                     name="NISN" required>
                             </div>
                         </div>
@@ -72,8 +72,14 @@
                             <div class="form-group">
                                 <label for="agama" class="form-control-label">Agama <span
                                         class="text-danger">*</span></label>
-                                <input class="form-control" type="text" placeholder="Masukkan Agama" name="agama"
-                                    required>
+                                <select class="form-control" id="agama" name="agama" required>
+                                    <option value="" disabled selected>Pilih Agama</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-4">
