@@ -24,6 +24,7 @@ use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
 use App\Http\Controllers\WaliKelas\KenaikanKelasController;
 use App\Http\Controllers\WaliKelas\PresensiController;
+use App\Http\Controllers\WaliKelas\ProfilController;
 use App\Http\Controllers\WaliKelas\RaporSiswaController;
 use App\Http\Controllers\WaliKelas\SiswaController;
 use App\Http\Controllers\WaliKelas\UploadTugasController;
@@ -68,6 +69,10 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('dashboard-wali-kelas', function () {
 			return view('pages.wali-kelas.dashboard-wali-kelas');
 		})->name('dashboard-wali-kelas');
+
+		Route::get('/profil', [ProfilController::class, 'index']);
+		Route::post('/upload-foto', [ProfilController::class, 'uploadFoto']);
+		Route::post('/ubah-password', [ProfilController::class, 'ubahPassword']);
 
 		Route::resource('/siswa', SiswaController::class);
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);

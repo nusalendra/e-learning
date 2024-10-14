@@ -26,6 +26,7 @@ class User extends Authenticatable
         'tanggal_lahir',
         'alamat',
         'agama',
+        'foto',
         'role'
     ];
 
