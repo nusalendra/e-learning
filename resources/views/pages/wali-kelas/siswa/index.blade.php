@@ -2,11 +2,6 @@
 
 @section('content')
     <div>
-        <div class="text-end">
-            <a href="/siswa/create">
-                <button type="button" class="btn bg-gradient-info">Tambah Siswa</button>
-            </a>
-        </div>
         <div class="py-1">
             <div class="card mb-4 p-3">
                 <div class="card-body px-0 pt-0 pb-2">
@@ -75,7 +70,7 @@
                                                         </button>
                                                     </a>
                                                 </div>
-                                                <div class="ms-2 d-flex flex-column justify-content-center">
+                                                {{-- <div class="ms-2 d-flex flex-column justify-content-center">
                                                     <form action="/siswa/{{ $item->id }}" method="POST" role="form text-left">
                                                         @csrf
                                                         @method('DELETE')
@@ -86,7 +81,7 @@
                                                             Hapus
                                                         </button>
                                                     </form>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         </td>
                                     </tr>
