@@ -28,7 +28,7 @@ class SiswaController extends Controller
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->pluck('kelas_id');
         $data = Siswa::whereHas('kelasSemester', function($query) use ($kelasId) {
-            $query->where('status', 'Dibuka');
+            $query->where('status', 'Aktif');
             $query->where('kelas_id', $kelasId);
         })
         ->get();
@@ -43,18 +43,6 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-
-        $kelasSemester = KelasSemester::where('kelas_id', $kelasId)->get();
-        $data = Siswa::where('kelas_semester_id', null)->get();
-
-        $mataPelajaran = MataPelajaran::whereHas('kelasSemester', function($query) use ($kelasId) {
-                $query->where('status', 'Dibuka');
-                $query->where('kelas_id', $kelasId);
-            })->get();
-        
-        return view('pages.wali-kelas.siswa.create', compact('data', 'kelasSemester', 'mataPelajaran'));
     }
 
     /**
@@ -90,36 +78,6 @@ class SiswaController extends Controller
     {
         $data = Siswa::find($id);
         return view('pages.wali-kelas.siswa.edit', compact('data'));
-    }
-
-    public function tambahSiswa(Request $request, $id) {
-        $data = Siswa::find($id);
-        $data->kelas_semester_id = $request->kelas_semester_id;
-        $data->save();
-
-        $rapor = Rapor::where('siswa_id', $id)->first();
-        $rapor->kelas_semester_id = $request->kelas_semester_id;
-        $rapor->save();
-
-        if($request->mata_pelajaran_id) {
-            foreach($request->mata_pelajaran_id as $mataPelajaran) {
-                $siswaMataPelajaran = SiswaMataPelajaran::updateOrCreate(
-                    ['siswa_id' => $id, 'mata_pelajaran_id' => $mataPelajaran],
-                    ['mata_pelajaran_id' => $mataPelajaran]
-                );
-
-                $uploadTugas = UploadTugas::where('mata_pelajaran_id', $mataPelajaran)->get();
-                foreach($uploadTugas as $item) {
-                    NilaiMataPelajaran::create([
-                        'siswa_mata_pelajaran_id' => $siswaMataPelajaran->id,
-                        'upload_tugas_id' => $item->id
-                    ]);
-                }
-            }
-        }
-
-
-        return back();
     }
 
     /**
