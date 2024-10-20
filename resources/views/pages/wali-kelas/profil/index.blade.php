@@ -43,27 +43,35 @@
                 <div class="col-12">
                     <div class="card mb-4">
                         <div class="px-2 py-2">
-                            <div class="card-header pb-0 p-3">
-                                <h5 class="mb-1 font-bolder">Biodata</h5>
-                            </div>
-                            <div class="card-body px-3 py-2">
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0 ps-0 pt-0 text-sm"><strong class="text-dark">Nama
-                                            Lengkap :</strong> &nbsp; {{ $user->name }}</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">NIP
-                                            :</strong>
-                                        &nbsp; {{ $user->NIP }}</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Tempat,
-                                            Tanggal
-                                            Lahir:</strong> &nbsp; {{ $user->tempat_lahir }},
-                                        {{ \Carbon\Carbon::parse($user->tanggal_lahir)->locale('id')->translatedFormat('d F Y') }}
-                                    </li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Alamat
-                                            :</strong> &nbsp; {{ $user->alamat }}</li>
-                                    <li class="list-group-item border-0 ps-0 text-sm"><strong class="text-dark">Agama
-                                            :</strong> &nbsp; {{ $user->agama }}</li>
-                                </ul>
-                            </div>
+                        <div class="card-header pb-0 p-3">
+    <h5 class="mb-1 font-bolder">Biodata</h5>
+</div>
+<div class="card-body px-3 py-2">
+    <ul class="list-group">
+        <li class="list-group-item border-0 ps-0 pt-0 text-sm biodata-item">
+            <strong class="text-dark">Nama Lengkap</strong>
+            <span>: &nbsp; {{ $user->name }}</span>
+        </li>
+        <li class="list-group-item border-0 ps-0 text-sm biodata-item">
+            <strong class="text-dark">NIP</strong>
+            <span>: &nbsp; {{ $user->NIP }}</span>
+        </li>
+        <li class="list-group-item border-0 ps-0 text-sm biodata-item">
+            <strong class="text-dark">Tempat, Tanggal Lahir</strong>
+            <span>: &nbsp; {{ $user->tempat_lahir }},
+                {{ \Carbon\Carbon::parse($user->tanggal_lahir)->locale('id')->translatedFormat('d F Y') }}
+            </span>
+        </li>
+        <li class="list-group-item border-0 ps-0 text-sm biodata-item">
+            <strong class="text-dark">Alamat</strong>
+            <span>: &nbsp; {{ $user->alamat }}</span>
+        </li>
+        <li class="list-group-item border-0 ps-0 text-sm biodata-item">
+            <strong class="text-dark">Agama</strong>
+            <span>: &nbsp; {{ $user->agama }}</span>
+        </li>
+    </ul>
+</div>
                         </div>
                         <div class="px-2 py-2">
                             <div class="card-header pb-0 p-3">
