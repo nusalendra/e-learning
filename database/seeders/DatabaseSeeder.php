@@ -143,6 +143,18 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Matematika'
         ]);
 
+        DB::table('siswa_mata_pelajaran')->insert([
+            'siswa_id' => 2,
+            'mata_pelajaran_id' => 1,
+            'nilai_akhir' => null
+        ]);
+
+        DB::table('siswa_mata_pelajaran')->insert([
+            'siswa_id' => 1,
+            'mata_pelajaran_id' => 1,
+            'nilai_akhir' => null
+        ]);
+
         DB::table('mata_pelajaran')->insert([
             'kelas_id' => 1,
             'user_id' => 2,
@@ -151,12 +163,36 @@ class DatabaseSeeder extends Seeder
             'nama' => 'Bahasa Indonesia'
         ]);
 
+        DB::table('siswa_mata_pelajaran')->insert([
+            'siswa_id' => 1,
+            'mata_pelajaran_id' => 2,
+            'nilai_akhir' => null
+        ]);
+
+        DB::table('siswa_mata_pelajaran')->insert([
+            'siswa_id' => 2,
+            'mata_pelajaran_id' => 2,
+            'nilai_akhir' => null
+        ]);
+
         DB::table('mata_pelajaran')->insert([
             'kelas_id' => 1,
             'user_id' => 2,
             'kode' => 'ABC123',
             'jenis' => 'Mata Pelajaran',
             'nama' => 'Bahasa Inggris'
+        ]);
+
+        DB::table('siswa_mata_pelajaran')->insert([
+            'siswa_id' => 1,
+            'mata_pelajaran_id' => 3,
+            'nilai_akhir' => null
+        ]);
+
+        DB::table('siswa_mata_pelajaran')->insert([
+            'siswa_id' => 2,
+            'mata_pelajaran_id' => 3,
+            'nilai_akhir' => null
         ]);
 
         // DB::table('semester')->insert([
