@@ -8,6 +8,7 @@ use App\Models\RuangPresensi;
 use App\Models\WaliKelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class KelolaRuangPresensiController extends Controller
 {
@@ -20,11 +21,11 @@ class KelolaRuangPresensiController extends Controller
     {
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function($query) use ($kelasId) {
-            $query->where('status', 'Dibuka');
+        $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($kelasId) {
+            $query->where('status', 'Aktif');
             $query->where('kelas_id', '=', $kelasId);
         })
-        ->get();
+            ->get();
 
         return view('pages.wali-kelas.kelola-ruang-presensi.index', compact('data'));
     }
@@ -38,7 +39,7 @@ class KelolaRuangPresensiController extends Controller
     {
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->where('kelas_id', $kelasId)->get();
+        $semester = KelasSemester::where('status', '=', 'Aktif')->where('kelas_id', $kelasId)->get();
 
         return view('pages.wali-kelas.kelola-ruang-presensi.create', compact('semester'));
     }
@@ -83,7 +84,7 @@ class KelolaRuangPresensiController extends Controller
         $data = RuangPresensi::find($id);
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
-        $semester = KelasSemester::where('status', '=', 'Dibuka')->where('kelas_id', $kelasId)->get();
+        $semester = KelasSemester::where('status', '=', 'Aktif')->where('kelas_id', $kelasId)->get();
 
         return view('pages.wali-kelas.kelola-ruang-presensi.edit', compact('data', 'semester'));
     }

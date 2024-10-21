@@ -22,7 +22,7 @@ class PresensiController extends Controller
         $user = Auth::user();
         $kelasId = WaliKelas::where('user_id', $user->id)->value('kelas_id');
         $data = RuangPresensi::where('user_id', $user->id)->whereHas('kelasSemester', function ($query) use ($kelasId) {
-            $query->where('status', 'Dibuka');
+            $query->where('status', 'Aktif');
             $query->where('kelas_id', '=', $kelasId);
         })
             ->get();
