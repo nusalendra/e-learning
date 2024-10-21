@@ -24,6 +24,7 @@ use App\Http\Controllers\WaliKelas\EkstrakulikulerSiswaController;
 use App\Http\Controllers\WaliKelas\JadwalKelasController;
 use App\Http\Controllers\WaliKelas\KelolaRuangPresensiController;
 use App\Http\Controllers\WaliKelas\KenaikanKelasController;
+use App\Http\Controllers\WaliKelas\NilaiSiswaController;
 use App\Http\Controllers\WaliKelas\PresensiController;
 use App\Http\Controllers\WaliKelas\ProfilController;
 use App\Http\Controllers\WaliKelas\RaporSiswaController;
@@ -81,6 +82,8 @@ Route::group(['middleware' => ['auth']], function () {
 
 		Route::resource('/siswa', SiswaController::class);
 		Route::put('/siswa/{id}/tambah-siswa', [SiswaController::class, 'tambahSiswa']);
+
+		Route::resource('/nilai-siswa', NilaiSiswaController::class);
 
 		Route::resource('/ekstrakulikuler-siswa', EkstrakulikulerSiswaController::class);
 		Route::get('/ekstrakulikuler-siswa/{id}/input-catatan-siswa', [EkstrakulikulerSiswaController::class, 'pageCatatanSiswa'])->name('page-input-catatan-siswa');

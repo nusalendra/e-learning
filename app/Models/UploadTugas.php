@@ -10,7 +10,7 @@ class UploadTugas extends Model
     use HasFactory;
     protected $table = 'upload_tugas';
     protected $primarykey = 'id';
-    protected $fillable = ['user_id', 'mata_pelajaran_id', 'nama_tugas', 'upload_tugas'];
+    protected $fillable = ['user_id', 'mata_pelajaran_id', 'jenis_nilai', 'nama_tugas', 'tanggal_penilaian'];
 
     public function user() {
         return $this->belongsTo(User::class);
@@ -20,7 +20,7 @@ class UploadTugas extends Model
         return $this->belongsTo(MataPelajaran::class);
     }
 
-    public function nilaiMataPelajaran() {
-        return $this->hasOne(NilaiMataPelajaran::class);
+    public function nilaiSiswa() {
+        return $this->hasOne(NilaiSiswa::class);
     }
 }
