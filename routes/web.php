@@ -15,6 +15,7 @@ use App\Http\Controllers\KepalaSekolah\KelasController;
 use App\Http\Controllers\KepalaSekolah\MataPelajaranController;
 use App\Http\Controllers\KepalaSekolah\SemesterController;
 use App\Http\Controllers\KepalaSekolah\TenagaPengajarController;
+use App\Http\Controllers\KepalaSekolah\ProfilKepalaSekolahController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ResetController;
 use App\Http\Controllers\SessionsController;
@@ -48,6 +49,10 @@ Route::group(['middleware' => ['auth']], function () {
 		Route::get('dashboard-kepala-sekolah', function () {
 			return view('pages.kepala-sekolah.dashboard-kepala-sekolah');
 		})->name('dashboard-kepala-sekolah');
+
+		Route::get('/profil-kepala-sekolah', [ProfilKepalaSekolahController::class, 'index']);
+		Route::post('/upload-foto', [ProfilKepalaSekolahController::class, 'uploadFoto']);
+		Route::post('/ubah-password', [ProfilKepalaSekolahController::class, 'ubahPassword']);
 
 		Route::resource('/kelas', KelasController::class);
 		Route::resource('/semester', SemesterController::class);

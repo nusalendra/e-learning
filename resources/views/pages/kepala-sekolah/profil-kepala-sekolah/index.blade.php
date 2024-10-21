@@ -1,4 +1,4 @@
-@extends('layouts.user_type.wali-kelas.auth')
+@extends('layouts.user_type.kepala-sekolah.auth')
 
 @section('content')
     <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
