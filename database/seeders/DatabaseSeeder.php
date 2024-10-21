@@ -33,14 +33,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // DB::table('users')->insert([
-        //     'name' => 'Budi Setyo',
-        //     'NIP' => '198205172008012015',
-        //     'username' => 'budisetyo',
-        //     'password' => Hash::make('password'),
-        //     'role' => 'Wali Kelas'
-        // ]);
-
-        // DB::table('users')->insert([
         //     'name' => 'Arif',
         //     'NIP' => '198205172008012015',
         //     'username' => 'arif',
@@ -60,20 +52,112 @@ class DatabaseSeeder extends Seeder
             'nama' => 'II (Dua)',
         ]);
 
-        // DB::table('wali_kelas')->insert([
-        //     'user_id' => 2,
-        //     'kelas_id' => 1,
-        // ]);
+        DB::table('users')->insert([
+            'name' => 'Budi Setyo',
+            'NIP' => '198205172008012015',
+            'username' => 'budisetyo',
+            'password' => Hash::make('password'),
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '1998-06-19',
+            'alamat' => 'Perumahan Denpasar No. 1',
+            'agama' => 'Islam',
+            'role' => 'Wali Kelas'
+        ]);
 
-        // DB::table('semester')->insert([
-        //     'nama' => 'I (Satu)',
-        // ]);
+        DB::table('wali_kelas')->insert([
+            'user_id' => 2,
+            'kelas_id' => 1,
+        ]);
 
-        // DB::table('kelas_semester')->insert([
-        //     'kelas_id' => 1,
-        //     'semester_id' => 1,
-        //     'status' => 'Dibuka'
-        // ]);
+        DB::table('semester')->insert([
+            'awal_tahun_ajaran' => '2023',
+            'akhir_tahun_ajaran' => '2024',
+            'nama' => 'I (Satu)',
+            'tanggal_mulai' => '2023-01-01',
+            'tanggal_akhir' => '2023-12-01',
+        ]);
+
+        DB::table('kelas_semester')->insert([
+            'kelas_id' => 1,
+            'semester_id' => 1,
+            'status' => 'Aktif'
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Intan Tri Suaka Henry',
+            'NIS' => '12345',
+            'NISN' => '12345',
+            'jenis_kelamin' => 'Perempuan',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+            'kelas_semester_id' => 1
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 1,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
+
+        DB::table('siswa')->insert([
+            'nama' => 'Joko',
+            'NIS' => '22345',
+            'NISN' => '22345',
+            'jenis_kelamin' => 'Laki-Laki',
+            'tempat_lahir' => 'Denpasar',
+            'tanggal_lahir' => '2020-02-05',
+            'agama' => 'Islam',
+            'pendidikan_sebelumnya' => 'TK',
+            'alamat' => 'Jl. Soetomo',
+            'kelas_semester_id' => 1
+        ]);
+
+        DB::table('data_orang_tua')->insert([
+            'siswa_id' => 2,
+            'nama_ayah' => 'tes',
+            'nama_ibu' => 'tes',
+            'pekerjaan_ayah' => 'tes',
+            'pekerjaan_ibu' => 'tes',
+            'jalan' => 'tes',
+            'kelurahan' => 'tes',
+            'kecamatan' => 'tes',
+            'kota' => 'tes',
+            'provinsi' => 'tes',
+        ]);
+
+        DB::table('mata_pelajaran')->insert([
+            'kelas_id' => 1,
+            'user_id' => 2,
+            'kode' => 'ABC123',
+            'jenis' => 'Mata Pelajaran',
+            'nama' => 'Matematika'
+        ]);
+
+        DB::table('mata_pelajaran')->insert([
+            'kelas_id' => 1,
+            'user_id' => 2,
+            'kode' => 'ABC123',
+            'jenis' => 'Mata Pelajaran',
+            'nama' => 'Bahasa Indonesia'
+        ]);
+
+        DB::table('mata_pelajaran')->insert([
+            'kelas_id' => 1,
+            'user_id' => 2,
+            'kode' => 'ABC123',
+            'jenis' => 'Mata Pelajaran',
+            'nama' => 'Bahasa Inggris'
+        ]);
 
         // DB::table('semester')->insert([
         //     'nama' => 'II (Dua)',
@@ -105,58 +189,8 @@ class DatabaseSeeder extends Seeder
         //     'nama' => 'Bulu Tangkis',
         // ]);
 
-        // DB::table('siswa')->insert([
-        //     'nama' => 'Intan Tri Suaka Henry',
-        //     'NIS' => '12345',
-        //     'NISN' => '12345',
-        //     'jenis_kelamin' => 'Perempuan',
-        //     'tempat_lahir' => 'Denpasar',
-        //     'tanggal_lahir' => '2020-02-05',
-        //     'agama' => 'Islam',
-        //     'pendidikan_sebelumnya' => 'TK',
-        //     'alamat' => 'Jl. Soetomo',
-        // ]);
-
-        // DB::table('data_orang_tua')->insert([
-        //     'siswa_id' => 1,
-        //     'nama_ayah' => 'tes',
-        //     'nama_ibu' => 'tes',
-        //     'pekerjaan_ayah' => 'tes',
-        //     'pekerjaan_ibu' => 'tes',
-        //     'jalan' => 'tes',
-        //     'kelurahan' => 'tes',
-        //     'kecamatan' => 'tes',
-        //     'kota' => 'tes',
-        //     'provinsi' => 'tes',
-        // ]);
-
         // DB::table('rapor')->insert([
         //     'siswa_id' => 1,
-        // ]);
-
-        // DB::table('siswa')->insert([
-        //     'nama' => 'Joko',
-        //     'NIS' => '22345',
-        //     'NISN' => '22345',
-        //     'jenis_kelamin' => 'Laki-Laki',
-        //     'tempat_lahir' => 'Denpasar',
-        //     'tanggal_lahir' => '2020-02-05',
-        //     'agama' => 'Islam',
-        //     'pendidikan_sebelumnya' => 'TK',
-        //     'alamat' => 'Jl. Soetomo',
-        // ]);
-
-        // DB::table('data_orang_tua')->insert([
-        //     'siswa_id' => 2,
-        //     'nama_ayah' => 'tes',
-        //     'nama_ibu' => 'tes',
-        //     'pekerjaan_ayah' => 'tes',
-        //     'pekerjaan_ibu' => 'tes',
-        //     'jalan' => 'tes',
-        //     'kelurahan' => 'tes',
-        //     'kecamatan' => 'tes',
-        //     'kota' => 'tes',
-        //     'provinsi' => 'tes',
         // ]);
 
         // DB::table('rapor')->insert([

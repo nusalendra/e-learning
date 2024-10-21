@@ -20,7 +20,7 @@ class SiswaMataPelajaran extends Model
         return $this->belongsTo(MataPelajaran::class, 'mata_pelajaran_id');
     }
 
-    public function nilaiMataPelajaran() {
-        return $this->hasMany(NilaiMataPelajaran::class);
+    public function nilaiSiswa() {
+        return $this->hasMany(NilaiSiswa::class);
     }
 }
